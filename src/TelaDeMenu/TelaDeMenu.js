@@ -22,8 +22,8 @@ const TelaDeMenu = () => {
                         <h3 className="conteudo-secundario-titulo">o que foi utilizado no Projeto/ Dificuldades econtradas / sugestões </h3>
                         <p className="conteudo-secundario-paragrafo">1. foi utilizado <strong>React , HTML e CSS</strong> </p>
                         <p className="conteudo-secundario-paragrafo">2. Dificulades encontradas talvez um pouco mais de tempo de estudo teria conseguido <strong> o linkamento de telas  e o consumo de api</strong></p>
-                        <p class="conteudo-secundario-paragrafo">3.  <strong>Na Tela de Login é importante ter um comentario sobre como conseguir a matricula e a senha   </strong> </p>
-                        <p class="conteudo-secundario-paragrafo">  <strong>Na Tela de cadastro é importante ter uma barra digitação para 'observações' não obrigatoria ao usuario   </strong> </p>
+                        <p className="conteudo-secundario-paragrafo">3.  <strong>Na Tela de Login é importante ter um comentario sobre como conseguir a matricula e a senha   </strong> </p>
+                        <p className="conteudo-secundario-paragrafo">  <strong>Na Tela de cadastro é importante ter uma barra digitação para 'observações' não obrigatoria ao usuario   </strong> </p>
                     </section>
                 </main>
             </div>

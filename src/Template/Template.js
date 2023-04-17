@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
           flexDirection: 'justifyContent',
           alignItems: 'flex-start',
           gap: 40,
-        },
-      },
+        },     
+      }, 
   link: {
     textDecoration: 'none',
     color: 'white',
