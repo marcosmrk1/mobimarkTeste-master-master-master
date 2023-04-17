@@ -1,3 +1,6 @@
+
+
+
 // FORMULARIO
 export const estados = [
     { "nome": "Acre", "sigla": "ac" },
@@ -63,3 +66,5 @@ export const arrayEscolas =  [
     'Integral',
     'Noite'
   ]
+
+// funcoes da tela de formulario

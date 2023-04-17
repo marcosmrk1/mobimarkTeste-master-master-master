@@ -14,7 +14,7 @@ import '@fontsource/roboto/700.css';
 import axios from "axios";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { localStorageEstado } from "../localStorageGlobais/index"
-import {estados} from '../ImportaçãoFunçõesVariveis/ImportaçãoFunçõesVariaveis'
+import {estados} from '../utils/utils'
 const Formulario = () => {
   let request_data = {
     loading: false,

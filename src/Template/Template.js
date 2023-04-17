@@ -57,7 +57,7 @@ const FuncaoSaidaButton = () => {
     <AppBar position='static'>
       <CssBaseline />
       <Toolbar>
-        <Typography variant='h4'>
+        <Typography variant='h4' >
          MobiTeste
         </Typography>
           <Box className={classes.navlinks}>
