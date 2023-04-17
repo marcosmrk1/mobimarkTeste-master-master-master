@@ -11,7 +11,8 @@
 .global{
   font-size: 100%;
   background: linear-gradient(68.15deg, #041833 16.62%,#041833 85.61%);
-  height: 5%vh;
+  height: 100vh;
+  overflow-x: hidden;
 
 }
 .cabecalho {
@@ -34,10 +35,6 @@
   gap: 16px;
   cursor: pointer;
 }
-
-
-
-
 .cabecalho-menu-item {
   font-family: 'Sarala', sans-serif;
   color: white;
@@ -45,7 +42,6 @@
   font-size: 20px;
   color: white;
 }
-
 .conteudo {
   margin-bottom: 8px;
   border-top: 0.4px solid white;
@@ -64,14 +60,12 @@
   align-items: center;
   justify-content: space-around;
 }
-
 .conteudo-principal-escrito {
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin-top: 50px;
 }
-
 h1{
   font-family: 'Righteous', cursive;
   font-weight: 400;
@@ -79,7 +73,6 @@ h1{
   color: #FFF2E7;
  
 }
-
 h2 {
   font-family: 'Sarala', sans-serif;
   font-weight: 100;
@@ -87,8 +80,6 @@ h2 {
   color: white;
   
 }
-
-
 .conteudo-principal-imagem {
   height: 330px;
   width: 320px;

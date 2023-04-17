@@ -12,11 +12,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import CircularProgress from '@mui/material/CircularProgress';
-import {arrayEscolas,Turnos} from '../ImportaçãoFunçõesVariveis/ImportaçãoFunçõesVariaveis'
-
+import {arrayEscolas,Turnos} from '../utils/ImportaçãoFunçõesVariaveis'
 const Formulario = () => {
   const responvidadeMobileFitlroBusca = useMediaQuery('(max-width:600px)');
- 
   const [loading, setLoading] = useState(false)
   const [iniciofiltro, setiniciofiltro] = useState([])
   const [tabelaEscolas, settabelaEscolas] = useState('')
