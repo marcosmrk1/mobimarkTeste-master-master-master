@@ -24,18 +24,18 @@ const listaTurnos = [
     'Noite',
 ];
 
-const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-];
+// const names = [
+//     'Oliver Hansen',
+//     'Van Henry',
+//     'April Tucker',
+//     'Ralph Hubbard',
+//     'Omar Alexander',
+//     'Carlos Abbott',
+//     'Miriam Wagner',
+//     'Bradley Wilkerson',
+//     'Virginia Andrews',
+//     'Kelly Snyder',
+// ];
 
 const TelaFormulario = () => {
     const [turnosUseState, setturnosUseState] = React.useState([]);
@@ -81,7 +81,7 @@ const TelaFormulario = () => {
                             value={turnosUseState}
                             onChange={handleChange}
                             input={<OutlinedInput label="Turnos" />}
-                            renderValue={(selected) => selected.join(', ')}
+                            renderValue={(selected) => selected.join(',')}
                             MenuProps={MenuProps}
                         >
                             {listaTurnos.map((turnosMapeados) => (
