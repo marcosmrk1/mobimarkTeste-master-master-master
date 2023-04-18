@@ -14,8 +14,12 @@ import '@fontsource/roboto/700.css';
 import axios from "axios";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { localStorageEstado } from "../localStorageGlobais/index"
-import {estados} from '../utils/utils'
+import { estados } from '../utils/utils'
+// import {responvidadeMobileFitlroBusca} from '../utils/utils'
+
 const Formulario = () => {
+  
+  const responvidadeMobileFitlroBusca = useMediaQuery('(max-width:600px)');
   let request_data = {
     loading: false,
     error: false,
@@ -39,7 +43,7 @@ const Formulario = () => {
   ) : (
     ""
   )))
-  const responvidadeMobileFitlroBusca = useMediaQuery('(max-width:600px)');
+
   useEffect(() => {
     if (window.localStorage.getItem('listaApi') === null) {
       axios.get(' https://cors-anywhere.herokuapp.com/http://educacao.dadosabertosbr.com/api/escolas/buscaavancada?situacaoFuncionamento=1&energiaInexistente=on&aguaInexistente=on&esgotoInexistente=on&cozinha=on')
@@ -102,6 +106,7 @@ const Formulario = () => {
         })
     }
   }
+
   const buscaTeste = () => {
     seterroTextoBusca(false)
     settesteLoading({ ...testeLoading, loading: true })
@@ -146,6 +151,7 @@ const Formulario = () => {
     setestado(e.target.value)
     localStorage.setItem(localStorageEstado, e.target.value)
   }
+  console.log(responvidadeMobileFitlroBusca)
   return (
     loadingDvoltar ?
       <Box style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
@@ -185,9 +191,9 @@ const Formulario = () => {
                 onChange={(ev) => setBuscaTexto(ev.target.value)}
               />
               <FormControl style={{
-                width: responvidadeMobileFitlroBusca ? '80%' : '72%',
-                marginTop: responvidadeMobileFitlroBusca ? '12px' : '16px',
-                marginRight: responvidadeMobileFitlroBusca ? '0' : '80px'
+                width: { responvidadeMobileFitlroBusca } ? '80%' : '72%',
+                marginTop: { responvidadeMobileFitlroBusca } ? '12px' : '16px',
+                marginRight: { responvidadeMobileFitlroBusca } ? '0' : '80px'
               }}>
                 <InputLabel  >Selecione um estado</InputLabel>
                 <Select
@@ -202,11 +208,11 @@ const Formulario = () => {
                 </Select>
               </FormControl>
             </Box>
-          </Box>         
+          </Box>
           <Box style={{
             width: "200px", justifyContent: 'center',
-            marginTop: responvidadeMobileFitlroBusca ? '67px' : '70px',
-            marginRight: responvidadeMobileFitlroBusca ? '0' : '12px',
+            marginTop: { responvidadeMobileFitlroBusca } ? '67px' : '70px',
+            marginRight: { responvidadeMobileFitlroBusca } ? '0' : '12px',
           }}
           >
             {
@@ -266,10 +272,11 @@ const Formulario = () => {
                   </Container>
                   :
                   <CardContent style={{ height: "100%", width: '100%' }} >
-                    <Container style={{ widht: '100%' ,
-                     maxWidth: responvidadeMobileFitlroBusca ? '100%' : "100%",
-                     overflowX: responvidadeMobileFitlroBusca ? "auto" : 'auto',
-                   }}>
+                    <Container style={{
+                      widht: '100%',
+                      maxWidth: { responvidadeMobileFitlroBusca } ? '100%' : "100%",
+                      overflowX: { responvidadeMobileFitlroBusca } ? "auto" : 'auto',
+                    }}>
                       <Table>
                         <TableHead>
                           <TableRow >
@@ -296,7 +303,6 @@ const Formulario = () => {
                                 fontSize: "20px", fontWeight: "bold", color: "red", width: '100%'
                               }}>
                                 Nennhum resultado encontrado
-
                               </TableCell>
                             </TableRow>
                           }

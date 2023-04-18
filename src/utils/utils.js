@@ -1,5 +1,4 @@
-
-
+// import { useMediaQuery } from "@mui/material";
 
 // FORMULARIO
 export const estados = [
@@ -31,7 +30,6 @@ export const estados = [
     { "nome": "Sergipe", "sigla": "se" },
     { "nome": "Tocantins", "sigla": "to" }   
 ]
-
 // VariaveisEfunõesDaTELALISTAGEM
 export const arrayEscolas =  [
     {
@@ -59,12 +57,11 @@ export const arrayEscolas =  [
       turnos: ['Manhã']
     }
   ];
-
   export const Turnos= [
     'Manhã',
     'Tarde',
     'Integral',
     'Noite'
   ]
-
 // funcoes da tela de formulario
+// export const responvidadeMobileFitlroBusca = useMediaQuery('(max-width:600px)');
