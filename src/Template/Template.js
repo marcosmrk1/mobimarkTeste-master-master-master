@@ -67,8 +67,8 @@ const FuncaoSaidaButton = () => {
             <Link to='/sobremim' className={classes.link}>
              Sobre min
             </Link>
-            <Link to='/telalistagem' className={classes.link}>
-             Tela Listagem
+            <Link to='/TelaFormulario' className={classes.link}>
+             Formulario
             </Link>
             <Button onClick={FuncaoSaidaButton}><Link to='/' className={classes.link}>
               Sair

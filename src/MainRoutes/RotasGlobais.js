@@ -5,7 +5,7 @@ import Formulario from '../Formulario/Formulario';
 import Template from '../Template/Template';
 import TeladeMenu from '../TelaDeMenu/TelaDeMenu'
 import TelaListagem from '../TelaListagem/TelaListagem';
-
+import TelaFormulario from '../TelaListagem/TelaFormulario';
 function Protected({ children }) {
   if (!window.localStorage.getItem(dadosDoEmaileSenha)) {
     return (
@@ -41,10 +41,10 @@ const mainroutes = () => {
         </>
         }
         />
-      <Route path='/telalistagem' element={
+      <Route path='/TelaFormulario' element={
         <Protected>
         <Template />
-        <TelaListagem />
+        <TelaFormulario />
         </Protected>
       }
       />
