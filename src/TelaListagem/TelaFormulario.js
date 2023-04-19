@@ -31,10 +31,18 @@ const TelaFormulario = () => {
         localizacaoDaEscola: '',
         turnos: '',
     })
+    const[listaDaTabela,setlistaDaTabela]= useState([
+        
+    ])
     const selectTurnos = (event) => {
         const {target: { value }} = event;
         setValueParaOSelecet(typeof value === 'string' ? value.split(',') : value,);
-        setSelecionadoTurnosNoSelect(value)
+        setListaDeObjetosDosInputs(value)
+    };
+    const [showTable, setShowTable] = useState(false);
+
+    const handleButtonClick = () => {
+      setShowTable(true);
     };
     const selectLocalizacaoDaEscola = (event) => {
         setLocalizacaoDaEscola(event.target.value);
@@ -45,11 +53,17 @@ const TelaFormulario = () => {
         } = event;
         setValueParaOSelecet( typeof value === 'string' ? value.join(',') : value,  
         )
-        setSelecionadoTurnosNoSelect(value)
+        setListaDeObjetosDosInputs(value)
     }
     const respostasDosTextFieldNomeEscolaEDiretor = (event) =>{
         const{name,value} = event.target
         setListaDeObjetosDosInputs({...ListaDeObjetosDosInputs,[name]:value})
+    }
+    
+    function handleCreate(e) {
+      if(({...ListaDeObjetosDosInputs})){
+        console.log(ListaDeObjetosDosInputs)
+      }
     }
     return (
 
@@ -64,7 +78,7 @@ const TelaFormulario = () => {
                     <Typography component="h3" variant="h2" > Formulário</Typography>
                     <Typography component='h3' variant='h8'>Preencha corretamente seus Dados</Typography>
                     <TextField id="outlined-basic" label="Outlined" variant="outlined" 
-                     name="nomeDaEscola" value={ListaDeObjetosDosInputs.nomeDaEscola} onChange={respostasDosTextFieldNomeEscolaEDiretor}
+                     name="nomeDaEscola" value={ListaDeObjetosDosInputs.nomeDaEscola}  onChange={respostasDosTextFieldNomeEscolaEDiretor}
                      />
                     <TextField id="outlined-basic" label="Outlined" variant="outlined"  
                     name="nomeDoDiretor" value={ListaDeObjetosDosInputs.nomeDoDiretor} onChange={respostasDosTextFieldNomeEscolaEDiretor}
@@ -105,9 +119,12 @@ const TelaFormulario = () => {
                         </Select>
                     </FormControl>
 
-                    <Button variant="contained">Contained</Button>
+                    <Button variant="contained" onClick={handleCreate} >Contained</Button>
+                
+                        {showTable ? (
                     <Card>
                     <Container>
+                   
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -133,6 +150,7 @@ const TelaFormulario = () => {
                         </Container>
                        </Card>
 
+):null}
                 </Box>
             </Container>
         </Card >
