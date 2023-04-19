@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
     Box, TextField, Margin, Container, Typography, Checkbox, Select,
-    ListItemText, FormControl, MenuItem, InputLabel, OutlinedInput, Card
+    ListItemText, FormControl, MenuItem, InputLabel, OutlinedInput, Card, Button
 }
     from '@mui/material';
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
@@ -23,34 +23,23 @@ const listaTurnos = [
 ];
 const TelaFormulario = () => {
     const [valueParaOSelect, setValueParaOSelecet] = useState([]);
-    
-    const [localizacaoDaEscola, setLocalizacaoDaEscola] = useState('');
-    const [selectTunos,setselectTunos] = useState([])
+    const [localizacaoDaEscola, setLocalizacaoDaEscola] = useState([]);
+    const [SelecionadoTurnosNoSelect,setSelecionadoTurnosNoSelect] = useState([])
     const [ListaDeObjetosDosInputs, setListaDeObjetosDosInputs] = useState({
         nomeDaEscola: '',
         nomeDoDiretor: '',
         localizacaoDaEscola: '',
         turnos: '',
     })
-    const [SelecionadoTurnosNoSelect,setSelecionadoTurnosNoSelect] = useState([])
     const selectTurnos = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setValueParaOSelecet(
-            typeof value === 'string' ? value.split(',') : value,
-        );
+        const {target: { value }} = event;
+        setValueParaOSelecet(typeof value === 'string' ? value.split(',') : value,);
         setSelecionadoTurnosNoSelect(value)
     };
-
     const selectLocalizacaoDaEscola = (event) => {
         setLocalizacaoDaEscola(event.target.value);
     };
-    const respostasDosTextFieldNomeEscolaEDiretor = (event) =>{
-        const{name,value} = event.target
-        setListaDeObjetosDosInputs({...ListaDeObjetosDosInputs,[name]:value})
-    }
-    const GetDoSelectTurnos =  (event) => {
+    const exibirOsTurnosNaTabela =  (event) => {
         const {
             target: { value },
         } = event;
@@ -58,9 +47,10 @@ const TelaFormulario = () => {
         )
         setSelecionadoTurnosNoSelect(value)
     }
-
-    // Fim da const de criação do select de Turnos e localização das escolas
-    
+    const respostasDosTextFieldNomeEscolaEDiretor = (event) =>{
+        const{name,value} = event.target
+        setListaDeObjetosDosInputs({...ListaDeObjetosDosInputs,[name]:value})
+    }
     return (
 
         <Card sx={{}}>
@@ -110,10 +100,12 @@ const TelaFormulario = () => {
                             label="localizacaoDaEscola"
                             onChange={selectLocalizacaoDaEscola}
                         >
-                            <MenuItem value={1}>Urbana</MenuItem>
-                            <MenuItem value={2}>Rural</MenuItem>                            
+                            <MenuItem value={'urbana'}>Urbana</MenuItem>
+                            <MenuItem value={'rural'}>Rural</MenuItem>                            
                         </Select>
                     </FormControl>
+
+                    <Button variant="contained">Contained</Button>
                     <Card>
                     <Container>
                         <Table>
@@ -122,8 +114,8 @@ const TelaFormulario = () => {
                                     <TableCell align='left'>Nome da escola</TableCell>
                                     <TableCell align= 'left'>Nome do diretor</TableCell>
                                     <TableCell align= 'left'>Turnos</TableCell>
-                                </TableRow>
-                                  
+                                    <TableCell align="left">Localização da escola</TableCell>
+                                </TableRow>                                  
                             </TableHead>
                             <TableBody>
                              <TableRow>
@@ -135,6 +127,7 @@ const TelaFormulario = () => {
                                          </TableRow>   
                                          ))}
                                 </TableRow>
+                                         <TableCell>{localizacaoDaEscola}</TableCell>
                             </TableBody>
                         </Table>  
                         </Container>
