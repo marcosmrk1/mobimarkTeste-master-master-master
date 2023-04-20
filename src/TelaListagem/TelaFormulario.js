@@ -24,52 +24,70 @@ const listaTurnos = [
 const TelaFormulario = () => {
     const [valueParaOSelect, setValueParaOSelecet] = useState([]);
     const [localizacaoDaEscola, setLocalizacaoDaEscola] = useState([]);
-    const [SelecionadoTurnosNoSelect,setSelecionadoTurnosNoSelect] = useState([])
+    const [SelecionadoTurnosNoSelect, setSelecionadoTurnosNoSelect] = useState([])
     const [ListaDeObjetosDosInputs, setListaDeObjetosDosInputs] = useState({
         nomeDaEscola: '',
         nomeDoDiretor: '',
         localizacaoDaEscola: '',
-        turnos: '',
+        turnos: [],
     })
-    const[listaDaTabela,setlistaDaTabela]= useState([
-        
-    ])
-    const selectTurnos = (event) => {
-        const {target: { value }} = event;
-        setValueParaOSelecet(typeof value === 'string' ? value.split(',') : value,);
-        setListaDeObjetosDosInputs(value)
+    const [listaDaTabela, setlistaDaTabela] = useState([])
+    const concatListaDaTabela = (event) => {
+        event.preventDefault();
+        setlistaDaTabela((listaAntiga) => listaAntiga.concat(ListaDeObjetosDosInputs));
+        setListaDeObjetosDosInputs({
+            nomeDaEscola: '',
+            nomeDoDiretor: '',
+            localizacaoDaEscola: '',
+            turnos: [],
+        });
     };
-    const [showTable, setShowTable] = useState(false);
+    const handleChange = (event) => {
 
-    const handleButtonClick = () => {
-      setShowTable(true);
+        const { name, value } = event.target;
+        setListaDeObjetosDosInputs((objetosAntigos) => ({
+            ...objetosAntigos,
+            [name]: value,
+        }))
+    }
+
+
+
+    const selectTurnos = (event) => {
+        const { value } = event.target;
+        // setValueParaOSelecet(typeof value === 'string' ? value.split(',') : value,);
+        setListaDeObjetosDosInputs((prev)=>({ 
+            ...prev,
+            turnos: value
+
+        }))
     };
+
+
+
     const selectLocalizacaoDaEscola = (event) => {
         setLocalizacaoDaEscola(event.target.value);
     };
-    const exibirOsTurnosNaTabela =  (event) => {
+    
+    const exibirOsTurnosNaTabela = (event) => {
         const {
             target: { value },
         } = event;
-        setValueParaOSelecet( typeof value === 'string' ? value.join(',') : value,  
+        setValueParaOSelecet(typeof value === 'string' ? value.join(',') : value,
         )
         setListaDeObjetosDosInputs(value)
     }
-    const respostasDosTextFieldNomeEscolaEDiretor = (event) =>{
-        const{name,value} = event.target
-        setListaDeObjetosDosInputs({...ListaDeObjetosDosInputs,[name]:value})
+    const respostasDosTextFieldNomeEscolaEDiretor = (event) => {
+        const { name, value } = event.target
+        setListaDeObjetosDosInputs({ ...ListaDeObjetosDosInputs, [name]: value })
     }
-    
-    function handleCreate(e) {
-      if(({...ListaDeObjetosDosInputs})){
-        console.log(ListaDeObjetosDosInputs)
-      }
-    }
+
     return (
 
-        <Card sx={{}}>
-            <Container >
+        <Container >
+                <Card sx={{}}>
                 <Box
+                    onSubmit={concatListaDaTabela}
                     component="form"
                     sx={{ '& > :not(style)': { m: 2, width: '30ch', } }}
                     noValidate
@@ -77,11 +95,11 @@ const TelaFormulario = () => {
                 >
                     <Typography component="h3" variant="h2" > Formulário</Typography>
                     <Typography component='h3' variant='h8'>Preencha corretamente seus Dados</Typography>
-                    <TextField id="outlined-basic" label="Outlined" variant="outlined" 
-                     name="nomeDaEscola" value={ListaDeObjetosDosInputs.nomeDaEscola}  onChange={respostasDosTextFieldNomeEscolaEDiretor}
-                     />
-                    <TextField id="outlined-basic" label="Outlined" variant="outlined"  
-                    name="nomeDoDiretor" value={ListaDeObjetosDosInputs.nomeDoDiretor} onChange={respostasDosTextFieldNomeEscolaEDiretor}
+                    <TextField id="outlined-basic" label="Outlined" variant="outlined"
+                        name="nomeDaEscola" value={ListaDeObjetosDosInputs.nomeDaEscola} onChange={handleChange}
+                    />
+                    <TextField id="outlined-basic" label="Outlined" variant="outlined"
+                        name="nomeDoDiretor" value={ListaDeObjetosDosInputs.nomeDoDiretor} onChange={handleChange}
                     />
 
                     <FormControl sx={{ m: 1, width: 300 }}>
@@ -90,20 +108,22 @@ const TelaFormulario = () => {
                             labelId="demo-multiple-checkbox-label"
                             id="demo-multiple-checkbox"
                             multiple
-                            value={valueParaOSelect}
+                            value={ListaDeObjetosDosInputs.turnos}
                             onChange={selectTurnos}
                             input={<OutlinedInput label="Turnos" />}
                             renderValue={(selected) => selected.join(',')}
                             MenuProps={MenuProps}
-                          
+
                         >
                             {listaTurnos.map((turnosMapeados) => (
                                 <MenuItem key={turnosMapeados} value={turnosMapeados}>
-                                    <Checkbox checked={valueParaOSelect.indexOf(turnosMapeados) > -1} />
+                                    <Checkbox checked={ListaDeObjetosDosInputs.turnos.indexOf(turnosMapeados) > -1} />
                                     <ListItemText primary={turnosMapeados} />
                                 </MenuItem>
+
                             ))}
-                        </Select>
+                            {console.log(ListaDeObjetosDosInputs)}
+                        </Select>1
                     </FormControl>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">localizacaoDaEscola</InputLabel>
@@ -112,48 +132,48 @@ const TelaFormulario = () => {
                             id="demo-simple-select"
                             value={localizacaoDaEscola}
                             label="localizacaoDaEscola"
-                            onChange={selectLocalizacaoDaEscola}
+                        onChange={selectLocalizacaoDaEscola}
                         >
                             <MenuItem value={'urbana'}>Urbana</MenuItem>
-                            <MenuItem value={'rural'}>Rural</MenuItem>                            
+                            <MenuItem value={'rural'}>Rural</MenuItem>
                         </Select>
                     </FormControl>
 
-                    <Button variant="contained" onClick={handleCreate} >Contained</Button>
-                
-                        {showTable ? (
-                    <Card>
-                    <Container>
-                   
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align='left'>Nome da escola</TableCell>
-                                    <TableCell align= 'left'>Nome do diretor</TableCell>
-                                    <TableCell align= 'left'>Turnos</TableCell>
-                                    <TableCell align="left">Localização da escola</TableCell>
-                                </TableRow>                                  
-                            </TableHead>
-                            <TableBody>
-                             <TableRow>
-                                    <TableCell>{ListaDeObjetosDosInputs.nomeDaEscola}</TableCell>
-                                    <TableCell>{ListaDeObjetosDosInputs.nomeDoDiretor}</TableCell>
-                                    {SelecionadoTurnosNoSelect.map((selecionadoTUrnos) =>(
-                                         <TableRow key={selecionadoTUrnos}>
-                                         <TableCell>{selecionadoTUrnos}</TableCell>
-                                         </TableRow>   
-                                         ))}
-                                </TableRow>
-                                         <TableCell>{localizacaoDaEscola}</TableCell>
-                            </TableBody>
-                        </Table>  
-                        </Container>
-                       </Card>
+                    <Button type="submit" >Contained</Button>
 
-):null}
+                  
+                        <Container>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align='left'>Nome da escola</TableCell>
+                                        <TableCell align='left'>Nome do diretor</TableCell>
+                                        <TableCell align='left'>Turnos</TableCell>
+                                        <TableCell align="left">Localização da escola</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+
+                                    {listaDaTabela.map((index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{index.nomeDaEscola}</TableCell>
+                                            <TableCell>{index.nomeDoDiretor}</TableCell>
+
+                                            <TableCell >
+                                            {index.turnos.join(",")}
+                                                </TableCell>
+                                        </TableRow>
+                                    ))}
+
+                                    <TableCell>{localizacaoDaEscola}</TableCell>
+                                </TableBody>
+                            </Table>
+               
+                        </Container>
+
                 </Box>
-            </Container>
         </Card >
+            </Container>
     )
 }
 
