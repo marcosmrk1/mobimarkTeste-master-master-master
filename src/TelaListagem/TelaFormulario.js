@@ -34,11 +34,11 @@ const TelaFormulario = () => {
     const [listaDaTabela, setlistaDaTabela] = useState([])
     const concatListaDaTabela = (event) => {
         event.preventDefault();
-        setlistaDaTabela((listaAntiga) => listaAntiga.concat(ListaDeObjetosDosInputs));
+        setlistaDaTabela((listaAntiga) => listaAntiga.concat({...ListaDeObjetosDosInputs}));
         setListaDeObjetosDosInputs({
             nomeDaEscola: '',
             nomeDoDiretor: '',
-            localizacaoDaEscola: '',
+            localizacaoDaEscola:'',
             turnos: [],
         });
     };
@@ -63,12 +63,13 @@ const TelaFormulario = () => {
         }))
     };
 
-
-
+    const seleectLocalizacaoDaEscola = (event) => {
+   const {value} = event.target
+   setListaDeObjetosDosInputs(localizacaoDaEscola(value))
+    };
     const selectLocalizacaoDaEscola = (event) => {
         setLocalizacaoDaEscola(event.target.value);
     };
-    
     const exibirOsTurnosNaTabela = (event) => {
         const {
             target: { value },
@@ -81,7 +82,6 @@ const TelaFormulario = () => {
         const { name, value } = event.target
         setListaDeObjetosDosInputs({ ...ListaDeObjetosDosInputs, [name]: value })
     }
-
     return (
 
         <Container >
@@ -122,7 +122,7 @@ const TelaFormulario = () => {
                                 </MenuItem>
 
                             ))}
-                            {console.log(ListaDeObjetosDosInputs)}
+                            {console.log(listaDaTabela)}
                         </Select>1
                     </FormControl>
                     <FormControl fullWidth>
@@ -130,9 +130,9 @@ const TelaFormulario = () => {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={localizacaoDaEscola}
+                            value={ListaDeObjetosDosInputs.localizacaoDaEscola}
                             label="localizacaoDaEscola"
-                        onChange={selectLocalizacaoDaEscola}
+                            onChange={selectLocalizacaoDaEscola}
                         >
                             <MenuItem value={'urbana'}>Urbana</MenuItem>
                             <MenuItem value={'rural'}>Rural</MenuItem>
@@ -162,10 +162,10 @@ const TelaFormulario = () => {
                                             <TableCell >
                                             {index.turnos.join(",")}
                                                 </TableCell>
+                                                <TableCell>{index.localizacaoDaEscola}</TableCell>
                                         </TableRow>
                                     ))}
 
-                                    <TableCell>{localizacaoDaEscola}</TableCell>
                                 </TableBody>
                             </Table>
                

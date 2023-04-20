@@ -151,7 +151,6 @@ const Formulario = () => {
     setestado(e.target.value)
     localStorage.setItem(localStorageEstado, e.target.value)
   }
-  console.log(responvidadeMobileFitlroBusca)
   return (
     loadingDvoltar ?
       <Box style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
