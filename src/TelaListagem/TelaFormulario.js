@@ -29,22 +29,26 @@ const TelaFormulario = () => {
         turnos: [],
     })
     const [listaDaTabela, setlistaDaTabela] = useState([])
-    const [casoObjetoSejaVazio, setCasoObjetoSejaVazio] = useState(false)
-    const [erroNomeDaEscolaText, setErroNomeDaEscolaText] = useState(false)
+    const [textErrorNomeDaEscola, setTextErrorNomeDaEscola] = useState(false)
+    const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
+    const [textNaoInformadoNomeDoDiretor, setNaoInformadoNomeDoDiretor] = useState(false)
+    const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
+
     const concatListaDaTabela = (event) => {
         event.preventDefault();
-        let casoObjetoSejaVazio = Object.values(ListaDeObjetosDosInputs).some(obj => obj === '')
-        setCasoObjetoSejaVazio(casoObjetoSejaVazio)
-        setlistaDaTabela((listaAntiga) => listaAntiga.concat({ ...ListaDeObjetosDosInputs }));
-        setListaDeObjetosDosInputs({
-            nomeDaEscola: '',
-            nomeDoDiretor: '',
-            localizacaoDaEscola: '',
-            turnos: [],
-        });
-
+        if (validacao()) {
+            setlistaDaTabela((listaAntiga) => listaAntiga.concat({ ...ListaDeObjetosDosInputs }));
+            setListaDeObjetosDosInputs({
+                nomeDaEscola: '',
+                nomeDoDiretor: '',
+                localizacaoDaEscola: '',
+                turnos: [],
+            })
+        } else {
+            return
+        }
     };
-    
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setListaDeObjetosDosInputs((objetosAntigos) => ({
@@ -67,6 +71,19 @@ const TelaFormulario = () => {
             localizacaoDaEscola: event.target.value,
         });
 
+    }
+
+    const validacao = () => {
+        if (ListaDeObjetosDosInputs.nomeDaEscola.length <= 4 ||
+            ListaDeObjetosDosInputs.localizacaoDaEscola.length === 0 ||
+            ListaDeObjetosDosInputs.turnos.length === 0) {
+            setTextErrorNomeDaEscola(true)
+            setTextErrorParaLocalizacaoDaEscola(true)
+            setTextErrorSelecioneUmTunro(true)
+
+            return false
+        } setNaoInformadoNomeDoDiretor(true)
+        return true
 
     }
 
@@ -87,9 +104,10 @@ const TelaFormulario = () => {
                     <TextField id="outlined-basic" label="Outlined" variant="outlined"
                         name="nomeDaEscola" value={ListaDeObjetosDosInputs.nomeDaEscola} onChange={handleChange}
                     />
-                    {casoObjetoSejaVazio && ListaDeObjetosDosInputs['nomeDaEscola'] === '' ? <Typography>Preencha o campo: Nome Da Escola</Typography>  :casoObjetoSejaVazio && ListaDeObjetosDosInputs['nomeDaEscola'].length < 4
-                        ? <Typography>O campo: Nome Da Escola deve ter pelo menos 4 caracteres</Typography>
-                        : ""}
+                    {textErrorNomeDaEscola && ListaDeObjetosDosInputs['nomeDaEscola'] === '' ? <Typography>Preencha o campo: Nome Da Escola</Typography>
+                        : textErrorNomeDaEscola && ListaDeObjetosDosInputs['nomeDaEscola'].length < 4
+                            ? <Typography>O campo: Nome Da Escola deve ter pelo menos 4 caracteres</Typography>
+                            : ""}
 
                     <TextField id="outlined-basic" label="Outlined" variant="outlined"
                         name="nomeDoDiretor" value={ListaDeObjetosDosInputs.nomeDoDiretor} onChange={handleChange}
@@ -106,7 +124,6 @@ const TelaFormulario = () => {
                             input={<OutlinedInput label="Turnos" />}
                             renderValue={(selected) => selected.join(',')}
                             MenuProps={MenuProps}
-
                         >
                             {listaTurnos.map((turnosMapeados) => (
                                 <MenuItem key={turnosMapeados} value={turnosMapeados}>
@@ -116,7 +133,8 @@ const TelaFormulario = () => {
 
                             ))}
 
-                        </Select>1
+                        </Select>
+                        {textErrorSelecioneUmTurno ? <Typography> selecione um turno</Typography> : ''}
                     </FormControl>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">localizacaoDaEscola</InputLabel>
@@ -130,40 +148,41 @@ const TelaFormulario = () => {
                             <MenuItem value={'urbana'}>Urbana</MenuItem>
                             <MenuItem value={'rural'}>Rural</MenuItem>
                         </Select>
+                        {textErrorParaLocalizacaoDaEscola ? <Typography> selecione a localizacaoDaEscola</Typography> : ''}
                     </FormControl>
 
                     <Button type="submit" >Contained</Button>
 
 
                     <Container>
-                        {listaDaTabela.length > 0 &&(
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align='left'>Nome da escola</TableCell>
-                                    <TableCell align='left'>Nome do diretor</TableCell>
-                                    <TableCell align='left'>Turnos</TableCell>
-                                    <TableCell align="left">Localização da escola</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-
-                                {listaDaTabela.map((index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>{index.nomeDaEscola}</TableCell>
-                                        <TableCell>{index.nomeDoDiretor}</TableCell>
-
-                                        <TableCell >
-                                            {index.turnos.join(",")}
-                                        </TableCell>
-                                        <TableCell>{index.localizacaoDaEscola}</TableCell>
-                                   
+                        {listaDaTabela.length > 0 && (
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align='left'>Nome da escola</TableCell>
+                                        <TableCell align='left'>Nome do diretor</TableCell>
+                                        <TableCell align='left'>Turnos</TableCell>
+                                        <TableCell align="left">Localização da escola</TableCell>
                                     </TableRow>
-                                ))}
+                                </TableHead>
+                                <TableBody>
 
-                            </TableBody>
-                        </Table>
-                                )}
+                                    {listaDaTabela.map((index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{index.nomeDaEscola}</TableCell>
+                                            <TableCell>{index.nomeDoDiretor.length > 0 ? index.nomeDoDiretor : <Typography>Não informado </Typography>}</TableCell>
+
+                                            <TableCell >
+                                                {index.turnos.join(",")}
+                                            </TableCell>
+                                            <TableCell>{index.localizacaoDaEscola}</TableCell>
+
+                                        </TableRow>
+                                    ))}
+
+                                </TableBody>
+                            </Table>
+                        )}
                     </Container>
 
                 </Box>
