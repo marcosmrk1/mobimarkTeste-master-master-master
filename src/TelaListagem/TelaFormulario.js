@@ -29,16 +29,22 @@ const TelaFormulario = () => {
         turnos: [],
     })
     const [listaDaTabela, setlistaDaTabela] = useState([])
+    const [casoObjetoSejaVazio, setCasoObjetoSejaVazio] = useState(false)
+    const [erroNomeDaEscolaText, setErroNomeDaEscolaText] = useState(false)
     const concatListaDaTabela = (event) => {
         event.preventDefault();
-        setlistaDaTabela((listaAntiga) => listaAntiga.concat({...ListaDeObjetosDosInputs}));
+        let casoObjetoSejaVazio = Object.values(ListaDeObjetosDosInputs).some(obj => obj === '')
+        setCasoObjetoSejaVazio(casoObjetoSejaVazio)
+        setlistaDaTabela((listaAntiga) => listaAntiga.concat({ ...ListaDeObjetosDosInputs }));
         setListaDeObjetosDosInputs({
             nomeDaEscola: '',
             nomeDoDiretor: '',
-            localizacaoDaEscola:'',
+            localizacaoDaEscola: '',
             turnos: [],
         });
+
     };
+    
     const handleChange = (event) => {
         const { name, value } = event.target;
         setListaDeObjetosDosInputs((objetosAntigos) => ({
@@ -49,7 +55,7 @@ const TelaFormulario = () => {
     const selectTurnos = (event) => {
         const { value } = event.target;
         // setValueParaOSelecet(typeof value === 'string' ? value.split(',') : value,);
-        setListaDeObjetosDosInputs((prev)=>({ 
+        setListaDeObjetosDosInputs((prev) => ({
             ...prev,
             turnos: value
 
@@ -57,14 +63,18 @@ const TelaFormulario = () => {
     };
     const seleectLocalizacaoDaEscola = (event) => {
         setListaDeObjetosDosInputs({
-          ...ListaDeObjetosDosInputs,
-          localizacaoDaEscola: event.target.value,
+            ...ListaDeObjetosDosInputs,
+            localizacaoDaEscola: event.target.value,
         });
-      };
+
+
+    }
+
+
     return (
 
         <Container >
-                <Card sx={{}}>
+            <Card sx={{}}>
                 <Box
                     onSubmit={concatListaDaTabela}
                     component="form"
@@ -77,6 +87,10 @@ const TelaFormulario = () => {
                     <TextField id="outlined-basic" label="Outlined" variant="outlined"
                         name="nomeDaEscola" value={ListaDeObjetosDosInputs.nomeDaEscola} onChange={handleChange}
                     />
+                    {casoObjetoSejaVazio && ListaDeObjetosDosInputs['nomeDaEscola'] === '' ? <Typography>Preencha o campo: Nome Da Escola</Typography>  :casoObjetoSejaVazio && ListaDeObjetosDosInputs['nomeDaEscola'].length < 4
+                        ? <Typography>O campo: Nome Da Escola deve ter pelo menos 4 caracteres</Typography>
+                        : ""}
+
                     <TextField id="outlined-basic" label="Outlined" variant="outlined"
                         name="nomeDoDiretor" value={ListaDeObjetosDosInputs.nomeDoDiretor} onChange={handleChange}
                     />
@@ -101,7 +115,7 @@ const TelaFormulario = () => {
                                 </MenuItem>
 
                             ))}
-                      
+
                         </Select>1
                     </FormControl>
                     <FormControl fullWidth>
@@ -120,40 +134,41 @@ const TelaFormulario = () => {
 
                     <Button type="submit" >Contained</Button>
 
-                  
-                        <Container>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align='left'>Nome da escola</TableCell>
-                                        <TableCell align='left'>Nome do diretor</TableCell>
-                                        <TableCell align='left'>Turnos</TableCell>
-                                        <TableCell align="left">Localização da escola</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
 
-                                    {listaDaTabela.map((index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{index.nomeDaEscola}</TableCell>
-                                            <TableCell>{index.nomeDoDiretor}</TableCell>
+                    <Container>
+                        {listaDaTabela.length > 0 &&(
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align='left'>Nome da escola</TableCell>
+                                    <TableCell align='left'>Nome do diretor</TableCell>
+                                    <TableCell align='left'>Turnos</TableCell>
+                                    <TableCell align="left">Localização da escola</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
 
-                                            <TableCell >
+                                {listaDaTabela.map((index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{index.nomeDaEscola}</TableCell>
+                                        <TableCell>{index.nomeDoDiretor}</TableCell>
+
+                                        <TableCell >
                                             {index.turnos.join(",")}
-                                                </TableCell>
-                                                <TableCell>{index.localizacaoDaEscola}</TableCell>
-                                                {console.log(index.localizacaoDaEscola)}
-                                        </TableRow>
-                                    ))}
+                                        </TableCell>
+                                        <TableCell>{index.localizacaoDaEscola}</TableCell>
+                                   
+                                    </TableRow>
+                                ))}
 
-                                </TableBody>
-                            </Table>
-               
-                        </Container>
+                            </TableBody>
+                        </Table>
+                                )}
+                    </Container>
 
                 </Box>
-        </Card >
-            </Container>
+            </Card >
+        </Container>
     )
 }
 
