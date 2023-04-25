@@ -1,3 +1,6 @@
+
+// usar objeto no lugar dos sets
+// usar cada if para cada condição
 import React, { useEffect, useState } from "react";
 import {
     Box, TextField, Margin, Container, Typography, Checkbox, Select,
@@ -31,23 +34,35 @@ const TelaFormulario = () => {
     const [listaDaTabela, setlistaDaTabela] = useState([])
     const [textErrorNomeDaEscola, setTextErrorNomeDaEscola] = useState(false)
     const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
-    const [textNaoInformadoNomeDoDiretor, setNaoInformadoNomeDoDiretor] = useState(false)
     const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
 
     const concatListaDaTabela = (event) => {
         event.preventDefault();
         if (validacao()) {
-            setlistaDaTabela((listaAntiga) => listaAntiga.concat({ ...ListaDeObjetosDosInputs }));
+            
+            let espratiDaListaDaTabela =  [...listaDaTabela]
+            let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs})
+            setlistaDaTabela(ExibirInformaçõesDosInputs)
             setListaDeObjetosDosInputs({
                 nomeDaEscola: '',
                 nomeDoDiretor: '',
                 localizacaoDaEscola: '',
                 turnos: [],
             })
+            const ArmazenamentoDoLocalStorage  =  localStorage.setItem('listaDaTabelaLocalstorage',JSON.stringify(ExibirInformaçõesDosInputs))
+                    
         } else {
             return
         }
     };
+
+    const localStorageExibir = () => {
+        let RecebendoInformacaoDoArmazenamentoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
+        if (RecebendoInformacaoDoArmazenamentoDoLocalStorage===null) {
+        }
+        return JSON.parse(RecebendoInformacaoDoArmazenamentoDoLocalStorage)
+        
+    }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -82,9 +97,7 @@ const TelaFormulario = () => {
             setTextErrorSelecioneUmTunro(true)
 
             return false
-        } setNaoInformadoNomeDoDiretor(true)
-        return true
-
+        }  return true
     }
 
 
@@ -155,7 +168,7 @@ const TelaFormulario = () => {
 
 
                     <Container>
-                        {listaDaTabela.length > 0 && (
+                        {(localStorageExibir() || [] ) .length > 0 &&  (
                             <Table>
                                 <TableHead>
                                     <TableRow>
@@ -167,7 +180,7 @@ const TelaFormulario = () => {
                                 </TableHead>
                                 <TableBody>
 
-                                    {listaDaTabela.map((index) => (
+                                    {localStorageExibir().map((index) => (
                                         <TableRow key={index}>
                                             <TableCell>{index.nomeDaEscola}</TableCell>
                                             <TableCell>{index.nomeDoDiretor.length > 0 ? index.nomeDoDiretor : <Typography>Não informado </Typography>}</TableCell>
