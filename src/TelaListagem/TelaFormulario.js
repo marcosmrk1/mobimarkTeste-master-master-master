@@ -43,6 +43,7 @@ const TelaFormulario = () => {
     const concatListaDaTabela = (event) => {
         event.preventDefault();
         if (validacao()) {
+<<<<<<< HEAD
           let espratiDaListaDaTabela = [...listaDaTabela]
           let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs })
           setlistaDaTabela(ExibirInformaçõesDosInputs)
@@ -61,6 +62,20 @@ const TelaFormulario = () => {
             localizacaoDaEscola: '',
             turnos: [],
           });
+=======
+            
+            let espratiDaListaDaTabela =  [...listaDaTabela]
+            let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs})
+            setlistaDaTabela(ExibirInformaçõesDosInputs)
+            setListaDeObjetosDosInputs({
+                nomeDaEscola: '',
+                nomeDoDiretor: '',
+                localizacaoDaEscola: '',
+                turnos: [],
+            })
+            const ArmazenamentoDoLocalStorage  =  localStorage.setItem('listaDaTabelaLocalstorage',JSON.stringify(ExibirInformaçõesDosInputs))
+                    
+>>>>>>> 203cb049014f1019d1c75c02f6871ee4b27ce987
         } else {
           return;
         }
@@ -70,6 +85,14 @@ const TelaFormulario = () => {
         if (RecebendoInformacaoDoArmazenamentoDoLocalStorage === null) {
         }
         return JSON.parse(RecebendoInformacaoDoArmazenamentoDoLocalStorage)
+    }
+
+    const localStorageExibir = () => {
+        let RecebendoInformacaoDoArmazenamentoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
+        if (RecebendoInformacaoDoArmazenamentoDoLocalStorage===null) {
+        }
+        return JSON.parse(RecebendoInformacaoDoArmazenamentoDoLocalStorage)
+        
     }
 
     const handleChange = (event) => {
@@ -102,7 +125,11 @@ const TelaFormulario = () => {
             setTextErrorParaLocalizacaoDaEscola(true)
             setTextErrorSelecioneUmTunro(true)
             return false
+<<<<<<< HEAD
         } return true
+=======
+        }  return true
+>>>>>>> 203cb049014f1019d1c75c02f6871ee4b27ce987
     }
 
 
@@ -172,7 +199,11 @@ const TelaFormulario = () => {
 
 
                     <Container>
+<<<<<<< HEAD
                         {(localStorageExibir() || []).length > 0 && (
+=======
+                        {(localStorageExibir() || [] ) .length > 0 &&  (
+>>>>>>> 203cb049014f1019d1c75c02f6871ee4b27ce987
                             <Table>
                                 <TableHead>
                                     <TableRow>
