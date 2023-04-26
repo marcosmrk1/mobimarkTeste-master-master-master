@@ -93,15 +93,28 @@ const TelaFormulario = () => {
         });
     }
     const validacao = () => {
-        if (ListaDeObjetosDosInputs.nomeDaEscola.length <= 4 ||
-            ListaDeObjetosDosInputs.localizacaoDaEscola.length === 0 ||
-            ListaDeObjetosDosInputs.turnos.length === 0) {
+        if (ListaDeObjetosDosInputs.nomeDaEscola.length <= 4 ){
             setTextErrorNomeDaEscola(true)
-            setTextErrorParaLocalizacaoDaEscola(true)
-            setTextErrorSelecioneUmTunro(true)
             return false
-        } return true
+        }
+       if (ListaDeObjetosDosInputs.localizacaoDaEscola.length=== 0){
+            setTextErrorParaLocalizacaoDaEscola(true)
+            return false
+       }
+        if(ListaDeObjetosDosInputs.turnos.length === 0){
+            setTextErrorSelecioneUmTunro(true)
+            return false 
+        }return true    
+       
+
     }
+    // ListaDeObjetosDosInputs.localizacaoDaEscola.length === 0 ||
+    // ListaDeObjetosDosInputs.turnos.length === 0) {
+    // setTextErrorNomeDaEscola(true)
+    // setTextErrorParaLocalizacaoDaEscola(true)
+    // setTextErrorSelecioneUmTunro(true)
+
+
 
     const excluirItemDaTabela = (index) => {
         let novaListaDaTabela = [...listaDaTabela];
