@@ -5,11 +5,12 @@ import React, { useEffect, useState } from "react";
 import {
     Box, TextField, Margin, Container, Typography, Checkbox, Select,
     ListItemText, FormControl, MenuItem, InputLabel,
-    OutlinedInput, Card, Button, Dialog, DialogTitle, DialogContent, DialogActions
+    OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery
 }
     from '@mui/material';
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
-
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useTheme } from "styled-components";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -43,41 +44,26 @@ const TelaFormulario = () => {
     const concatListaDaTabela = (event) => {
         event.preventDefault();
         if (validacao()) {
-<<<<<<< HEAD
-          let espratiDaListaDaTabela = [...listaDaTabela]
-          let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs })
-          setlistaDaTabela(ExibirInformaçõesDosInputs)
-      
-          let listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
-          if (listaSalva) {
-            listaSalva = JSON.parse(listaSalva);
-            ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs, ...listaSalva];
-          }
-      
-          localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ExibirInformaçõesDosInputs));
-      
-          setListaDeObjetosDosInputs({
-            nomeDaEscola: '',
-            nomeDoDiretor: '',
-            localizacaoDaEscola: '',
-            turnos: [],
-          });
-=======
-            
-            let espratiDaListaDaTabela =  [...listaDaTabela]
-            let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs})
+            let espratiDaListaDaTabela = [...listaDaTabela]
+            let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs })
             setlistaDaTabela(ExibirInformaçõesDosInputs)
+            let listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
+            if (listaSalva) {
+                listaSalva = JSON.parse(listaSalva);
+                ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs];
+            }
+
+            localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ExibirInformaçõesDosInputs));
+
+
             setListaDeObjetosDosInputs({
                 nomeDaEscola: '',
                 nomeDoDiretor: '',
                 localizacaoDaEscola: '',
                 turnos: [],
-            })
-            const ArmazenamentoDoLocalStorage  =  localStorage.setItem('listaDaTabelaLocalstorage',JSON.stringify(ExibirInformaçõesDosInputs))
-                    
->>>>>>> 203cb049014f1019d1c75c02f6871ee4b27ce987
+            });
         } else {
-          return;
+            return;
         }
     };
     const localStorageExibir = () => {
@@ -85,14 +71,6 @@ const TelaFormulario = () => {
         if (RecebendoInformacaoDoArmazenamentoDoLocalStorage === null) {
         }
         return JSON.parse(RecebendoInformacaoDoArmazenamentoDoLocalStorage)
-    }
-
-    const localStorageExibir = () => {
-        let RecebendoInformacaoDoArmazenamentoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
-        if (RecebendoInformacaoDoArmazenamentoDoLocalStorage===null) {
-        }
-        return JSON.parse(RecebendoInformacaoDoArmazenamentoDoLocalStorage)
-        
     }
 
     const handleChange = (event) => {
@@ -125,13 +103,31 @@ const TelaFormulario = () => {
             setTextErrorParaLocalizacaoDaEscola(true)
             setTextErrorSelecioneUmTunro(true)
             return false
-<<<<<<< HEAD
         } return true
-=======
-        }  return true
->>>>>>> 203cb049014f1019d1c75c02f6871ee4b27ce987
     }
 
+    const excluirItemDaTabela = (index) => {
+        let novaListaDaTabela = [...listaDaTabela];
+        novaListaDaTabela.splice(index, 1);
+        setlistaDaTabela(novaListaDaTabela);
+        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(novaListaDaTabela));
+    };
+
+
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleCancel = () => {
+        setOpen(false);
+    };
+
+    const handleConfirm = () => {
+        // lógica para confirmar
+        setOpen(false);
+    };
 
     return (
         <Container >
@@ -199,11 +195,7 @@ const TelaFormulario = () => {
 
 
                     <Container>
-<<<<<<< HEAD
                         {(localStorageExibir() || []).length > 0 && (
-=======
-                        {(localStorageExibir() || [] ) .length > 0 &&  (
->>>>>>> 203cb049014f1019d1c75c02f6871ee4b27ce987
                             <Table>
                                 <TableHead>
                                     <TableRow>
@@ -214,19 +206,42 @@ const TelaFormulario = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-
-                                    {localStorageExibir().map((index) => (
+ {console.log(localStorageExibir())}
+                                    {localStorageExibir().map((item, index) => (
                                         <TableRow key={index}>
-                                            <TableCell>{index.nomeDaEscola}</TableCell>
-                                            <TableCell>{index.nomeDoDiretor.length > 0 ? index.nomeDoDiretor : <Typography>Não informado </Typography>}</TableCell>
+                                            <TableCell>{item.nomeDaEscola}</TableCell>
+                                            <TableCell>{item.nomeDoDiretor.length > 0 ? item.nomeDoDiretor : <Typography>Não informado </Typography>}</TableCell>
 
                                             <TableCell >
-                                                {index.turnos.join(",")}
+                                                {item.turnos.join(",")}
                                             </TableCell>
-                                            <TableCell>{index.localizacaoDaEscola}</TableCell>
-                                       
 
-                                                {/* <TableCell> <Button onClick={() => handleShowModal(index)}>Remover</Button></TableCell> */}
+                                            <TableCell>{item.localizacaoDaEscola}</TableCell>
+                                            <Button onClick={handleClickOpen}>
+                                            <DeleteForeverIcon />
+                                            </Button>
+                                            <Dialog open={open} onClose={handleCancel} onClick={() => excluirItemDaTabela(item)}>
+                                                <DialogTitle>Confirmar ação</DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText>
+                                                        Deseja confirmar a ação?
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={handleCancel} color="primary">
+                                                        Cancelar
+                                                    </Button>
+                                                    <Button onClick={handleConfirm} color="primary" autoFocus>
+                                                        Confirmar
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
+
+                                            {/* <Button onClick={() => excluirItemDaTabela(item)}> <DeleteForeverIcon /> </Button> */}
+
+
+
+                                            {/* <TableCell> <Button onClick={() => handleShowModal(index)}>Remover</Button></TableCell> */}
 
                                         </TableRow>
                                     ))}
