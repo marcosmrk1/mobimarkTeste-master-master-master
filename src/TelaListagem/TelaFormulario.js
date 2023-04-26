@@ -38,18 +38,19 @@ const TelaFormulario = () => {
     const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
     const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
 
-    // const [open, setOpen] = useState(false);
-
+      
 
     const concatListaDaTabela = (event) => {
-        event.preventDefault();
-        if (validacao()) {
+        event.preventDefault()
+                if (validacao()) {
             let espratiDaListaDaTabela = [...listaDaTabela]
             let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs })
             setlistaDaTabela(ExibirInformaçõesDosInputs)
             let listaSalva = localStorage.getItem('listaDaTabelaLocalstorage')
+            if (listaSalva) {
                 listaSalva = JSON.parse(listaSalva);
                 ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs,];
+            }
             localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ExibirInformaçõesDosInputs));
             setListaDeObjetosDosInputs({
                 nomeDaEscola: '',
