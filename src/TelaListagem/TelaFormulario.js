@@ -47,15 +47,12 @@ const TelaFormulario = () => {
             let espratiDaListaDaTabela = [...listaDaTabela]
             let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs })
             setlistaDaTabela(ExibirInformaçõesDosInputs)
-            let listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
+            let listaSalva = localStorage.getItem('listaDaTabelaLocalstorage')
             if (listaSalva) {
                 listaSalva = JSON.parse(listaSalva);
-                ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs];
-            }
-
+                ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs, ...listaSalva];
+              }
             localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ExibirInformaçõesDosInputs));
-
-
             setListaDeObjetosDosInputs({
                 nomeDaEscola: '',
                 nomeDoDiretor: '',
@@ -112,8 +109,6 @@ const TelaFormulario = () => {
         setlistaDaTabela(novaListaDaTabela);
         localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(novaListaDaTabela));
     };
-
-
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -125,8 +120,8 @@ const TelaFormulario = () => {
     };
 
     const handleConfirm = () => {
-        // lógica para confirmar
         setOpen(false);
+        excluirItemDaTabela()
     };
 
     return (
@@ -206,7 +201,7 @@ const TelaFormulario = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
- {console.log(localStorageExibir())}
+
                                     {localStorageExibir().map((item, index) => (
                                         <TableRow key={index}>
                                             <TableCell>{item.nomeDaEscola}</TableCell>
@@ -218,9 +213,9 @@ const TelaFormulario = () => {
 
                                             <TableCell>{item.localizacaoDaEscola}</TableCell>
                                             <Button onClick={handleClickOpen}>
-                                            <DeleteForeverIcon />
+                                                <DeleteForeverIcon />
                                             </Button>
-                                            <Dialog open={open} onClose={handleCancel} onClick={() => excluirItemDaTabela(item)}>
+                                            <Dialog open={open} onClose={handleCancel} >
                                                 <DialogTitle>Confirmar ação</DialogTitle>
                                                 <DialogContent>
                                                     <DialogContentText>
@@ -231,7 +226,7 @@ const TelaFormulario = () => {
                                                     <Button onClick={handleCancel} color="primary">
                                                         Cancelar
                                                     </Button>
-                                                    <Button onClick={handleConfirm} color="primary" autoFocus>
+                                                    <Button onClick={()=> handleConfirm(item)} color="primary" autoFocus>
                                                         Confirmar
                                                     </Button>
                                                 </DialogActions>
