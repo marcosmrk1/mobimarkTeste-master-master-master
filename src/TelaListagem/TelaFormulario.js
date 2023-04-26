@@ -1,7 +1,11 @@
+
+// usar objeto no lugar dos sets
+// usar cada if para cada condição
 import React, { useEffect, useState } from "react";
 import {
     Box, TextField, Margin, Container, Typography, Checkbox, Select,
-    ListItemText, FormControl, MenuItem, InputLabel, OutlinedInput, Card, Button
+    ListItemText, FormControl, MenuItem, InputLabel,
+    OutlinedInput, Card, Button, Dialog, DialogTitle, DialogContent, DialogActions
 }
     from '@mui/material';
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
@@ -31,23 +35,42 @@ const TelaFormulario = () => {
     const [listaDaTabela, setlistaDaTabela] = useState([])
     const [textErrorNomeDaEscola, setTextErrorNomeDaEscola] = useState(false)
     const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
-    const [textNaoInformadoNomeDoDiretor, setNaoInformadoNomeDoDiretor] = useState(false)
     const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
+
+    // const [open, setOpen] = useState(false);
+
 
     const concatListaDaTabela = (event) => {
         event.preventDefault();
         if (validacao()) {
-            setlistaDaTabela((listaAntiga) => listaAntiga.concat({ ...ListaDeObjetosDosInputs }));
-            setListaDeObjetosDosInputs({
-                nomeDaEscola: '',
-                nomeDoDiretor: '',
-                localizacaoDaEscola: '',
-                turnos: [],
-            })
+          let espratiDaListaDaTabela = [...listaDaTabela]
+          let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs })
+          setlistaDaTabela(ExibirInformaçõesDosInputs)
+      
+          let listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
+          if (listaSalva) {
+            listaSalva = JSON.parse(listaSalva);
+            ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs, ...listaSalva];
+          }
+      
+          localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ExibirInformaçõesDosInputs));
+      
+          setListaDeObjetosDosInputs({
+            nomeDaEscola: '',
+            nomeDoDiretor: '',
+            localizacaoDaEscola: '',
+            turnos: [],
+          });
         } else {
-            return
+          return;
         }
     };
+    const localStorageExibir = () => {
+        let RecebendoInformacaoDoArmazenamentoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
+        if (RecebendoInformacaoDoArmazenamentoDoLocalStorage === null) {
+        }
+        return JSON.parse(RecebendoInformacaoDoArmazenamentoDoLocalStorage)
+    }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -70,9 +93,7 @@ const TelaFormulario = () => {
             ...ListaDeObjetosDosInputs,
             localizacaoDaEscola: event.target.value,
         });
-
     }
-
     const validacao = () => {
         if (ListaDeObjetosDosInputs.nomeDaEscola.length <= 4 ||
             ListaDeObjetosDosInputs.localizacaoDaEscola.length === 0 ||
@@ -80,17 +101,14 @@ const TelaFormulario = () => {
             setTextErrorNomeDaEscola(true)
             setTextErrorParaLocalizacaoDaEscola(true)
             setTextErrorSelecioneUmTunro(true)
-
             return false
-        } setNaoInformadoNomeDoDiretor(true)
-        return true
-
+        } return true
     }
 
 
     return (
-
         <Container >
+
             <Card sx={{}}>
                 <Box
                     onSubmit={concatListaDaTabela}
@@ -130,7 +148,6 @@ const TelaFormulario = () => {
                                     <Checkbox checked={ListaDeObjetosDosInputs.turnos.indexOf(turnosMapeados) > -1} />
                                     <ListItemText primary={turnosMapeados} />
                                 </MenuItem>
-
                             ))}
 
                         </Select>
@@ -155,7 +172,7 @@ const TelaFormulario = () => {
 
 
                     <Container>
-                        {listaDaTabela.length > 0 && (
+                        {(localStorageExibir() || []).length > 0 && (
                             <Table>
                                 <TableHead>
                                     <TableRow>
@@ -167,7 +184,7 @@ const TelaFormulario = () => {
                                 </TableHead>
                                 <TableBody>
 
-                                    {listaDaTabela.map((index) => (
+                                    {localStorageExibir().map((index) => (
                                         <TableRow key={index}>
                                             <TableCell>{index.nomeDaEscola}</TableCell>
                                             <TableCell>{index.nomeDoDiretor.length > 0 ? index.nomeDoDiretor : <Typography>Não informado </Typography>}</TableCell>
@@ -176,13 +193,16 @@ const TelaFormulario = () => {
                                                 {index.turnos.join(",")}
                                             </TableCell>
                                             <TableCell>{index.localizacaoDaEscola}</TableCell>
+                                       
+
+                                                {/* <TableCell> <Button onClick={() => handleShowModal(index)}>Remover</Button></TableCell> */}
 
                                         </TableRow>
                                     ))}
-
                                 </TableBody>
                             </Table>
                         )}
+
                     </Container>
 
                 </Box>
