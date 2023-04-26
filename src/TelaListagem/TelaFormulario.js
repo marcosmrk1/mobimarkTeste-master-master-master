@@ -38,8 +38,7 @@ const TelaFormulario = () => {
     const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
     const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
 
-      
-
+  
     const concatListaDaTabela = (event) => {
         event.preventDefault()
                 if (validacao()) {
@@ -62,6 +61,14 @@ const TelaFormulario = () => {
             return;
         }
     };
+        
+    useEffect(() => {
+        const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
+        if (listaSalva) {
+          setlistaDaTabela(JSON.parse(listaSalva));
+        }
+      },);
+      
     const localStorageExibir = () => {
         let RecebendoInformacaoDoArmazenamentoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
         if (RecebendoInformacaoDoArmazenamentoDoLocalStorage === null) {
