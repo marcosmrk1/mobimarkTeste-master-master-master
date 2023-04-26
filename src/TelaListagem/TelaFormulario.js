@@ -48,10 +48,8 @@ const TelaFormulario = () => {
             let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs })
             setlistaDaTabela(ExibirInformaçõesDosInputs)
             let listaSalva = localStorage.getItem('listaDaTabelaLocalstorage')
-            if (listaSalva) {
                 listaSalva = JSON.parse(listaSalva);
-                ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs, ...listaSalva];
-              }
+                ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs,];
             localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ExibirInformaçõesDosInputs));
             setListaDeObjetosDosInputs({
                 nomeDaEscola: '',
@@ -196,7 +194,7 @@ const TelaFormulario = () => {
                             <MenuItem value={'urbana'}>Urbana</MenuItem>
                             <MenuItem value={'rural'}>Rural</MenuItem>
                         </Select>
-                        {textErrorParaLocalizacaoDaEscola ? <Typography> selecione a localizacaoDaEscola</Typography> : ''}
+                        {textErrorParaLocalizacaoDaEscola ? <Typography> selecione a localizacaoDaEscola</Typography> :""}
                     </FormControl>
 
                     <Button type="submit" >Contained</Button>
