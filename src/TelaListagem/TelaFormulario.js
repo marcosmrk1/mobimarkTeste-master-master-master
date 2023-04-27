@@ -106,17 +106,17 @@ const TelaFormulario = () => {
     const validacao = () => {
         if (ListaDeObjetosDosInputs.nomeDaEscola.length <= 4) {
             setTextErrorNomeDaEscola(true)
-            return false
+
         }
         if (ListaDeObjetosDosInputs.localizacaoDaEscola.length === 0) {
             setTextErrorParaLocalizacaoDaEscola(true)
-            return false
+           
         }
         if (ListaDeObjetosDosInputs.turnos.length === 0) {
             setTextErrorSelecioneUmTunro(true)
             return false
-        } return true
-
+        }
+        return true
 
     }
     const excluirItemDaTabela = (index) => {
@@ -261,7 +261,7 @@ const TelaFormulario = () => {
                                     <Button onClick={handleCancel} color="primary">
                                         Cancelar
                                     </Button>
-                                    <Button onClick={() => handleConfirm} color="primary" autoFocus>
+                                    <Button onClick={() => handleConfirm(item)} color="primary" autoFocus>
                                         Confirmar
                                     </Button>
                                 </DialogActions>
