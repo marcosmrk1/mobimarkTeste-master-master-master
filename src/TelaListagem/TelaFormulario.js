@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 import {
     Box, TextField, Margin, Container, Typography, Checkbox, Select,
     ListItemText, FormControl, MenuItem, InputLabel,
-    OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery
+    OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery,
+    CircularProgress
 }
     from '@mui/material';
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
@@ -37,10 +38,12 @@ const TelaFormulario = () => {
     const [textErrorNomeDaEscola, setTextErrorNomeDaEscola] = useState(false)
     const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
     const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
-
+    const [loading,setloading] = useState(false)
   
     const concatListaDaTabela = (event) => {
         event.preventDefault()
+        setloading(true)
+        setTimeout(() => {
                 if (validacao()) {
             let espratiDaListaDaTabela = [...listaDaTabela]
             let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs })
@@ -60,6 +63,8 @@ const TelaFormulario = () => {
         } else {
             return;
         }
+        setloading(false)
+    }, 2000);
     };
         
     useEffect(() => {
@@ -209,62 +214,54 @@ const TelaFormulario = () => {
 
 
                     <Container>
-                        {(localStorageExibir() || []).length > 0 && (
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align='left'>Nome da escola</TableCell>
-                                        <TableCell align='left'>Nome do diretor</TableCell>
-                                        <TableCell align='left'>Turnos</TableCell>
-                                        <TableCell align="left">Localização da escola</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
+                   
+                    {loading ? <CircularProgress /> : 
+    (localStorageExibir() || []).length > 0 && (
+        <Table>
+            <TableHead>
+                <TableRow>
+                    <TableCell align='left'>Nome da escola</TableCell>
+                    <TableCell align='left'>Nome do diretor</TableCell>
+                    <TableCell align='left'>Turnos</TableCell>
+                    <TableCell align="left">Localização da escola</TableCell>
+                </TableRow> 
+            </TableHead>
+            <TableBody>
+                {localStorageExibir().map((item, index) => (
+                    <TableRow key={index}>
+                        <TableCell>{item.nomeDaEscola}</TableCell>
+                        <TableCell>{item.nomeDoDiretor.length > 0 ? item.nomeDoDiretor : <Typography>Não informado </Typography>}</TableCell>
+                        <TableCell>
+                            {item.turnos.join(",")}
+                        </TableCell>
+                        <TableCell>{item.localizacaoDaEscola}</TableCell>
+                        <Button onClick={handleClickOpen}>
+                            <DeleteForeverIcon />
+                        </Button>
+                        <Dialog open={open} onClose={handleCancel}>
+                            <DialogTitle>Confirmar ação</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Deseja confirmar a ação?
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleCancel} color="primary">
+                                    Cancelar
+                                </Button>
+                                <Button onClick={() => handleConfirm(item)} color="primary" autoFocus>
+                                    Confirmar
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    )
+}
 
-                                    {localStorageExibir().map((item, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{item.nomeDaEscola}</TableCell>
-                                            <TableCell>{item.nomeDoDiretor.length > 0 ? item.nomeDoDiretor : <Typography>Não informado </Typography>}</TableCell>
-
-                                            <TableCell >
-                                                {item.turnos.join(",")}
-                                            </TableCell>
-
-                                            <TableCell>{item.localizacaoDaEscola}</TableCell>
-                                            <Button onClick={handleClickOpen}>
-                                                <DeleteForeverIcon />
-                                            </Button>
-                                            <Dialog open={open} onClose={handleCancel} >
-                                                <DialogTitle>Confirmar ação</DialogTitle>
-                                                <DialogContent>
-                                                    <DialogContentText>
-                                                        Deseja confirmar a ação?
-                                                    </DialogContentText>
-                                                </DialogContent>
-                                                <DialogActions>
-                                                    <Button onClick={handleCancel} color="primary">
-                                                        Cancelar
-                                                    </Button>
-                                                    <Button onClick={()=> handleConfirm(item)} color="primary" autoFocus>
-                                                        Confirmar
-                                                    </Button>
-                                                </DialogActions>
-                                            </Dialog>
-
-                                            {/* <Button onClick={() => excluirItemDaTabela(item)}> <DeleteForeverIcon /> </Button> */}
-
-
-
-                                            {/* <TableCell> <Button onClick={() => handleShowModal(index)}>Remover</Button></TableCell> */}
-
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        )}
-
-                    </Container>
-
+                    </Container>    
                 </Box>
             </Card >
         </Container>
