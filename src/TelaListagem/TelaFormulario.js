@@ -12,6 +12,9 @@ import {
 import { CardActions, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useTheme } from "styled-components";
+import CheckIcon from '@mui/icons-material/Check';
+import { red } from "@mui/material/colors";
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -106,18 +109,18 @@ const TelaFormulario = () => {
     const validacao = () => {
         if (ListaDeObjetosDosInputs.nomeDaEscola.length <= 4) {
             setTextErrorNomeDaEscola(true)
+            return false
 
         }
-        if (ListaDeObjetosDosInputs.localizacaoDaEscola.length === 0) {
+        if (ListaDeObjetosDosInputs.localizacaoDaEscola.length ==  0) {
             setTextErrorParaLocalizacaoDaEscola(true)
-           
+            return false
         }
-        if (ListaDeObjetosDosInputs.turnos.length === 0) {
+        if (ListaDeObjetosDosInputs.turnos.length == 0) {
             setTextErrorSelecioneUmTunro(true)
             return false
         }
         return true
-
     }
     const excluirItemDaTabela = (index) => {
         let novaListaDaTabela = [...listaDaTabela];
@@ -165,10 +168,15 @@ const TelaFormulario = () => {
                             name="nomeDaEscola" value={ListaDeObjetosDosInputs.nomeDaEscola} onChange={handleChange}
                         />
 
-                        {textErrorNomeDaEscola && ListaDeObjetosDosInputs['nomeDaEscola'] === '' ? <Typography  >Preencha o campo: Nome Da Escola</Typography>
+                        {textErrorNomeDaEscola && ListaDeObjetosDosInputs['nomeDaEscola'] === '' ? 
+                        <Typography sx={{color:'red'}}  >
+                            <WarningAmberIcon sx={{fontSize:'medium',marginInline:'5px' }}/>
+                        Preencha o campo: Nome Da Escola</Typography>
                             : textErrorNomeDaEscola && ListaDeObjetosDosInputs['nomeDaEscola'].length < 4
-                                ? <Typography>O campo: Nome Da Escola deve ter pelo menos 4 caracteres</Typography>
-                                : ""}
+                                ? <Typography sx={{color:'red'}} ><WarningAmberIcon sx={{fontSize:'medium',marginInline:'5px' }}/> 
+                            O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
+                                :''}
+                               
 
                         <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined"
                             name="nomeDoDiretor" value={ListaDeObjetosDosInputs.nomeDoDiretor} onChange={handleChange}
@@ -186,6 +194,7 @@ const TelaFormulario = () => {
                                 input={<OutlinedInput label="Turnos" />}
                                 renderValue={(selected) => selected.join(',')}
                                 MenuProps={MenuProps}
+                                
 
                             >
                                 {listaTurnos.map((turnosMapeados) => (
@@ -211,7 +220,7 @@ const TelaFormulario = () => {
                                 <MenuItem value={'urbana'}>Urbana</MenuItem>
                                 <MenuItem value={'rural'}>Rural</MenuItem>
                             </Select>
-                            {textErrorParaLocalizacaoDaEscola ? <Typography> selecione a localizacaoDaEscola</Typography> : ""}
+                            { textErrorParaLocalizacaoDaEscola ? <Typography> selecione a localizacaoDaEscola</Typography> : ''}
                         </FormControl>
                         <Button type="submit" variant="contained" >Cadastrar</Button>
                     </Box>
