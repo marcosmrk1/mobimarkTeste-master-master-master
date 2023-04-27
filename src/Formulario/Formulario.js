@@ -159,12 +159,10 @@ const Formulario = () => {
 
       <Box>
         <Card style={{ width: '100%', display: "flex", marginTop: '2px', }} >
-          <CardActions>
-            <Typography variant="p" style={{
-              fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
-              fontWeight: "bold", color: "#325d87"
-            }}> Formulario </Typography>
-          </CardActions>
+        <Typography variant="p" style={{
+                    fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
+                    fontWeight: "bold", color: "#325d87" , marginLeft:'12px'
+                }}> Tela listagem </Typography>
         </Card>
         <Box style={{ display: 'flex', justifyContent: 'center', marginTop: "20px", marginLeft: '5px' }}>
           <Box direction="justifyContent" spacing={2}>
