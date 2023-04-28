@@ -1,8 +1,9 @@
 
-import Rotas from './MainRoutes/RotasGlobais';
+import Rotas from './MainRoutes/RotasGlobais'
+
 function App() {
   return (
-    <Rotas/>
+ <Rotas/>
   )
 }
 export default App

@@ -1,6 +1,4 @@
 
-// usar objeto no lugar dos sets
-// usar cada if para cada condição
 import React, { useEffect, useState } from "react";
 import {
     Box, TextField, Margin, Container, Typography, Checkbox, Select,
@@ -15,6 +13,7 @@ import { useTheme } from "styled-components";
 import CheckIcon from '@mui/icons-material/Check';
 import { red } from "@mui/material/colors";
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import EditIcon from '@mui/icons-material/Edit';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -32,25 +31,35 @@ const listaTurnos = [
     'Noite',
 ];
 const TelaFormulario = () => {
-    const [ListaDeObjetosDosInputs, setListaDeObjetosDosInputs] = useState({
+    const [objetosDosInputs, setobjetosDosInputs] = useState({
         nomeDaEscola: '',
         nomeDoDiretor: '',
         localizacaoDaEscola: '',
         turnos: [],
+        
     })
     const [listaDaTabela, setlistaDaTabela] = useState([])
     const [textErrorNomeDaEscola, setTextErrorNomeDaEscola] = useState(false)
     const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
     const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
     const [loading, setloading] = useState(false)
-
+    const [itemDoMap,setItemDoMap] = useState({})
     const concatListaDaTabela = (event) => {
         event.preventDefault()
         setloading(true)
         setTimeout(() => {
             if (validacao()) {
-                let espratiDaListaDaTabela = [...listaDaTabela]
-                let ExibirInformaçõesDosInputs = espratiDaListaDaTabela.concat({ ...ListaDeObjetosDosInputs })
+                let ExibirInformaçõesDosInputs = [...listaDaTabela]
+                if  (!objetosDosInputs.id) {
+                 ExibirInformaçõesDosInputs = ExibirInformaçõesDosInputs.concat({ ...objetosDosInputs,id:ExibirInformaçõesDosInputs.length+1})
+                }else {
+                    ExibirInformaçõesDosInputs= ExibirInformaçõesDosInputs.map(item => {
+                    if (objetosDosInputs.id === item.id ) {
+                        return objetosDosInputs
+                        
+                    } return item 
+                    })
+                }
                 setlistaDaTabela(ExibirInformaçõesDosInputs)
                 let listaSalva = localStorage.getItem('listaDaTabelaLocalstorage')
                 if (listaSalva) {
@@ -58,7 +67,7 @@ const TelaFormulario = () => {
                     ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs,];
                 }
                 localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ExibirInformaçõesDosInputs));
-                setListaDeObjetosDosInputs({
+                setobjetosDosInputs({
                     nomeDaEscola: '',
                     nomeDoDiretor: '',
                     localizacaoDaEscola: '',
@@ -75,18 +84,18 @@ const TelaFormulario = () => {
         if (listaSalva) {
             setlistaDaTabela(JSON.parse(listaSalva));
         }
-    },);
+    },[]);
 
     const localStorageExibir = () => {
-        let RecebendoInformacaoDoArmazenamentoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
-        if (RecebendoInformacaoDoArmazenamentoDoLocalStorage === null) {
+        let RecebendoInformacaoDocampoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
+        if (RecebendoInformacaoDocampoDoLocalStorage === null) {
         }
-        return JSON.parse(RecebendoInformacaoDoArmazenamentoDoLocalStorage)
+        return JSON.parse(RecebendoInformacaoDocampoDoLocalStorage)
     }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setListaDeObjetosDosInputs((objetosAntigos) => ({
+        setobjetosDosInputs((objetosAntigos) => ({
             ...objetosAntigos,
             [name]: value,
         }))
@@ -94,60 +103,64 @@ const TelaFormulario = () => {
     const selectTurnos = (event) => {
         const { value } = event.target;
         // setValueParaOSelecet(typeof value === 'string' ? value.split(',') : value,);
-        setListaDeObjetosDosInputs((prev) => ({
+        setobjetosDosInputs((prev) => ({
             ...prev,
             turnos: value
-
         }))
     };
     const seleectLocalizacaoDaEscola = (event) => {
-        setListaDeObjetosDosInputs({
-            ...ListaDeObjetosDosInputs,
+        setobjetosDosInputs({
+            ...objetosDosInputs,
             localizacaoDaEscola: event.target.value,
         });
     }
     const validacao = () => {
-        if (ListaDeObjetosDosInputs.nomeDaEscola.length <= 4) {
+        if (objetosDosInputs.nomeDaEscola.length <= 4) {
             setTextErrorNomeDaEscola(true)
             return false
-
         }
-        if (ListaDeObjetosDosInputs.localizacaoDaEscola.length ==  0) {
+        if (objetosDosInputs.localizacaoDaEscola.length == 0) {
             setTextErrorParaLocalizacaoDaEscola(true)
             return false
         }
-        if (ListaDeObjetosDosInputs.turnos.length == 0) {
+        if (objetosDosInputs.turnos.length == 0) {
             setTextErrorSelecioneUmTunro(true)
             return false
         }
         return true
     }
-    const excluirItemDaTabela = (index) => {
-        let novaListaDaTabela = [...listaDaTabela];
-        novaListaDaTabela.splice(index, 1);
-        setlistaDaTabela(novaListaDaTabela);
-        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(novaListaDaTabela));
+    const excluirItemDaTabela = () => {
+
+        let listaAposExclusao = listaDaTabela.filter((item) => item.nomeDaEscola != itemDoMap.nomeDaEscola
+        )
+        setlistaDaTabela(listaAposExclusao)
+        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(listaAposExclusao))
+
     };
+
+    const editarItemDaTabela = (campo) => {
+        setobjetosDosInputs(campo)
+    }
+    
+   
     const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
+    const handleClickOpen = (item) => {
         setOpen(true);
-    };
-
+        setItemDoMap(item)
+    }
     const handleCancel = () => {
         setOpen(false);
-    };
-
+    }
     const handleConfirm = () => {
         setOpen(false);
         excluirItemDaTabela()
-    };
+    }
     return (
         <>
             <Card>
                 <Typography variant="p" style={{
                     fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
-                    fontWeight: "bold", color: "#325d87" , marginLeft:'12px'
+                    fontWeight: "bold", color: "#325d87", marginLeft: '12px'
                 }}> Formulario </Typography>
             </Card>
             <Container >
@@ -165,47 +178,49 @@ const TelaFormulario = () => {
                             fontWeight: "bold", color: "#325d87"
                         }}> Preencha Seus Dados  </Typography>
                         <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined"
-                            name="nomeDaEscola" value={ListaDeObjetosDosInputs.nomeDaEscola} onChange={handleChange}
+                            name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
                         />
 
-                        {textErrorNomeDaEscola && ListaDeObjetosDosInputs['nomeDaEscola'] === '' ? 
-                        <Typography sx={{color:'red'}}  >
-                            <WarningAmberIcon sx={{fontSize:'medium',marginInline:'5px' }}/>
-                        Preencha o campo: Nome Da Escola</Typography>
-                            : textErrorNomeDaEscola && ListaDeObjetosDosInputs['nomeDaEscola'].length < 4
-                                ? <Typography sx={{color:'red'}} ><WarningAmberIcon sx={{fontSize:'medium',marginInline:'5px' }}/> 
-                            O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
-                                :''}
-                               
+                        {textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'] === '' ?
+                            <Typography sx={{ color: 'red' }}  >
+                                <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                Preencha o campo: Nome Da Escola</Typography>
+                            : textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'].length < 4
+                                ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                    O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
+                                : ''}
+
 
                         <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined"
-                            name="nomeDoDiretor" value={ListaDeObjetosDosInputs.nomeDoDiretor} onChange={handleChange}
+                            name="nomeDoDiretor" value={objetosDosInputs.nomeDoDiretor} onChange={handleChange}
                         />
 
                         <FormControl sx={{ m: 1, width: 188 }}>
-                            <InputLabel id="demo-multiple-checkbox-label">Turnos</InputLabel>
+                            <InputLabel id="demo-multiple-checkbox-label"> Turnos</InputLabel>
                             <Select
                                 labelId="demo-multiple-checkbox-label"
                                 size="small"
                                 id="demo-multiple-checkbox"
                                 multiple
-                                value={ListaDeObjetosDosInputs.turnos}
+                                value={objetosDosInputs.turnos}
                                 onChange={selectTurnos}
                                 input={<OutlinedInput label="Turnos" />}
                                 renderValue={(selected) => selected.join(',')}
                                 MenuProps={MenuProps}
-                                
+
 
                             >
                                 {listaTurnos.map((turnosMapeados) => (
                                     <MenuItem key={turnosMapeados} value={turnosMapeados}>
-                                        <Checkbox checked={ListaDeObjetosDosInputs.turnos.indexOf(turnosMapeados) > -1} />
+                                        <Checkbox checked={objetosDosInputs.turnos.indexOf(turnosMapeados) > -1} />
                                         <ListItemText primary={turnosMapeados} />
                                     </MenuItem>
                                 ))}
 
                             </Select>
-                            {textErrorSelecioneUmTurno ? <Typography> selecione um turno</Typography> : ''}
+                            {textErrorSelecioneUmTurno ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon
+                                sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                selecione um turno</Typography> : ''}
                         </FormControl>
                         <FormControl sx={{ m: 1, width: 188 }}>
                             <InputLabel id="demo-simple-select-label">localizacao</InputLabel>
@@ -213,14 +228,16 @@ const TelaFormulario = () => {
                                 labelId="demo-simple-select-label"
                                 size="small"
                                 id="demo-simple-select"
-                                value={ListaDeObjetosDosInputs.localizacaoDaEscola}
+                                value={objetosDosInputs.localizacaoDaEscola}
                                 label="localizacaoDaEscola"
                                 onChange={seleectLocalizacaoDaEscola}
                             >
                                 <MenuItem value={'urbana'}>Urbana</MenuItem>
                                 <MenuItem value={'rural'}>Rural</MenuItem>
                             </Select>
-                            { textErrorParaLocalizacaoDaEscola ? <Typography> selecione a localizacaoDaEscola</Typography> : ''}
+                            {textErrorParaLocalizacaoDaEscola ? <Typography sx={{ color: 'red' }} >
+                                <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                selecione a localizacaoDaEscola</Typography> : ""}
                         </FormControl>
                         <Button type="submit" variant="contained" >Cadastrar</Button>
                     </Box>
@@ -255,11 +272,15 @@ const TelaFormulario = () => {
                                                         {item.turnos.join(",")}
                                                     </TableCell>
                                                     <TableCell>{item.localizacaoDaEscola}</TableCell>
-                                     
-                            <Button onClick={handleClickOpen}>
-                                <DeleteForeverIcon />
-                            </Button>
-                            <Dialog open={open} onClose={handleCancel}>
+                                                    <Button onClick={()=>handleClickOpen(item)}>
+                                                        <DeleteForeverIcon />
+                                                    </Button>
+                                      
+                        
+                            <Button onClick={() => editarItemDaTabela(item)}> <EditIcon/></Button>
+                            </TableRow>
+                                            ))}
+                                                <Dialog open={open} onClose={handleCancel}>
                                 <DialogTitle>Confirmar ação</DialogTitle>
                                 <DialogContent>
                                     <DialogContentText>
@@ -270,17 +291,16 @@ const TelaFormulario = () => {
                                     <Button onClick={handleCancel} color="primary">
                                         Cancelar
                                     </Button>
-                                    <Button onClick={() => handleConfirm(item)} color="primary" autoFocus>
+                                    <Button  onClick={handleConfirm} color="primary" autoFocus>
                                         Confirmar
                                     </Button>
                                 </DialogActions>
                             </Dialog>
-                            </TableRow>
-                                            ))}
                                         </TableBody>
                                     </Table>
                                 </Card>
                             </Box>
+
                         </>
                     )
                 }
