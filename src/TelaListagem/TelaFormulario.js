@@ -14,6 +14,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import { red } from "@mui/material/colors";
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import EditIcon from '@mui/icons-material/Edit';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -36,28 +38,29 @@ const TelaFormulario = () => {
         nomeDoDiretor: '',
         localizacaoDaEscola: '',
         turnos: [],
-        
+
     })
     const [listaDaTabela, setlistaDaTabela] = useState([])
     const [textErrorNomeDaEscola, setTextErrorNomeDaEscola] = useState(false)
     const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
     const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
     const [loading, setloading] = useState(false)
-    const [itemDoMap,setItemDoMap] = useState({})
+    const [itemDoMap, setItemDoMap] = useState({})
+    const[ordemAlfabeticaAscendente,setOrdemAlfabeticaAscendente] = useState(true)
     const concatListaDaTabela = (event) => {
         event.preventDefault()
         setloading(true)
         setTimeout(() => {
             if (validacao()) {
                 let ExibirInformaçõesDosInputs = [...listaDaTabela]
-                if  (!objetosDosInputs.id) {
-                 ExibirInformaçõesDosInputs = ExibirInformaçõesDosInputs.concat({ ...objetosDosInputs,id:ExibirInformaçõesDosInputs.length+1})
-                }else {
-                    ExibirInformaçõesDosInputs= ExibirInformaçõesDosInputs.map(item => {
-                    if (objetosDosInputs.id === item.id ) {
-                        return objetosDosInputs
-                        
-                    } return item 
+                if (!objetosDosInputs.id) {
+                    ExibirInformaçõesDosInputs = ExibirInformaçõesDosInputs.concat({ ...objetosDosInputs, id: ExibirInformaçõesDosInputs.length + 1 })
+                } else {
+                    ExibirInformaçõesDosInputs = ExibirInformaçõesDosInputs.map(item => {
+                        if (objetosDosInputs.id === item.id) {
+                            return objetosDosInputs
+
+                        } return item
                     })
                 }
                 setlistaDaTabela(ExibirInformaçõesDosInputs)
@@ -78,14 +81,12 @@ const TelaFormulario = () => {
         }, 1000);
         return;
     }
-
     useEffect(() => {
         const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
         if (listaSalva) {
             setlistaDaTabela(JSON.parse(listaSalva));
         }
-    },[]);
-
+    }, []);
     const localStorageExibir = () => {
         let RecebendoInformacaoDocampoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
         if (RecebendoInformacaoDocampoDoLocalStorage === null) {
@@ -130,19 +131,27 @@ const TelaFormulario = () => {
         return true
     }
     const excluirItemDaTabela = () => {
-
-        let listaAposExclusao = listaDaTabela.filter((item) => item.nomeDaEscola != itemDoMap.nomeDaEscola
+        let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id
         )
         setlistaDaTabela(listaAposExclusao)
         localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(listaAposExclusao))
-
-    };
-
+    }
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
     }
-    
-   
+    const ordernarEmOrdemAlfabetica  = () => {
+        const ordenacao = [...listaDaTabela].sort((a,b) => {
+            if(ordemAlfabeticaAscendente){
+                return a.nomeDaEscola.localeCompare(b.nomeDaEscola)                        
+            }else {
+                return b.nomeDaEscola.localeCompare(a.nomeDaEscola)
+            }
+        })
+        setlistaDaTabela(ordenacao)
+        setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
+        localStorage.setItem('listaDaTabelaLocalstorage',JSON.stringify(ordenacao))
+    }
+    const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon sx={{fontSize:'20px'}} /> : <ArrowDropDownIcon />;
     const [open, setOpen] = useState(false);
     const handleClickOpen = (item) => {
         setOpen(true);
@@ -164,7 +173,6 @@ const TelaFormulario = () => {
                 }}> Formulario </Typography>
             </Card>
             <Container >
-
                 <Card sx={{ marginTop: '12px' }}>
                     <Box
                         onSubmit={concatListaDaTabela}
@@ -207,8 +215,6 @@ const TelaFormulario = () => {
                                 input={<OutlinedInput label="Turnos" />}
                                 renderValue={(selected) => selected.join(',')}
                                 MenuProps={MenuProps}
-
-
                             >
                                 {listaTurnos.map((turnosMapeados) => (
                                     <MenuItem key={turnosMapeados} value={turnosMapeados}>
@@ -257,7 +263,10 @@ const TelaFormulario = () => {
                                     <Table>
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell align='left'>Nome da escola</TableCell>
+                                                <TableCell align='left'>Nome da escola
+                                                <Button onClick={ordernarEmOrdemAlfabetica}  endIcon = {arrowIcon}></Button>
+                                                </TableCell>
+
                                                 <TableCell align='left'>Nome do diretor</TableCell>
                                                 <TableCell align='left'>Turnos</TableCell>
                                                 <TableCell align="left">Localização da escola</TableCell>
@@ -272,30 +281,28 @@ const TelaFormulario = () => {
                                                         {item.turnos.join(",")}
                                                     </TableCell>
                                                     <TableCell>{item.localizacaoDaEscola}</TableCell>
-                                                    <Button onClick={()=>handleClickOpen(item)}>
+                                                    <Button onClick={() => handleClickOpen(item)}>
                                                         <DeleteForeverIcon />
                                                     </Button>
-                                      
-                        
-                            <Button onClick={() => editarItemDaTabela(item)}> <EditIcon/></Button>
-                            </TableRow>
+                                                    <Button onClick={() => editarItemDaTabela(item)}> <EditIcon /></Button>
+                                                </TableRow>
                                             ))}
-                                                <Dialog open={open} onClose={handleCancel}>
-                                <DialogTitle>Confirmar ação</DialogTitle>
-                                <DialogContent>
-                                    <DialogContentText>
-                                        Deseja confirmar a ação?
-                                    </DialogContentText>
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button onClick={handleCancel} color="primary">
-                                        Cancelar
-                                    </Button>
-                                    <Button  onClick={handleConfirm} color="primary" autoFocus>
-                                        Confirmar
-                                    </Button>
-                                </DialogActions>
-                            </Dialog>
+                                            <Dialog open={open} onClose={handleCancel}>
+                                                <DialogTitle>Confirmar ação</DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText>
+                                                        Deseja confirmar a ação?
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={handleCancel} color="primary">
+                                                        Cancelar
+                                                    </Button>
+                                                    <Button onClick={handleConfirm} color="primary" autoFocus>
+                                                        Confirmar
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
                                         </TableBody>
                                     </Table>
                                 </Card>
