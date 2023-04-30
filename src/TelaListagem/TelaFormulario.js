@@ -46,7 +46,7 @@ const TelaFormulario = () => {
     const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
     const [loading, setloading] = useState(false)
     const [itemDoMap, setItemDoMap] = useState({})
-    const[ordemAlfabeticaAscendente,setOrdemAlfabeticaAscendente] = useState(true)
+    const[ordemAlfabeticaAscendente,setOrdemAlfabeticaAscendente] = useState([])
     const concatListaDaTabela = (event) => {
         event.preventDefault()
         setloading(true)
@@ -139,19 +139,32 @@ const TelaFormulario = () => {
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
     }
-    const ordernarEmOrdemAlfabetica  = () => {
-        const ordenacao = [...listaDaTabela].sort((a,b) => {
+    const ordernarEmOrdemAlfabeticaNomeDaEscola  = () => {
+        const ordenacaoNomeDaEscola = [...listaDaTabela].sort((a,b) => {
             if(ordemAlfabeticaAscendente){
                 return a.nomeDaEscola.localeCompare(b.nomeDaEscola)                        
             }else {
                 return b.nomeDaEscola.localeCompare(a.nomeDaEscola)
             }
         })
-        setlistaDaTabela(ordenacao)
+        setlistaDaTabela(ordenacaoNomeDaEscola)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-        localStorage.setItem('listaDaTabelaLocalstorage',JSON.stringify(ordenacao))
+        localStorage.setItem('listaDaTabelaLocalstorage',JSON.stringify(ordenacaoNomeDaEscola))
     }
-    const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon sx={{fontSize:'20px'}} /> : <ArrowDropDownIcon />;
+    const ordenarEmOrdermAlfabeticaNomeDoDiretor = () =>{
+        const ordenacaoNomeDoDiretor = [...listaDaTabela].sort((a,b) => {
+            if(ordemAlfabeticaAscendente){
+                return a.nomeDoDiretor.localeCompare(b.nomeDoDiretor)
+            }else{
+                return b.nomeDoDiretor.localeCompare(a.nomeDoDiretor)
+            }  
+        })
+        
+        setlistaDaTabela(ordenacaoNomeDoDiretor)
+        setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
+        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ordenacaoNomeDoDiretor))
+    }
+    const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon  /> : <ArrowDropDownIcon />;
     const [open, setOpen] = useState(false);
     const handleClickOpen = (item) => {
         setOpen(true);
@@ -245,7 +258,8 @@ const TelaFormulario = () => {
                                 <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                                 selecione a localizacaoDaEscola</Typography> : ""}
                         </FormControl>
-                        <Button type="submit" variant="contained" >Cadastrar</Button>
+                        <Button type="submit" variant="contained" >Cadastrar 
+                       </Button>
                     </Box>
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
@@ -264,10 +278,12 @@ const TelaFormulario = () => {
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell align='left'>Nome da escola
-                                                <Button onClick={ordernarEmOrdemAlfabetica}  endIcon = {arrowIcon}></Button>
+                                                <Button onClick={ordernarEmOrdemAlfabeticaNomeDaEscola}  endIcon = {arrowIcon}></Button>
                                                 </TableCell>
 
-                                                <TableCell align='left'>Nome do diretor</TableCell>
+                                                <TableCell align='left'>Nome do diretor
+                                                <Button onClick={ordenarEmOrdermAlfabeticaNomeDoDiretor} endIcon={arrowIcon}></Button>
+                                                </TableCell>
                                                 <TableCell align='left'>Turnos</TableCell>
                                                 <TableCell align="left">Localização da escola</TableCell>
                                             </TableRow>
