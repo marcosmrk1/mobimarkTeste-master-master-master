@@ -47,6 +47,7 @@ const TelaFormulario = () => {
     const [loading, setloading] = useState(false)
     const [itemDoMap, setItemDoMap] = useState({})
     const[ordemAlfabeticaAscendente,setOrdemAlfabeticaAscendente] = useState([])
+    const [NomeDobuttonEditar , setNomeDoButtonEditar] = useState(null)
     const concatListaDaTabela = (event) => {
         event.preventDefault()
         setloading(true)
@@ -79,6 +80,7 @@ const TelaFormulario = () => {
             }
             setloading(false)
         }, 1000);
+        setNomeDoButtonEditar(false)
         return;
     }
     useEffect(() => {
@@ -116,7 +118,7 @@ const TelaFormulario = () => {
         });
     }
     const validacao = () => {
-        if (objetosDosInputs.nomeDaEscola.length <= 4) {
+        if (objetosDosInputs.nomeDaEscola.length <= 3) {
             setTextErrorNomeDaEscola(true)
             return false
         }
@@ -138,7 +140,11 @@ const TelaFormulario = () => {
     }
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
+        if (NomeDobuttonEditar){
+        setNomeDoButtonEditar(false)
+    }setNomeDoButtonEditar(true)
     }
+
     const ordernarEmOrdemAlfabeticaNomeDaEscola  = () => {
         const ordenacaoNomeDaEscola = [...listaDaTabela].sort((a,b) => {
             if(ordemAlfabeticaAscendente){
@@ -258,7 +264,10 @@ const TelaFormulario = () => {
                                 <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                                 selecione a localizacaoDaEscola</Typography> : ""}
                         </FormControl>
-                        <Button type="submit" variant="contained" >Cadastrar 
+                        <Button type="submit" variant="contained"   
+                        onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
+                        {NomeDobuttonEditar ? 'editar' : 'cadastro' }
+                     
                        </Button>
                     </Box>
                 </Card>
