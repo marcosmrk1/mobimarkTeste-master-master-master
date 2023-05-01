@@ -293,7 +293,7 @@ const TelaFormulario = () => {
                                            {cadastroRealizadoComSucessoText && 
                              <Typography sx={{ color: 'green' }}>
                              <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                             Cadastro realizado com sucesso!
+                             Tabela atualizada com sucesso
                          </Typography>}
                                     <Table>
                                         <TableHead>
