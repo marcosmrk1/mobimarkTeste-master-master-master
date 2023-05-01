@@ -16,6 +16,7 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -48,8 +49,9 @@ const TelaFormulario = () => {
     const [itemDoMap, setItemDoMap] = useState({})
     const[ordemAlfabeticaAscendente,setOrdemAlfabeticaAscendente] = useState([])
     const [NomeDobuttonEditar , setNomeDoButtonEditar] = useState(null)
+    const [cadastroRealizadoComSucessoText,setCadastroRealizadoComSucessoText]= useState(false)
     const concatListaDaTabela = (event) => {
-        event.preventDefault()
+        event.preventDefault()     
         setloading(true)
         setTimeout(() => {
             if (validacao()) {
@@ -76,8 +78,13 @@ const TelaFormulario = () => {
                     nomeDoDiretor: '',
                     localizacaoDaEscola: '',
                     turnos: [],
-                });
+                });            
             }
+            setCadastroRealizadoComSucessoText(true)
+            setTimeout(() => {
+                setCadastroRealizadoComSucessoText(false)
+            }, 3000);
+
             setloading(false)
         }, 1000);
         setNomeDoButtonEditar(false)
@@ -122,11 +129,11 @@ const TelaFormulario = () => {
             setTextErrorNomeDaEscola(true)
             return false
         }
-        if (objetosDosInputs.localizacaoDaEscola.length == 0) {
+        if (objetosDosInputs.localizacaoDaEscola.length === 0) {
             setTextErrorParaLocalizacaoDaEscola(true)
             return false
         }
-        if (objetosDosInputs.turnos.length == 0) {
+        if (objetosDosInputs.turnos.length === 0) {
             setTextErrorSelecioneUmTunro(true)
             return false
         }
@@ -142,6 +149,7 @@ const TelaFormulario = () => {
         setobjetosDosInputs(campo)
         if (NomeDobuttonEditar){
         setNomeDoButtonEditar(false)
+    
     }setNomeDoButtonEditar(true)
     }
 
@@ -204,24 +212,24 @@ const TelaFormulario = () => {
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
                             fontWeight: "bold", color: "#325d87"
                         }}> Preencha Seus Dados  </Typography>
+
                         <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined"
                             name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
-                        />
-
-                        {textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'] === '' ?
-                            <Typography sx={{ color: 'red' }}  >
-                                <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                Preencha o campo: Nome Da Escola</Typography>
-                            : textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'].length < 4
-                                ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                    O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
-                                : ''}
-
-
+                            />
+                            {textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'] === '' ?
+                                <Typography sx={{ color: 'red' }}  >
+                                    <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                    Preencha o campo: Nome Da Escola</Typography>
+                                : textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'].length < 4
+                                    ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                        O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
+                                    : ''}
+                         
+                            
                         <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined"
                             name="nomeDoDiretor" value={objetosDosInputs.nomeDoDiretor} onChange={handleChange}
                         />
-
+                  
                         <FormControl sx={{ m: 1, width: 188 }}>
                             <InputLabel id="demo-multiple-checkbox-label"> Turnos</InputLabel>
                             <Select
@@ -282,7 +290,11 @@ const TelaFormulario = () => {
                                             fontWeight: "bold", color: "#325d87"
                                         }}> Tabelas De Escolas Cadastradas </Typography>
                                     </CardActions>
-
+                                           {cadastroRealizadoComSucessoText && 
+                             <Typography sx={{ color: 'green' }}>
+                             <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                             Cadastro realizado com sucesso!
+                         </Typography>}
                                     <Table>
                                         <TableHead>
                                             <TableRow>
