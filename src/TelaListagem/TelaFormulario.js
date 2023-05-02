@@ -50,7 +50,6 @@ const TelaFormulario = () => {
     const[ordemAlfabeticaAscendente,setOrdemAlfabeticaAscendente] = useState([])
     const [NomeDobuttonEditar , setNomeDoButtonEditar] = useState(null)
     const [cadastroRealizadoComSucessoText,setCadastroRealizadoComSucessoText]= useState(false)
-    const [totalDeCadastro,setTotalDeCadastro] = useState(0)
     const concatListaDaTabela = (event) => {
         event.preventDefault()     
         setloading(true)
@@ -59,9 +58,6 @@ const TelaFormulario = () => {
                 setTextErrorSelecioneUmTunro()
                 setTextErrorParaLocalizacaoDaEscola()
                 setTextErrorNomeDaEscola()
-                const ContadorDeTabelasCadastradas = totalDeCadastro + 1
-                setTotalDeCadastro(ContadorDeTabelasCadastradas)
-                setCadastroRealizadoComSucessoText(true)
                 setTimeout(() => {
                     setCadastroRealizadoComSucessoText(false)
                 }, 3000);
@@ -90,8 +86,6 @@ const TelaFormulario = () => {
                     turnos: [],
                 });            
             }
-        
-
             setloading(false)
         }, 1000);
         setNomeDoButtonEditar(false)
@@ -305,9 +299,6 @@ const TelaFormulario = () => {
                              <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                              Tabela atualizada com sucesso
                          </Typography>}
-                     
-                     <Typography>Total de escolas cadastradas {totalDeCadastro}</Typography>
-   
                                     <Table>
                                         <TableHead>
                                             <TableRow>
