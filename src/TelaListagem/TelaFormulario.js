@@ -50,11 +50,21 @@ const TelaFormulario = () => {
     const[ordemAlfabeticaAscendente,setOrdemAlfabeticaAscendente] = useState([])
     const [NomeDobuttonEditar , setNomeDoButtonEditar] = useState(null)
     const [cadastroRealizadoComSucessoText,setCadastroRealizadoComSucessoText]= useState(false)
+    const [totalDeCadastro,setTotalDeCadastro] = useState(0)
     const concatListaDaTabela = (event) => {
         event.preventDefault()     
         setloading(true)
         setTimeout(() => {
             if (validacao()) {
+                setTextErrorSelecioneUmTunro()
+                setTextErrorParaLocalizacaoDaEscola()
+                setTextErrorNomeDaEscola()
+                const ContadorDeTabelasCadastradas = totalDeCadastro + 1
+                setTotalDeCadastro(ContadorDeTabelasCadastradas)
+                setCadastroRealizadoComSucessoText(true)
+                setTimeout(() => {
+                    setCadastroRealizadoComSucessoText(false)
+                }, 3000);
                 let ExibirInformaçõesDosInputs = [...listaDaTabela]
                 if (!objetosDosInputs.id) {
                     ExibirInformaçõesDosInputs = ExibirInformaçõesDosInputs.concat({ ...objetosDosInputs, id: ExibirInformaçõesDosInputs.length + 1 })
@@ -80,17 +90,16 @@ const TelaFormulario = () => {
                     turnos: [],
                 });            
             }
-            setCadastroRealizadoComSucessoText(true)
-            setTimeout(() => {
-                setCadastroRealizadoComSucessoText(false)
-            }, 3000);
+        
 
             setloading(false)
         }, 1000);
         setNomeDoButtonEditar(false)
         return;
     }
+
     useEffect(() => {
+       
         const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
         if (listaSalva) {
             setlistaDaTabela(JSON.parse(listaSalva));
@@ -137,7 +146,7 @@ const TelaFormulario = () => {
             setTextErrorSelecioneUmTunro(true)
             return false
         }
-        return true
+        return true  
     }
     const excluirItemDaTabela = () => {
         let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id
@@ -165,6 +174,7 @@ const TelaFormulario = () => {
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
         localStorage.setItem('listaDaTabelaLocalstorage',JSON.stringify(ordenacaoNomeDaEscola))
     }
+
     const ordenarEmOrdermAlfabeticaNomeDoDiretor = () =>{
         const ordenacaoNomeDoDiretor = [...listaDaTabela].sort((a,b) => {
             if(ordemAlfabeticaAscendente){
@@ -225,7 +235,7 @@ const TelaFormulario = () => {
                                         O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
                                     : ''}
                          
-                            
+               
                         <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined"
                             name="nomeDoDiretor" value={objetosDosInputs.nomeDoDiretor} onChange={handleChange}
                         />
@@ -253,7 +263,7 @@ const TelaFormulario = () => {
                             </Select>
                             {textErrorSelecioneUmTurno ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon
                                 sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                selecione um turno</Typography> : ''}
+                                selecione um turno</Typography> : null}
                         </FormControl>
                         <FormControl sx={{ m: 1, width: 188 }}>
                             <InputLabel id="demo-simple-select-label">localizacao</InputLabel>
@@ -274,7 +284,7 @@ const TelaFormulario = () => {
                         </FormControl>
                         <Button type="submit" variant="contained"   
                         onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
-                        {NomeDobuttonEditar ? 'editar' : 'cadastro' }
+                        {NomeDobuttonEditar ? 'editar' : 'cadastrar' }
                      
                        </Button>
                     </Box>
@@ -295,6 +305,9 @@ const TelaFormulario = () => {
                              <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                              Tabela atualizada com sucesso
                          </Typography>}
+                     
+                     <Typography>Total de escolas cadastradas {totalDeCadastro}</Typography>
+   
                                     <Table>
                                         <TableHead>
                                             <TableRow>
