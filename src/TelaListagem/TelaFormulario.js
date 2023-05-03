@@ -41,6 +41,7 @@ const TelaFormulario = () => {
         turnos: [],
 
     })
+    const [mostrarOsObjetosParaExclusao,setMostrarObjetoParaExclusao]= useState([])
     const [listaDaTabela, setlistaDaTabela] = useState([])
     const [textErrorNomeDaEscola, setTextErrorNomeDaEscola] = useState(false)
     const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
@@ -143,9 +144,13 @@ const TelaFormulario = () => {
         return true
     }
     const excluirItemDaTabela = () => {
-        let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id
-        )
+        let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id)
+        console.log(listaAposExclusao)
+
+        
         setlistaDaTabela(listaAposExclusao)
+        setMostrarObjetoParaExclusao(listaAposExclusao)
+
         localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(listaAposExclusao))
     }
     const editarItemDaTabela = (campo) => {
@@ -187,6 +192,7 @@ const TelaFormulario = () => {
     const handleClickOpen = (item) => {
         setOpen(true);
         setItemDoMap(item)
+        setMostrarObjetoParaExclusao(item)
     }
     const handleCancel = () => {
         setOpen(false);
@@ -332,8 +338,20 @@ const TelaFormulario = () => {
                                                 <DialogTitle>Confirmar ação</DialogTitle>
                                                 <DialogContent>
                                                     <DialogContentText>
-                                                        Deseja confirmar a ação?
-                                                    </DialogContentText>
+                                                        excluir as seguintes informações :
+                                                        </DialogContentText>
+                                                        {mostrarOsObjetosParaExclusao && (
+                                                            <Box sx={{marginTop:"10px"}}>
+                                                                <Typography variant="h6">
+                                                                <p>Nome da escola: {mostrarOsObjetosParaExclusao.nomeDaEscola}</p>
+                                                               <p> nome do Diretor: {mostrarOsObjetosParaExclusao.nomeDoDiretor}</p>
+                                                               <p> Turno selecionado : {mostrarOsObjetosParaExclusao.turnos}</p>
+                                                               <p> localização da escola : {mostrarOsObjetosParaExclusao.localizacaoDaEscola}</p>
+
+                                                                </Typography>
+                                                            
+                                                            </Box>
+                                                        )}
                                                 </DialogContent>
                                                 <DialogActions>
                                                     <Button onClick={handleCancel} color="primary">
