@@ -52,9 +52,9 @@ const TelaFormulario = () => {
     const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
     const concatListaDaTabela = (event) => {
         event.preventDefault()
-        setloading(true)
-        setTimeout(() => {
-            if (validacao()) {
+        if (validacao()) {
+                setloading(true)
+                setTimeout(() => {
                 setTextErrorSelecioneUmTunro()
                 setTextErrorParaLocalizacaoDaEscola()
                 setTextErrorNomeDaEscola()
@@ -85,9 +85,9 @@ const TelaFormulario = () => {
                     localizacaoDaEscola: '',
                     turnos: [],
                 });
+                setloading(false)
+            }, 1000);
             }
-            setloading(false)
-        }, 1000);
         setNomeDoButtonEditar(false)
         return;
     }
