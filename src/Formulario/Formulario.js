@@ -15,6 +15,7 @@ import axios from "axios";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { localStorageEstado } from "../localStorageGlobais/index"
 import { estados } from '../utils/utils'
+import Grid from '@mui/material/Grid';
 // import {responvidadeMobileFitlroBusca} from '../utils/utils'
 
 const Formulario = () => {
@@ -164,7 +165,10 @@ const Formulario = () => {
             fontWeight: "bold", color: "#325d87", marginLeft: '12px'
           }}> Tela listagem </Typography>
         </Card>
-        <Box style={{ display: 'flex', justifyContent: 'center',marginTop: "20px",gap:'10px'}}>
+      
+        
+<Box  style={{ display: 'flex', justifyContent: 'center', marginTop: "20px", gap: '10px' }}>
+          
           <TextField style={{
             display: 'flex', widht: '100%'
           }}
@@ -185,7 +189,7 @@ const Formulario = () => {
             value={buscaTexto}
             onChange={(ev) => setBuscaTexto(ev.target.value)}
           />
-          <FormControl  sx={{ minWidth: 190 }}> 
+          <FormControl sx={{ minWidth: 190 }}>
             <InputLabel  >Selecione um estado</InputLabel>
             <Select
               label='Selecione um turno'
@@ -199,13 +203,13 @@ const Formulario = () => {
             </Select>
           </FormControl>
           {
-            Cidades && Cidades.length > 0 && <FormControl  sx={{ minWidth: 190 }}>
+            Cidades && Cidades.length > 0 && <FormControl sx={{ minWidth: 190 }}>
               <InputLabel  >Selecione a cidade</InputLabel>
               <Select
                 label='selecione uma cidade'
                 name='selecione'
                 value={cidadeSelecionada}
-            
+
                 // onClick={pressionarbusca}
                 onChange={(event) => setCidadeselecionada(event.target.value)}
               >
@@ -297,6 +301,8 @@ const Formulario = () => {
           </Box>
           }
         </Box>
+
+
       </Box>
 
   )

@@ -166,7 +166,7 @@ const TelaFormulario = () => {
         })
         setlistaDaTabela(ordenacaoNomeDaEscola)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ordenacaoNomeDaEscola))
+        // localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ordenacaoNomeDaEscola))
     }
 
     const ordenarEmOrdermAlfabeticaNomeDoDiretor = () => {

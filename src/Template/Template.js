@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function Template() {
+function Template({children}) {
 const navigate = useNavigate();
 const FuncaoSaidaButton = () => {
   window.localStorage.removeItem(dadosDoEmaileSenha, '')
@@ -77,6 +77,7 @@ const FuncaoSaidaButton = () => {
           </Box>
       </Toolbar>
     </AppBar>
+    {children}
     </>
   );
 }

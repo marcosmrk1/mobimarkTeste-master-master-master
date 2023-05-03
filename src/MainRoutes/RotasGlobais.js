@@ -13,7 +13,12 @@ function Protected({ children }) {
       <Navigate to='/' replace />
     )
   } return (
-    children
+    <>
+    {children}
+    <div>
+    <Template/>
+    </div>
+    </>
   )
 }
 function NaoVoltarListagem({ children }) {
@@ -36,22 +41,17 @@ const mainroutes = () => {
         </NaoVoltarListagem>
       } />
       <Route path='/Sobremim' element={
-        <>
-          <Template/>
           <TeladeMenu/>
-        </>
         }
         />
       <Route path='/TelaFormulario' element={
         <Protected>
-        <Template />
         <TelaFormulario />
         </Protected>
       }
       />
       <Route path='/formulario' element={
         <Protected >
-          <Template />
           <Formulario />
         </Protected>
       } />
