@@ -47,11 +47,11 @@ const TelaFormulario = () => {
     const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
     const [loading, setloading] = useState(false)
     const [itemDoMap, setItemDoMap] = useState({})
-    const[ordemAlfabeticaAscendente,setOrdemAlfabeticaAscendente] = useState([])
-    const [NomeDobuttonEditar , setNomeDoButtonEditar] = useState(null)
-    const [cadastroRealizadoComSucessoText,setCadastroRealizadoComSucessoText]= useState(false)
+    const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
+    const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
+    const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
     const concatListaDaTabela = (event) => {
-        event.preventDefault()     
+        event.preventDefault()
         setloading(true)
         setTimeout(() => {
             if (validacao()) {
@@ -84,7 +84,7 @@ const TelaFormulario = () => {
                     nomeDoDiretor: '',
                     localizacaoDaEscola: '',
                     turnos: [],
-                });            
+                });
             }
             setloading(false)
         }, 1000);
@@ -93,7 +93,7 @@ const TelaFormulario = () => {
     }
 
     useEffect(() => {
-       
+
         const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
         if (listaSalva) {
             setlistaDaTabela(JSON.parse(listaSalva));
@@ -140,7 +140,7 @@ const TelaFormulario = () => {
             setTextErrorSelecioneUmTunro(true)
             return false
         }
-        return true  
+        return true
     }
     const excluirItemDaTabela = () => {
         let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id
@@ -150,39 +150,39 @@ const TelaFormulario = () => {
     }
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
-        if (NomeDobuttonEditar){
-        setNomeDoButtonEditar(false)
-    
-    }setNomeDoButtonEditar(true)
+        if (NomeDobuttonEditar) {
+
+            setNomeDoButtonEditar(false)
+        } setNomeDoButtonEditar(true)
     }
 
-    const ordernarEmOrdemAlfabeticaNomeDaEscola  = () => {
-        const ordenacaoNomeDaEscola = [...listaDaTabela].sort((a,b) => {
-            if(ordemAlfabeticaAscendente){
-                return a.nomeDaEscola.localeCompare(b.nomeDaEscola)                        
-            }else {
+    const ordernarEmOrdemAlfabeticaNomeDaEscola = () => {
+        const ordenacaoNomeDaEscola = [...listaDaTabela].sort((a, b) => {
+            if (ordemAlfabeticaAscendente) {
+                return a.nomeDaEscola.localeCompare(b.nomeDaEscola)
+            } else {
                 return b.nomeDaEscola.localeCompare(a.nomeDaEscola)
             }
         })
         setlistaDaTabela(ordenacaoNomeDaEscola)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-        localStorage.setItem('listaDaTabelaLocalstorage',JSON.stringify(ordenacaoNomeDaEscola))
+        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ordenacaoNomeDaEscola))
     }
 
-    const ordenarEmOrdermAlfabeticaNomeDoDiretor = () =>{
-        const ordenacaoNomeDoDiretor = [...listaDaTabela].sort((a,b) => {
-            if(ordemAlfabeticaAscendente){
+    const ordenarEmOrdermAlfabeticaNomeDoDiretor = () => {
+        const ordenacaoNomeDoDiretor = [...listaDaTabela].sort((a, b) => {
+            if (ordemAlfabeticaAscendente) {
                 return a.nomeDoDiretor.localeCompare(b.nomeDoDiretor)
-            }else{
+            } else {
                 return b.nomeDoDiretor.localeCompare(a.nomeDoDiretor)
-            }  
+            }
         })
-        
         setlistaDaTabela(ordenacaoNomeDoDiretor)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
         localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ordenacaoNomeDoDiretor))
     }
-    const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon  /> : <ArrowDropDownIcon />;
+    //
+    const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
     const [open, setOpen] = useState(false);
     const handleClickOpen = (item) => {
         setOpen(true);
@@ -196,6 +196,7 @@ const TelaFormulario = () => {
         excluirItemDaTabela()
     }
     return (
+
         <>
             <Card>
                 <Typography variant="p" style={{
@@ -219,21 +220,21 @@ const TelaFormulario = () => {
 
                         <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined"
                             name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
-                            />
-                            {textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'] === '' ?
-                                <Typography sx={{ color: 'red' }}  >
-                                    <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                    Preencha o campo: Nome Da Escola</Typography>
-                                : textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'].length < 4
-                                    ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                        O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
-                                    : ''}
-                         
-               
+                        />
+                        {textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'] === '' ?
+                            <Typography sx={{ color: 'red' }}  >
+                                <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                Preencha o campo: Nome Da Escola</Typography>
+                            : textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'].length < 4
+                                ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                    O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
+                                : ''}
+
+
                         <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined"
                             name="nomeDoDiretor" value={objetosDosInputs.nomeDoDiretor} onChange={handleChange}
                         />
-                  
+
                         <FormControl sx={{ m: 1, width: 188 }}>
                             <InputLabel id="demo-multiple-checkbox-label"> Turnos</InputLabel>
                             <Select
@@ -276,11 +277,10 @@ const TelaFormulario = () => {
                                 <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                                 selecione a localizacaoDaEscola</Typography> : ""}
                         </FormControl>
-                        <Button type="submit" variant="contained"   
-                        onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
-                        {NomeDobuttonEditar ? 'editar' : 'cadastrar' }
-                     
-                       </Button>
+                        <Button type="submit" variant="contained"
+                            onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
+                            {objetosDosInputs.id ? 'editar' : 'cadastrar'}
+                        </Button>
                     </Box>
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
@@ -294,20 +294,20 @@ const TelaFormulario = () => {
                                             fontWeight: "bold", color: "#325d87"
                                         }}> Tabelas De Escolas Cadastradas </Typography>
                                     </CardActions>
-                                           {cadastroRealizadoComSucessoText && 
-                             <Typography sx={{ color: 'green' }}>
-                             <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                             Tabela atualizada com sucesso
-                         </Typography>}
+                                    {cadastroRealizadoComSucessoText &&
+                                        <Typography sx={{ color: 'green' }}>
+                                            <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                            Tabela atualizada com sucesso
+                                        </Typography>}
                                     <Table>
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell align='left'>Nome da escola
-                                                <Button onClick={ordernarEmOrdemAlfabeticaNomeDaEscola}  endIcon = {arrowIcon}></Button>
+                                                    <Button onClick={ordernarEmOrdemAlfabeticaNomeDaEscola} endIcon={arrowIcon}></Button>
                                                 </TableCell>
 
                                                 <TableCell align='left'>Nome do diretor
-                                                <Button onClick={ordenarEmOrdermAlfabeticaNomeDoDiretor} endIcon={arrowIcon}></Button>
+                                                    <Button onClick={ordenarEmOrdermAlfabeticaNomeDoDiretor} endIcon={arrowIcon}></Button>
                                                 </TableCell>
                                                 <TableCell align='left'>Turnos</TableCell>
                                                 <TableCell align="left">Localização da escola</TableCell>

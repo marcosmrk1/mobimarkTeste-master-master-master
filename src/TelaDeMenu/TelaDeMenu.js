@@ -16,6 +16,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import fotoDoMarcos from '../FotosGerais/marcosPaulo.png'
 import EmailIcon from '@mui/icons-material/Email';
+import GetAppIcon from '@mui/icons-material/GetApp';
 const TelaDeMenu = () => {
     return (
         <>
@@ -32,9 +33,9 @@ const TelaDeMenu = () => {
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "29px",
                             fontWeight: "bold", color: "#325d87", textAlign: 'center'
                         }}> Sobre mim </Typography>
-                        <Box sx={{ borderBottom: '3px solid black', marginBottom: '10px' }}></Box>
+                        <Box sx={{   color: "#325d87", borderBottom: '3px solid black', marginBottom: '10px' }}></Box>
                         <Typography sx={{
-                            marginTop: '28px', textAlign: 'left',
+                            marginTop: '28px', textAlign: 'justify',
                             fontFamily: "sans-serif",
                             fontSize: "20px",
                             fontWeight: "bold",
@@ -43,12 +44,13 @@ const TelaDeMenu = () => {
                         }}>
                             Meu nome é Marcos Paulo, tenho 19 anos e atualmente sou estagiário de front-end na Mobimark.
                             Sou apaixonado por programação e busco aprimorar minhas habilidades diariamente.
-                            Estou cursando Análise e Desenvolvimento de Sistemas na faculdade e prevejo concluir o curso até o final de 2023.
+                            Estou cursando Análise e Desenvolvimento de Sistemas na faculdade e prevejo concluir o curso até o final de 2023. <p>
                             Busco me tornar um profissional cada vez mais qualificado para agregar valor à equipe e ao mercado de trabalho.
                             Estou sempre aprendendo sobre os problemas reais e suas soluções,
                             praticando o uso de clean code e dominando cada vez mais a biblioteca React.
                             No futuro, vejo-me como um excelente programador,
                             ensinando outros desenvolvedores e trabalhando em grandes projetos, vivendo os sonhos de hoje.
+                            </p>
                         </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
@@ -77,12 +79,14 @@ const TelaDeMenu = () => {
                             </a>
                         </Card>
                         <Box>
-                            <Button color='primary' variant='contained' sx={{marginTop:'35px'}}>Dowload Do curriculo</Button>
+                            <a href='curriculo.pdf' download target='_blank'> <Button color='primary' 
+                            variant='contained' sx={{ marginTop: '35px' }}> <GetAppIcon/>Dowload Do curriculo
+                            </Button></a>
                         </Box>
                     </Box>
 
                     <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '35px' }}>
-                        <Accordion sx={{ width: '70%' }} >
+                        <Accordion sx={{ width: '70%' }}defaultExpanded={true} >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -104,7 +108,7 @@ const TelaDeMenu = () => {
                             </AccordionDetails>
                         </Accordion>
 
-                        <Accordion sx={{ width: '70%' }} >
+                        <Accordion sx={{ width: '70%' }} defaultExpanded={true} >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -120,13 +124,13 @@ const TelaDeMenu = () => {
                             <AccordionDetails>
                                 <Typography>
                                     As maiores dificuldades foram encontradas<strong> na tela de formulário,
-                                    especialmente na parte de funções como pesquisa, aquisição da API, responsividade e rotas.</strong> Mas com a prática,
+                                        especialmente na parte de funções como pesquisa, aquisição da API, responsividade e rotas.</strong> Mas com a prática,
                                     tornou-se mais fácil a cada dia que passava. Entendia mais como funcionava e como pensar.
                                     Todas as dificuldades no fim serviram de grande ajuda para o aprimoramento de minhas habilidades.
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion sx={{ width: '70%' }} >
+                        <Accordion sx={{ width: '70%' }}  defaultExpanded={true}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -137,7 +141,7 @@ const TelaDeMenu = () => {
                                     fontSize: "20px",
                                     fontWeight: "bold", color: "#325d87",
                                     marginLeft: '12px'
-                                }}>Sugestões</Typography>
+                                }}>3.Sugestões</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography sx={{}} >
