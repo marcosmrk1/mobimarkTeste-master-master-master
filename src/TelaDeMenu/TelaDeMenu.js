@@ -27,16 +27,19 @@ const TelaDeMenu = () => {
             </Card>
             <Container>
                 <Card sx={{ marginTop: '12px' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', margin: '0 20px' }}>
                         <Typography sx={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "29px",
                             fontWeight: "bold", color: "#325d87", textAlign: 'center'
                         }}> Sobre mim </Typography>
+                        <Box sx={{ borderBottom: '3px solid black', marginBottom: '10px' }}></Box>
                         <Typography sx={{
-                            marginTop: '20px', textAlign: 'left',
+                            marginTop: '28px', textAlign: 'left',
                             fontFamily: "sans-serif",
                             fontSize: "20px",
                             fontWeight: "bold",
+                            width: '98.6%',
+                            marginLeft: '9px'
                         }}>
                             Meu nome é Marcos Paulo, tenho 19 anos e atualmente sou estagiário de front-end na Mobimark.
                             Sou apaixonado por programação e busco aprimorar minhas habilidades diariamente.
@@ -47,34 +50,38 @@ const TelaDeMenu = () => {
                             No futuro, vejo-me como um excelente programador,
                             ensinando outros desenvolvedores e trabalhando em grandes projetos, vivendo os sonhos de hoje.
                         </Typography>
-
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                         <Box
                             component="img"
                             sx={{
                                 height: 290,
-                                width: 350,
-                                marginTop: '20px',
-                                maxHeight: { xs: 233, md: 167 },
-                                maxWidth: { xs: 180, md: 200, },
+                                width: 300,
+                                marginTop: '28px',
+
+
                             }}
                             alt='marcos.png'
                             src={fotoDoMarcos}
                         ></Box>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: '20px' }}>
-                           <a href='https://github.com/marcosmrk1' target='_blank'> 
-                           <GitHubIcon sx={{ margin: '12px', color: "#325d87" }} />
-                           </a>
-                            <a href='https://www.linkedin.com/in/marcosp-rsd-/'target="_blank" >
+                        <Card sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: '28px' }}>
+                            <a href='https://github.com/marcosmrk1' target='_blank'>
+                                <GitHubIcon sx={{ margin: '12px', color: "#325d87" }} />
+                            </a>
+                            <a href='https://www.linkedin.com/in/marcosp-rsd-/' target="_blank" >
                                 <LinkedInIcon sx={{ margin: '12px', color: "#325d87" }} />
-                                </a>
+                            </a>
                             <a href='https://mail.google.com/mail/u/0/?tab=rm&ogbl#sent?compose=new' target='_blank'>
-                                <EmailIcon sx={{ margin: '12px', color: "#325d87" }} /> 
-                                </a>
+                                <EmailIcon sx={{ margin: '12px', color: "#325d87" }} />
+                            </a>
+                        </Card>
+                        <Box>
+                            <Button color='primary' variant='contained' sx={{marginTop:'35px'}}>Dowload Do curriculo</Button>
                         </Box>
                     </Box>
 
-                    <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '35px' }}>
                         <Accordion sx={{ width: '70%' }} >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -85,11 +92,12 @@ const TelaDeMenu = () => {
                                     fontFamily: "Roboto, Helvetica,Arial,sans-serif",
                                     fontSize: "20px",
                                     fontWeight: "bold", color: "#325d87",
-                                    marginLeft: '12px'}}>1.O que foi utilizado</Typography>
+                                    marginLeft: '12px'
+                                }}>1.O que foi utilizado</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography sx={{
-                                    
+
                                 }}>
                                     Nesse projeto em React, foi utilizado as  bibliotecas  para o visual<strong> material UI </strong>, para rotas <strong>React Rouder Dom</strong>.
                                 </Typography>
@@ -111,14 +119,13 @@ const TelaDeMenu = () => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
-                                    As maiores dificuldades foram encontradas na tela de formulário,
-                                    especialmente na parte de funções como pesquisa, aquisição da API, responsividade e rotas. Mas com a prática,
+                                    As maiores dificuldades foram encontradas<strong> na tela de formulário,
+                                    especialmente na parte de funções como pesquisa, aquisição da API, responsividade e rotas.</strong> Mas com a prática,
                                     tornou-se mais fácil a cada dia que passava. Entendia mais como funcionava e como pensar.
                                     Todas as dificuldades no fim serviram de grande ajuda para o aprimoramento de minhas habilidades.
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-
                         <Accordion sx={{ width: '70%' }} >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -140,10 +147,7 @@ const TelaDeMenu = () => {
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-
                     </Box>
-
-
                 </Card>
             </Container>
         </>
