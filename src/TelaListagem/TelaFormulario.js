@@ -152,6 +152,7 @@ const TelaFormulario = () => {
         setlistaDaTabela(listaAposExclusao)
         localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(listaAposExclusao))
     }
+
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
         if (NomeDobuttonEditar) {
@@ -159,18 +160,16 @@ const TelaFormulario = () => {
             setNomeDoButtonEditar(false)
         } setNomeDoButtonEditar(true)
     }
-
-    const ordernarEmOrdemAlfabeticaNomeDaEscola = () => {
-        const ordenacaoNomeDaEscola = [...listaDaTabela].sort((a, b) => {
-            if (ordemAlfabeticaAscendente) {
-                return a.nomeDaEscola.localeCompare(b.nomeDaEscola)
-            } else {
-                return b.nomeDaEscola.localeCompare(a.nomeDaEscola)
-            }
+    const CancelarEdicao = () => {
+        setobjetosDosInputs({
+            nomeDaEscola: '',
+            nomeDoDiretor: '',
+            localizacaoDaEscola: '',
+            turnos: [],
         })
-        setlistaDaTabela(ordenacaoNomeDaEscola)
-        setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-    }
+     setNomeDoButtonEditar(false)
+    } 
+
     const ordenarOrdemAlfabetica = (atributoOrdenacao) => {
         const ordenacaoNomeDaEscola = [...listaDaTabela].sort((a, b) => {
             if (ordemAlfabeticaAscendente) {
@@ -181,28 +180,13 @@ const TelaFormulario = () => {
         })
         setlistaDaTabela(ordenacaoNomeDaEscola)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-        
     }
-    const ordenarEmOrdermAlfabeticaNomeDoDiretor = () => {
-        const ordenacaoNomeDoDiretor = [...listaDaTabela].sort((a, b) => {
-            if (ordemAlfabeticaAscendente) {
-                return a.nomeDoDiretor.localeCompare(b.nomeDoDiretor)
-            } else {
-                return b.nomeDoDiretor.localeCompare(a.nomeDoDiretor)
-            }
-        })
-        setlistaDaTabela(ordenacaoNomeDoDiretor)
-        setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-
-    }
-    //
     const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
     const [open, setOpen] = useState(false);
     const handleClickOpen = (item) => {
         setOpen(true);
         setItemDoMap(item)
         setItensQueVaoSerExcluidos(item)
-  
     }
     const handleCancel = () => {
         setOpen(false);
@@ -225,7 +209,7 @@ const TelaFormulario = () => {
                     <Box
                         onSubmit={concatListaDaTabela}
                         component="form"
-                        sx={{ '& > :not(style)': { m: 2 } }}
+                        sx={{ '& > :not(style)': { m: 1.1} }}
                         noValidate
                         autoComplete="off"
                     >
@@ -297,6 +281,9 @@ const TelaFormulario = () => {
                             onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
                             {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                         </Button>
+                        {NomeDobuttonEditar &&(
+                        <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar edição</Button>
+                      )}
                     </Box>
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
@@ -321,7 +308,6 @@ const TelaFormulario = () => {
                                                 <TableCell align='left'>Nome da escola
                                                     <Button onClick={() => ordenarOrdemAlfabetica('nomeDaEscola')} endIcon={arrowIcon}></Button>
                                                 </TableCell>
-
                                                 <TableCell align='left'>Nome do diretor
                                                     <Button onClick={() => ordenarOrdemAlfabetica('nomeDoDiretor')} endIcon={arrowIcon}></Button>
                                                 </TableCell>
