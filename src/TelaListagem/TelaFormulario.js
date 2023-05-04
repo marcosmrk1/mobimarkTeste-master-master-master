@@ -41,7 +41,6 @@ const TelaFormulario = () => {
         turnos: [],
 
     })
-    const [mostrarOsObjetosParaExclusao,setMostrarObjetoParaExclusao]= useState([])
     const [listaDaTabela, setlistaDaTabela] = useState([])
     const [textErrorNomeDaEscola, setTextErrorNomeDaEscola] = useState(false)
     const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
@@ -51,14 +50,16 @@ const TelaFormulario = () => {
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
     const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
     const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
+    const [itensQueVaoSerExcluidos,setItensQueVaoSerExcluidos] = useState([])
     const concatListaDaTabela = (event) => {
         event.preventDefault()
+        setloading(true)
+        setTimeout(() => {
         if (validacao()) {
-                setloading(true)
-                setTimeout(() => {
                 setTextErrorSelecioneUmTunro()
                 setTextErrorParaLocalizacaoDaEscola()
                 setTextErrorNomeDaEscola()
+                setCadastroRealizadoComSucessoText(true)
                 setTimeout(() => {
                     setCadastroRealizadoComSucessoText(false)
                 }, 3000);
@@ -86,10 +87,10 @@ const TelaFormulario = () => {
                     localizacaoDaEscola: '',
                     turnos: [],
                 });
-                setloading(false)
-            }, 1000);
             }
-        setNomeDoButtonEditar(false)
+            setloading(false)
+        }, 1000);
+                setNomeDoButtonEditar(false)
         return;
     }
 
@@ -144,13 +145,11 @@ const TelaFormulario = () => {
         return true
     }
     const excluirItemDaTabela = () => {
-        let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id)
-        console.log(listaAposExclusao)
+        let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id
 
-        
+        )
+        setItensQueVaoSerExcluidos(listaAposExclusao)
         setlistaDaTabela(listaAposExclusao)
-        setMostrarObjetoParaExclusao(listaAposExclusao)
-
         localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(listaAposExclusao))
     }
     const editarItemDaTabela = (campo) => {
@@ -171,7 +170,7 @@ const TelaFormulario = () => {
         })
         setlistaDaTabela(ordenacaoNomeDaEscola)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-        // localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ordenacaoNomeDaEscola))
+        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ordenacaoNomeDaEscola))
     }
 
     const ordenarEmOrdermAlfabeticaNomeDoDiretor = () => {
@@ -192,7 +191,8 @@ const TelaFormulario = () => {
     const handleClickOpen = (item) => {
         setOpen(true);
         setItemDoMap(item)
-        setMostrarObjetoParaExclusao(item)
+        setItensQueVaoSerExcluidos(item)
+  
     }
     const handleCancel = () => {
         setOpen(false);
@@ -338,20 +338,19 @@ const TelaFormulario = () => {
                                                 <DialogTitle>Confirmar ação</DialogTitle>
                                                 <DialogContent>
                                                     <DialogContentText>
-                                                        excluir as seguintes informações :
-                                                        </DialogContentText>
-                                                        {mostrarOsObjetosParaExclusao && (
+                                                  essas informações estão prestes a ser excluidos:
+                                                {itensQueVaoSerExcluidos && (
                                                             <Box sx={{marginTop:"10px"}}>
-                                                                <Typography variant="h6">
-                                                                <p>Nome da escola: {mostrarOsObjetosParaExclusao.nomeDaEscola}</p>
-                                                               <p> nome do Diretor: {mostrarOsObjetosParaExclusao.nomeDoDiretor}</p>
-                                                               <p> Turno selecionado : {mostrarOsObjetosParaExclusao.turnos}</p>
-                                                               <p> localização da escola : {mostrarOsObjetosParaExclusao.localizacaoDaEscola}</p>
+                                                                <Typography variant="h7">
+                                                                <p>Nome da escola: {itensQueVaoSerExcluidos.nomeDaEscola}</p>
+                                                               <p> nome do Diretor: {itensQueVaoSerExcluidos.nomeDoDiretor}</p>
+                                                               <p> Turno selecionado : {itensQueVaoSerExcluidos.turnos}</p>
+                                                               <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
 
                                                                 </Typography>
-                                                            
                                                             </Box>
                                                         )}
+                                                    </DialogContentText>
                                                 </DialogContent>
                                                 <DialogActions>
                                                     <Button onClick={handleCancel} color="primary">

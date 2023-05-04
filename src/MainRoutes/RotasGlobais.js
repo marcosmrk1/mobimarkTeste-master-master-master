@@ -13,7 +13,10 @@ function Protected({ children }) {
       <Navigate to='/' replace />
       )
   } return (
-    children
+    <>
+    <Template/>
+    {children}
+    </>
 
   )
 }
@@ -31,28 +34,27 @@ const mainroutes = () => {
   return (
     <Routes>
       <Route exact path='/' element={
-        // <Template/>
+
     <NaoVoltarListagem>
           <Login/>
         </NaoVoltarListagem>
       } />
       <Route path='/Sobremim' element={
-         <>
-         <Template/>
+        
+          <Protected>
          <TeladeMenu/>
-         </>
+         </Protected>
+  
         }
         />
       <Route path='/TelaFormulario' element={
         <Protected>
-        <Template/>
         <TelaFormulario />
         </Protected>
       }
       />
       <Route path='/formulario' element={
         <Protected >
-          <Template/>
           <Formulario />
         </Protected>
       } />
