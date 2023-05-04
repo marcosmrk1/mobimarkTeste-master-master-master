@@ -50,7 +50,8 @@ const TelaFormulario = () => {
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
     const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
     const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
-    const [itensQueVaoSerExcluidos,setItensQueVaoSerExcluidos] = useState([])
+    const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
+    const [buscarInformacoes, setBuscarInformacoes] = useState('')
     const concatListaDaTabela = (event) => {
         event.preventDefault()
         if (validacao()) {
@@ -89,8 +90,8 @@ const TelaFormulario = () => {
                 });
                 setloading(false)
             }, 1000);
-            }
-                setNomeDoButtonEditar(false)
+        }
+        setNomeDoButtonEditar(false)
         return;
     }
 
@@ -167,10 +168,9 @@ const TelaFormulario = () => {
             localizacaoDaEscola: '',
             turnos: [],
         })
-     setNomeDoButtonEditar(false)
+        setNomeDoButtonEditar(false)
 
-    } 
-
+    }
     const ordenarOrdemAlfabetica = (atributoOrdenacao) => {
         const ordenacaoNomeDaEscola = [...listaDaTabela].sort((a, b) => {
             if (ordemAlfabeticaAscendente) {
@@ -210,7 +210,7 @@ const TelaFormulario = () => {
                     <Box
                         onSubmit={concatListaDaTabela}
                         component="form"
-                        sx={{ '& > :not(style)': { m: 1.1} }}
+                        sx={{ '& > :not(style)': { m: 1.1 } }}
                         noValidate
                         autoComplete="off"
                     >
@@ -282,9 +282,9 @@ const TelaFormulario = () => {
                             onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
                             {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                         </Button>
-                        {NomeDobuttonEditar &&(
-                        <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar edição</Button>
-                      )}
+                        {NomeDobuttonEditar && (
+                            <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar edição</Button>
+                        )}
                     </Box>
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
@@ -303,6 +303,12 @@ const TelaFormulario = () => {
                                             <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                                             Tabela atualizada com sucesso
                                         </Typography>}
+                                        <TextField sx={{ marginTop: '10px', width: '30%', marginLeft: "30%" }}
+                                        id="searchbar" /* onKeyUp="search_animal" */ type="text"
+                                        name="search" placeholder="Procurar  escola || diretor ..."
+                                        value={buscarInformacoes}
+                                        onChange={(ev) => setBuscarInformacoes(ev.target.value)}
+                                    />
                                     <Table>
                                         <TableHead>
                                             <TableRow>
@@ -317,32 +323,35 @@ const TelaFormulario = () => {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {listaDaTabela.map((item, index) => (
-                                                <TableRow key={index}>
-                                                    <TableCell>{item.nomeDaEscola}</TableCell>
-                                                    <TableCell>{item.nomeDoDiretor.length > 0 ? item.nomeDoDiretor : <Typography>Não informado </Typography>}</TableCell>
-                                                    <TableCell>
-                                                        {item.turnos.join(",")}
-                                                    </TableCell>
-                                                    <TableCell>{item.localizacaoDaEscola}</TableCell>
-                                                    <Button onClick={() => handleClickOpen(item)}>
-                                                        <DeleteForeverIcon />
-                                                    </Button>
-                                                    <Button onClick={() => editarItemDaTabela(item)}> <EditIcon /></Button>
-                                                </TableRow>
-                                            ))}
+                                            {listaDaTabela.filter((item) => item.nomeDaEscola.toLowerCase()
+                                                .includes(buscarInformacoes.toLowerCase()) || 
+                                                item.nomeDoDiretor.toLowerCase().includes(buscarInformacoes.toLowerCase())).map((item, index) => (
+                                                    <TableRow key={index}>
+                                                        <TableCell>{item.nomeDaEscola}</TableCell>
+                                                        <TableCell>{item.nomeDoDiretor.length > 0 ? item.nomeDoDiretor : <Typography>Não informado </Typography>
+                                                        }</TableCell>
+                                                        <TableCell>
+                                                            {item.turnos.join(",")}
+                                                        </TableCell>
+                                                        <TableCell>{item.localizacaoDaEscola}</TableCell>
+                                                        <Button onClick={() => handleClickOpen(item)}>
+                                                            <DeleteForeverIcon />
+                                                        </Button>
+                                                        <Button onClick={() => editarItemDaTabela(item)}> <EditIcon /></Button>
+                                                    </TableRow>
+                                                ))}
                                             <Dialog open={open} onClose={handleCancel}>
                                                 <DialogTitle>Confirmar ação</DialogTitle>
                                                 <DialogContent>
                                                     <DialogContentText>
-                                                  essas informações estão prestes a ser excluidos:
-                                                {itensQueVaoSerExcluidos && (
-                                                            <Box sx={{marginTop:"10px"}}>
+                                                        essas informações estão prestes a ser excluidos:
+                                                        {itensQueVaoSerExcluidos && (
+                                                            <Box sx={{ marginTop: "10px" }}>
                                                                 <Typography variant="h7">
-                                                                <p>Nome da escola: {itensQueVaoSerExcluidos.nomeDaEscola}</p>
-                                                               <p> nome do Diretor: {itensQueVaoSerExcluidos.nomeDoDiretor}</p>
-                                                               <p> Turno selecionado : {itensQueVaoSerExcluidos.turnos}</p>
-                                                               <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
+                                                                    <p>Nome da escola: {itensQueVaoSerExcluidos.nomeDaEscola}</p>
+                                                                    <p> nome do Diretor: {itensQueVaoSerExcluidos.nomeDoDiretor}</p>
+                                                                    <p> Turno selecionado : {itensQueVaoSerExcluidos.turnos}</p>
+                                                                    <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
 
                                                                 </Typography>
                                                             </Box>
