@@ -5,9 +5,12 @@ import {
     OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery,
     CircularProgress,
     ImageList,
+    
 
 }
+
     from '@mui/material';
+import Grid from '@mui/material/Grid';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -32,7 +35,7 @@ const TelaDeMenu = () => {
                         <Typography sx={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "29px",
                             fontWeight: "bold", color: "#325d87", textAlign: 'center'
-                        }}> Sobre mim </Typography>
+                        }}> Desenvolvedor</Typography>
                         <Box sx={{   color: "#325d87", borderBottom: '3px solid black', marginBottom: '10px' }}></Box>
                         <Typography sx={{
                             marginTop: '28px', textAlign: 'justify',
@@ -85,8 +88,9 @@ const TelaDeMenu = () => {
                         </Box>
                     </Box>
 
-                    <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '35px' }}>
-                        <Accordion sx={{ width: '70%' }}defaultExpanded={true} >
+                    <Grid container sx={{ display: 'flex', flexDirection: 'row', marginTop: '35px'  }}>
+                        <Grid>
+                        <Accordion sx={{ }}defaultExpanded={true} >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -100,15 +104,17 @@ const TelaDeMenu = () => {
                                 }}>1.O que foi utilizado</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Typography sx={{
+                                <Typography
 
-                                }}>
-                                    Nesse projeto em React, foi utilizado as  bibliotecas  para o visual<strong> material UI </strong>, para rotas <strong>React Rouder Dom</strong>.
+>
+                                    Nesse projeto em React, foi utilizado as  bibliotecas  para o visual<strong> material UI </strong>, para rotas 
+                                    <strong>React Rouder Dom</strong>.
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
+                        </Grid>
 
-                        <Accordion sx={{ width: '70%' }} defaultExpanded={true} >
+                        <Accordion sx={{ }} defaultExpanded={true} >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -130,7 +136,7 @@ const TelaDeMenu = () => {
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion sx={{ width: '70%' }}  defaultExpanded={true}>
+                        <Accordion sx={{ }}  defaultExpanded={true}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
@@ -144,14 +150,14 @@ const TelaDeMenu = () => {
                                 }}>3.Sugestões</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Typography sx={{}} >
+                                <Typography  >
                                     Prolongar o tempo do teste para um iniciante. Colocar como "pedida"
                                     a simulação de um loading,
                                     pedir tbm para caso o filtro de busca nâo encontre nada colocar um "alert"
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-                    </Box>
+                    </Grid>
                 </Card>
             </Container>
         </>

@@ -165,10 +165,10 @@ const Formulario = () => {
             fontWeight: "bold", color: "#325d87", marginLeft: '12px'
           }}> Tela listagem </Typography>
         </Card>
-      
-        
-<Box  style={{ display: 'flex', justifyContent: 'center', marginTop: "20px", gap: '10px' }}>
-          
+
+
+        <Box style={{ display: 'flex', justifyContent: 'center', marginTop: "20px", gap: '10px' }}>
+
           <TextField style={{
             display: 'flex', widht: '100%'
           }}
@@ -264,44 +264,51 @@ const Formulario = () => {
                       maxWidth: { responvidadeMobileFitlroBusca } ? '100%' : "100%",
                       overflowX: { responvidadeMobileFitlroBusca } ? "auto" : 'auto',
                     }}>
-                      <Table>
-                        <TableHead>
-                          <TableRow >
-                            <TableCell align='left'> Nome da Escola </TableCell>
-                            <TableCell align="center">Cidade</TableCell>
-                            <TableCell align="center">Cod.cidade</TableCell>
-                            <TableCell align="center">Estadual</TableCell>
-                            <TableCell align="center">Região</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {escolasFiltradas && escolasFiltradas.length > 0 ? escolasFiltradas.map((consume, k) => (
-                            <TableRow key={k}>
-                              <TableCell align="left"> {consume.nome}</TableCell>
-                              <TableCell align="center">{consume.cidade}</TableCell>
-                              <TableCell align="center">{consume.codCidade}</TableCell>
-                              <TableCell align="center">{consume.dependenciaAdministrativaTxt}</TableCell>
-                              <TableCell align="center">{consume.regiao}</TableCell>
-                            </TableRow>
-                          )) :
-                            <TableRow>
-                              <TableCell colSpan={5} align="center" style={{
-                                fontFamily: "Roboto, Helvetica,Arial,sans-serif",
-                                fontSize: "20px", fontWeight: "bold", color: "red", width: '100%'
-                              }}>
-                                Nennhum resultado encontrado
-                              </TableCell>
-                            </TableRow>
-                          }
-                        </TableBody>
-                      </Table>
+                      <Container>
+                        <Card sx={{marginTop:'12px'}}>
+                          <Typography variant="p" style={{
+                            fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
+                            fontWeight: "bold", color: "#325d87" ,marginTop:'22px', marginLeft:'12px'
+                          }}>Listagem de escolas </Typography>
+                          <Table sx={{marginTop:'12'}}>
+                            <TableHead>
+                              <TableRow >
+                                <TableCell align='left'> Nome da Escola </TableCell>
+                                <TableCell align="center">Cidade</TableCell>
+                                <TableCell align="center">Cod.cidade</TableCell>
+                                <TableCell align="center">Estadual</TableCell>
+                                <TableCell align="center">Região</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {escolasFiltradas && escolasFiltradas.length > 0 ? escolasFiltradas.map((consume, k) => (
+                                <TableRow key={k}>
+                                  <TableCell align="left"> {consume.nome}</TableCell>
+                                  <TableCell align="center">{consume.cidade}</TableCell>
+                                  <TableCell align="center">{consume.codCidade}</TableCell>
+                                  <TableCell align="center">{consume.dependenciaAdministrativaTxt}</TableCell>
+                                  <TableCell align="center">{consume.regiao}</TableCell>
+                                </TableRow>
+                              )) :
+                                <TableRow>
+                                  <TableCell colSpan={5} align="center" style={{
+                                    fontFamily: "Roboto, Helvetica,Arial,sans-serif",
+                                    fontSize: "20px", fontWeight: "bold", color: "red", width: '100%'
+                                  }}>
+                                    Nenhum resultado encontrado
+                                  </TableCell>
+                                </TableRow>
+                              }
+                            </TableBody>
+                          </Table>
+                        </Card>
+                      </Container>
                     </Container>
                   </CardContent>
             }
           </Box>
           }
         </Box>
-
 
       </Box>
 

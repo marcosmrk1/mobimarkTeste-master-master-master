@@ -21,7 +21,7 @@ const TelaDeLogin = () => {
             window.localStorage.setItem(dadosDoEmaileSenha, email + "" + senha)
             setLoading(true);
             setTimeout(() => {
-                navigate('/formulario')
+                navigate('/sobremim')
                 setLoading(false);
             }, 1000);
         }

@@ -61,14 +61,14 @@ const FuncaoSaidaButton = () => {
          MobiTeste
         </Typography>
           <Box className={classes.navlinks}>
-            <Link to='/formulario' className={classes.link}>
-              Formulario
+            <Link to='/telalistagem' className={classes.link}>
+              Listagem
             </Link>
             <Link to='/sobremim' className={classes.link}>
-             Sobre min
+             Sobre mim
             </Link>
             <Link to='/TelaFormulario' className={classes.link}>
-             Formulario
+             Formulário
             </Link>
             <Button onClick={FuncaoSaidaButton}><Link to='/' className={classes.link}>
               Sair

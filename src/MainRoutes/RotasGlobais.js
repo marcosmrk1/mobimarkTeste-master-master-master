@@ -23,7 +23,7 @@ function Protected({ children }) {
 function NaoVoltarListagem({ children }) {
   if (window.localStorage.getItem(dadosDoEmaileSenha)) {
     return (
-      <Navigate to='/formulario' replace />
+      <Navigate to='/sobremim' replace />
     )
   }
   return (
@@ -49,11 +49,11 @@ const mainroutes = () => {
         />
       <Route path='/TelaFormulario' element={
         <Protected>
-        <TelaFormulario/>
+        <TelaFormulario />
         </Protected>
       }
       />
-      <Route path='/formulario' element={
+      <Route path='/telalistagem' element={
         <Protected >
           <Formulario />
         </Protected>

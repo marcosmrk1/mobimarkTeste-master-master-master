@@ -53,9 +53,9 @@ const TelaFormulario = () => {
     const [itensQueVaoSerExcluidos,setItensQueVaoSerExcluidos] = useState([])
     const concatListaDaTabela = (event) => {
         event.preventDefault()
-        setloading(true)
-        setTimeout(() => {
         if (validacao()) {
+            setloading(true)
+            setTimeout(() => {
                 setTextErrorSelecioneUmTunro()
                 setTextErrorParaLocalizacaoDaEscola()
                 setTextErrorNomeDaEscola()
@@ -87,9 +87,9 @@ const TelaFormulario = () => {
                     localizacaoDaEscola: '',
                     turnos: [],
                 });
+                setloading(false)
+            }, 1000);
             }
-            setloading(false)
-        }, 1000);
                 setNomeDoButtonEditar(false)
         return;
     }
@@ -168,6 +168,7 @@ const TelaFormulario = () => {
             turnos: [],
         })
      setNomeDoButtonEditar(false)
+
     } 
 
     const ordenarOrdemAlfabetica = (atributoOrdenacao) => {
@@ -216,7 +217,7 @@ const TelaFormulario = () => {
                         <Typography variant="h8" component='h3' style={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
                             fontWeight: "bold", color: "#325d87"
-                        }}> Preencha Seus Dados  </Typography>
+                        }}> Preencha seus dados  </Typography>
 
                         <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined"
                             name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
@@ -295,7 +296,7 @@ const TelaFormulario = () => {
                                         <Typography variant="p" style={{
                                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
                                             fontWeight: "bold", color: "#325d87"
-                                        }}> Tabelas De Escolas Cadastradas </Typography>
+                                        }}> Tabelas de escolas cadastradas </Typography>
                                     </CardActions>
                                     {cadastroRealizadoComSucessoText &&
                                         <Typography sx={{ color: 'green' }}>
