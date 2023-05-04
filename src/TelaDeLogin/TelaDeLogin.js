@@ -101,10 +101,7 @@ const TelaDeLogin = () => {
                             <p style={{ color: 'red' }}> digite um e-mail válido
                                 senha deve ter pelo menos 8 caracteres e pelo menos uma letra maiscula.</p>
                         }
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="lembrar"
-                        />
+                       
                         <Button
                             type="submit"
                             fullWidth
@@ -115,18 +112,7 @@ const TelaDeLogin = () => {
                             Entrar
                             <PersonIcon></PersonIcon>
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    esqueceu a senha?
-                                </Link>
-                            </Grid>
-                            <Grid item >
-                                <Link href="#" variant="body2">
-                                    {"Não possui login,acesse"}
-                                </Link>
-                            </Grid>
-                        </Grid>
+                       
                     </Box>
                 </Box>
             </Container>

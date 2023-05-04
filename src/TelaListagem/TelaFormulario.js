@@ -203,7 +203,7 @@ const TelaFormulario = () => {
                 <Typography variant="p" style={{
                     fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
                     fontWeight: "bold", color: "#325d87", marginLeft: '12px'
-                }}> Formulario </Typography>
+                }}> Formulário </Typography>
             </Card>
             <Container >
                 <Card sx={{ marginTop: '12px' }}>

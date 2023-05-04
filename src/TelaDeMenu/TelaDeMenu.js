@@ -38,7 +38,7 @@ const TelaDeMenu = () => {
                         }}> Desenvolvedor</Typography>
                         <Box sx={{   color: "#325d87", borderBottom: '3px solid black', marginBottom: '10px' }}></Box>
                         <Typography sx={{
-                            marginTop: '28px', textAlign: 'justify',
+                            marginTop: '28px', textAlign: 'left',
                             fontFamily: "sans-serif",
                             fontSize: "20px",
                             fontWeight: "bold",
@@ -88,8 +88,8 @@ const TelaDeMenu = () => {
                         </Box>
                     </Box>
 
-                    <Grid container sx={{ display: 'flex', flexDirection: 'row', marginTop: '35px'  }}>
-                        <Grid>
+                    <Grid container spacing={2} sx={{ display: 'flex', flexDirection: 'row', marginTop: '35px'  }}>
+                        <Grid item lg={4} xs={12} sm={4} md={4}>
                         <Accordion sx={{ }}defaultExpanded={true} >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -105,15 +105,14 @@ const TelaDeMenu = () => {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography
-
 >
                                     Nesse projeto em React, foi utilizado as  bibliotecas  para o visual<strong> material UI </strong>, para rotas 
                                     <strong>React Rouder Dom</strong>.
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-                        </Grid>
-
+                        </Grid >
+                        <Grid item lg={4} xs={12} sm={4} md={4} >
                         <Accordion sx={{ }} defaultExpanded={true} >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -136,6 +135,8 @@ const TelaDeMenu = () => {
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
+                       </Grid>
+                        <Grid item xs={12} lg={4}  sm={4} md={4}>
                         <Accordion sx={{ }}  defaultExpanded={true}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -157,6 +158,7 @@ const TelaDeMenu = () => {
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
+                        </Grid>
                     </Grid>
                 </Card>
             </Container>
