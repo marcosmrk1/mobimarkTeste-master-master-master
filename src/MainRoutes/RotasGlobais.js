@@ -49,7 +49,7 @@ const mainroutes = () => {
         />
       <Route path='/TelaFormulario' element={
         <Protected>
-        <TelaFormulario />
+        <TelaFormulario/>
         </Protected>
       }
       />

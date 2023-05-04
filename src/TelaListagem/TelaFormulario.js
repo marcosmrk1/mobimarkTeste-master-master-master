@@ -170,9 +170,19 @@ const TelaFormulario = () => {
         })
         setlistaDaTabela(ordenacaoNomeDaEscola)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ordenacaoNomeDaEscola))
     }
-
+    const ordenarOrdemAlfabetica = (atributoOrdenacao) => {
+        const ordenacaoNomeDaEscola = [...listaDaTabela].sort((a, b) => {
+            if (ordemAlfabeticaAscendente) {
+                return a[atributoOrdenacao].localeCompare(b[atributoOrdenacao])
+            } else {
+                return b[atributoOrdenacao].localeCompare(a[atributoOrdenacao])
+            }
+        })
+        setlistaDaTabela(ordenacaoNomeDaEscola)
+        setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
+        
+    }
     const ordenarEmOrdermAlfabeticaNomeDoDiretor = () => {
         const ordenacaoNomeDoDiretor = [...listaDaTabela].sort((a, b) => {
             if (ordemAlfabeticaAscendente) {
@@ -183,7 +193,7 @@ const TelaFormulario = () => {
         })
         setlistaDaTabela(ordenacaoNomeDoDiretor)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ordenacaoNomeDoDiretor))
+
     }
     //
     const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
@@ -309,18 +319,18 @@ const TelaFormulario = () => {
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell align='left'>Nome da escola
-                                                    <Button onClick={ordernarEmOrdemAlfabeticaNomeDaEscola} endIcon={arrowIcon}></Button>
+                                                    <Button onClick={() => ordenarOrdemAlfabetica('nomeDaEscola')} endIcon={arrowIcon}></Button>
                                                 </TableCell>
 
                                                 <TableCell align='left'>Nome do diretor
-                                                    <Button onClick={ordenarEmOrdermAlfabeticaNomeDoDiretor} endIcon={arrowIcon}></Button>
+                                                    <Button onClick={() => ordenarOrdemAlfabetica('nomeDoDiretor')} endIcon={arrowIcon}></Button>
                                                 </TableCell>
                                                 <TableCell align='left'>Turnos</TableCell>
                                                 <TableCell align="left">Localização da escola</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {localStorageExibir().map((item, index) => (
+                                            {listaDaTabela.map((item, index) => (
                                                 <TableRow key={index}>
                                                     <TableCell>{item.nomeDaEscola}</TableCell>
                                                     <TableCell>{item.nomeDoDiretor.length > 0 ? item.nomeDoDiretor : <Typography>Não informado </Typography>}</TableCell>
