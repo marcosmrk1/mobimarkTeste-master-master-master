@@ -5,8 +5,10 @@ import {
   InputAdornment, Tooltip, Link, Button, FormControl, Select
   , MenuItem, InputLabel, Table, TableBody, TableContainer, TableHead, TableCell, TableRow,
   IconButton, SearchIcon, TextField, height, Typography, CircularProgress, Stack, Card,
-  CardActions, CardContent, Container, useMediaQuery, Box
+  CardActions, CardContent, Container, useMediaQuery, Box,
 } from "@mui/material";
+
+import Grid from '@mui/material/Grid';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -15,8 +17,7 @@ import axios from "axios";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { localStorageEstado } from "../localStorageGlobais/index"
 import { estados } from '../utils/utils'
-import Grid from '@mui/material/Grid';
-// import {responvidadeMobileFitlroBusca} from '../utils/utils'
+
 
 const Formulario = () => {
 
@@ -158,20 +159,19 @@ const Formulario = () => {
         <CircularProgress />
       </Box> :
 
-      <Box>
+      <Box >
         <Card style={{ width: '100%', display: "flex", marginTop: '2px', }} >
           <Typography variant="p" style={{
             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
             fontWeight: "bold", color: "#325d87", marginLeft: '12px'
           }}> Tela listagem </Typography>
         </Card>
+        <Box sx={{display:'flex', justifyContent:'center'}} >
+        <Grid container spacing={2} style={{justifyContent: 'center', marginTop: "20px",width:'80%'}} >
+        <Grid item lg={3} sm={4} xs={10} md={5} >
 
-
-        <Box style={{ display: 'flex', justifyContent: 'center', marginTop: "20px", gap: '10px' }}>
-
-          <TextField style={{
-            display: 'flex', widht: '100%'
-          }}
+          <TextField  
+          fullWidth
             InputProps={{
               endAdornment:
                 <InputAdornment position="start" >
@@ -189,9 +189,12 @@ const Formulario = () => {
             value={buscaTexto}
             onChange={(ev) => setBuscaTexto(ev.target.value)}
           />
-          <FormControl sx={{ minWidth: 190 }}>
+          </Grid>
+            <Grid item xs={7} sm={4} md={3}  lg={2} >
+          <FormControl fullWidth>
             <InputLabel  >Selecione um estado</InputLabel>
             <Select
+            fullWidth
               label='Selecione um turno'
               name='selecione'
               value={estado}
@@ -202,15 +205,18 @@ const Formulario = () => {
               ))}
             </Select>
           </FormControl>
+          </Grid>
+          
+
+        <Grid item xs={7} sm={4} md={3}lg={2}> 
           {
-            Cidades && Cidades.length > 0 && <FormControl sx={{ minWidth: 190 }}>
+            Cidades && Cidades.length > 0 && <FormControl fullWidth >
               <InputLabel  >Selecione a cidade</InputLabel>
               <Select
+              fullWidth
                 label='selecione uma cidade'
                 name='selecione'
                 value={cidadeSelecionada}
-
-                // onClick={pressionarbusca}
                 onChange={(event) => setCidadeselecionada(event.target.value)}
               >
                 {Cidades.map((selectCidades, i) => (
@@ -219,11 +225,16 @@ const Formulario = () => {
               </Select>
             </FormControl>
           }
-        </Box>
+          </Grid>
+          </Grid>
+          </Box>
+ 
+
         <Box>
+
           {testeLoading && <Box style={{ widht: "100%" }}  >
             {testeLoading.loading || testeLoadingCidade.loading ?
-              <Box style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+              <Box style={{ width: '100%', display: 'flex', justifyContent: 'center' ,marginTop:'80px'}}>
                 <CircularProgress />
               </Box> :
 
@@ -258,19 +269,17 @@ const Formulario = () => {
                     </Card>
                   </Container>
                   :
-                  <CardContent style={{ height: "100%", width: '100%' }} >
-                    <Container style={{
-                      widht: '100%',
-                      maxWidth: { responvidadeMobileFitlroBusca } ? '100%' : "100%",
-                      overflowX: { responvidadeMobileFitlroBusca } ? "auto" : 'auto',
-                    }}>
-                      <Container>
-                        <Card sx={{marginTop:'12px'}}>
+                  <CardContent style={{ height: "100%", width: '100%',  overflow: 'auto' }} >
+                 
+                        <Container >
+                        <Card sx={{marginTop:'12px', overflowX: 'auto'}}>
                           <Typography variant="p" style={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
                             fontWeight: "bold", color: "#325d87" ,marginTop:'22px', marginLeft:'12px'
                           }}>Listagem de escolas </Typography>
-                          <Table sx={{marginTop:'12'}}>
+                            <Grid Container>
+                          <Grid item xs={12}>
+                          <Table sx={{marginTop:'12',}}>
                             <TableHead>
                               <TableRow >
                                 <TableCell align='left'> Nome da Escola </TableCell>
@@ -283,6 +292,7 @@ const Formulario = () => {
                             <TableBody>
                               {escolasFiltradas && escolasFiltradas.length > 0 ? escolasFiltradas.map((consume, k) => (
                                 <TableRow key={k}>
+                
                                   <TableCell align="left"> {consume.nome}</TableCell>
                                   <TableCell align="center">{consume.cidade}</TableCell>
                                   <TableCell align="center">{consume.codCidade}</TableCell>
@@ -301,9 +311,10 @@ const Formulario = () => {
                               }
                             </TableBody>
                           </Table>
+                      </Grid>
+              </Grid>
                         </Card>
-                      </Container>
-                    </Container>
+              </Container>
                   </CardContent>
             }
           </Box>

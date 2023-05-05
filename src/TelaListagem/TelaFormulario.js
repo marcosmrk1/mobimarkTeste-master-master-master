@@ -9,6 +9,8 @@ import {
     from '@mui/material';
 import { CardActions, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import Grid from '@mui/material/Grid';
+
 import { useTheme } from "styled-components";
 import CheckIcon from '@mui/icons-material/Check';
 import { red } from "@mui/material/colors";
@@ -206,6 +208,7 @@ const TelaFormulario = () => {
                 }}> Formulário </Typography>
             </Card>
             <Container >
+                    <Grid container>
                 <Card sx={{ marginTop: '12px' }}>
                     <Box
                         onSubmit={concatListaDaTabela}
@@ -218,7 +221,6 @@ const TelaFormulario = () => {
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
                             fontWeight: "bold", color: "#325d87"
                         }}> Preencha seus dados  </Typography>
-
                         <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined"
                             name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
                         />
@@ -287,6 +289,7 @@ const TelaFormulario = () => {
                         )}
                     </Box>
                 </Card>
+                </Grid>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
                     (localStorageExibir() || []).length > 0 && (
                         <>
@@ -308,7 +311,8 @@ const TelaFormulario = () => {
                                         name="search" placeholder="Procurar  escola || diretor ..."
                                         value={buscarInformacoes}
                                         onChange={(ev) => setBuscarInformacoes(ev.target.value)}
-                                    />
+                                        
+                                        />
                                     <Table>
                                         <TableHead>
                                             <TableRow>
@@ -339,7 +343,9 @@ const TelaFormulario = () => {
                                                         </Button>
                                                         <Button onClick={() => editarItemDaTabela(item)}> <EditIcon /></Button>
                                                     </TableRow>
+                                                    
                                                 ))}
+                                                
                                             <Dialog open={open} onClose={handleCancel}>
                                                 <DialogTitle>Confirmar ação</DialogTitle>
                                                 <DialogContent>
