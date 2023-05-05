@@ -208,7 +208,7 @@ const TelaFormulario = () => {
                 }}> Formulário </Typography>
             </Card>
             <Container >
-                    <Grid container>
+
                 <Card sx={{ marginTop: '12px' }}>
                     <Box
                         onSubmit={concatListaDaTabela}
@@ -217,79 +217,90 @@ const TelaFormulario = () => {
                         noValidate
                         autoComplete="off"
                     >
+
                         <Typography variant="h8" component='h3' style={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
                             fontWeight: "bold", color: "#325d87"
                         }}> Preencha seus dados  </Typography>
-                        <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined"
-                            name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
-                        />
-                        {textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'] === '' ?
-                            <Typography sx={{ color: 'red' }}  >
-                                <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                Preencha o campo: Nome Da Escola</Typography>
-                            : textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'].length < 4
-                                ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                    O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
-                                : ''}
+                        <Grid container spacing={1}>
+                            <Grid item lg={2}>
+                                <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined"
+                                    name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
+                                />
+                                {textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'] === '' ?
+                                    <Typography sx={{ color: 'red' }}  >
+                                        <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                        Preencha o campo: Nome Da Escola</Typography>
+                                    : textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'].length < 4
+                                        ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                            O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
+                                        : ''}
 
+                            </Grid>
+                            
+                            <Grid item lg={2}>
+                                <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined"
+                                    name="nomeDoDiretor" value={objetosDosInputs.nomeDoDiretor} onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item lg={2}>
+                                <FormControl sx={{  width: 188 }}>
+                                    <InputLabel id="demo-multiple-checkbox-label"> Turnos</InputLabel>
+                                    <Select
+                                        labelId="demo-multiple-checkbox-label"
+                                        size="small"
+                                        id="demo-multiple-checkbox"
+                                        multiple
+                                        value={objetosDosInputs.turnos}
+                                        onChange={selectTurnos}
+                                        input={<OutlinedInput label="Turnos" />}
+                                        renderValue={(selected) => selected.join(',')}
+                                        MenuProps={MenuProps}
+                                    >
+                                        {listaTurnos.map((turnosMapeados) => (
+                                            <MenuItem key={turnosMapeados} value={turnosMapeados}>
+                                                <Checkbox checked={objetosDosInputs.turnos.indexOf(turnosMapeados) > -1} />
+                                                <ListItemText primary={turnosMapeados} />
+                                            </MenuItem>
+                                        ))}
 
-                        <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined"
-                            name="nomeDoDiretor" value={objetosDosInputs.nomeDoDiretor} onChange={handleChange}
-                        />
-
-                        <FormControl sx={{ m: 1, width: 188 }}>
-                            <InputLabel id="demo-multiple-checkbox-label"> Turnos</InputLabel>
-                            <Select
-                                labelId="demo-multiple-checkbox-label"
-                                size="small"
-                                id="demo-multiple-checkbox"
-                                multiple
-                                value={objetosDosInputs.turnos}
-                                onChange={selectTurnos}
-                                input={<OutlinedInput label="Turnos" />}
-                                renderValue={(selected) => selected.join(',')}
-                                MenuProps={MenuProps}
-                            >
-                                {listaTurnos.map((turnosMapeados) => (
-                                    <MenuItem key={turnosMapeados} value={turnosMapeados}>
-                                        <Checkbox checked={objetosDosInputs.turnos.indexOf(turnosMapeados) > -1} />
-                                        <ListItemText primary={turnosMapeados} />
-                                    </MenuItem>
-                                ))}
-
-                            </Select>
-                            {textErrorSelecioneUmTurno ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon
-                                sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                selecione um turno</Typography> : null}
-                        </FormControl>
-                        <FormControl sx={{ m: 1, width: 188 }}>
-                            <InputLabel id="demo-simple-select-label">localizacao</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                size="small"
-                                id="demo-simple-select"
-                                value={objetosDosInputs.localizacaoDaEscola}
-                                label="localizacaoDaEscola"
-                                onChange={seleectLocalizacaoDaEscola}
-                            >
-                                <MenuItem value={'urbana'}>Urbana</MenuItem>
-                                <MenuItem value={'rural'}>Rural</MenuItem>
-                            </Select>
-                            {textErrorParaLocalizacaoDaEscola ? <Typography sx={{ color: 'red' }} >
-                                <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                selecione a localizacaoDaEscola</Typography> : ""}
-                        </FormControl>
-                        <Button type="submit" variant="contained"
-                            onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
-                            {objetosDosInputs.id ? 'editar' : 'cadastrar'}
-                        </Button>
-                        {NomeDobuttonEditar && (
-                            <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar edição</Button>
-                        )}
+                                    </Select>
+                                    {textErrorSelecioneUmTurno ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon
+                                        sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                        selecione um turno</Typography> : null}
+                                </FormControl>
+                            </Grid>
+                            <Grid item lg={2}>
+                                <FormControl sx={{ width: 188 }}>
+                                    <InputLabel id="demo-simple-select-label">localizacao</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        size="small"
+                                        id="demo-simple-select"
+                                        value={objetosDosInputs.localizacaoDaEscola}
+                                        label="localizacaoDaEscola"
+                                        onChange={seleectLocalizacaoDaEscola}
+                                    >
+                                        <MenuItem value={'urbana'}>Urbana</MenuItem>
+                                        <MenuItem value={'rural'}>Rural</MenuItem>
+                                    </Select>
+                                    {textErrorParaLocalizacaoDaEscola ? <Typography sx={{ color: 'red' }} >
+                                        <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                        selecione a localizacaoDaEscola</Typography> : ""}
+                                </FormControl>
+                            </Grid>
+                            <Grid item lg={2}>
+                                <Button type="submit" variant="contained"
+                                    onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
+                                    {objetosDosInputs.id ? 'editar' : 'cadastrar'}
+                                </Button>
+                                {NomeDobuttonEditar && (
+                                    <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar </Button>
+                                )}
+                            </Grid>
+                        </Grid>
                     </Box>
                 </Card>
-                </Grid>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
                     (localStorageExibir() || []).length > 0 && (
                         <>
@@ -306,13 +317,13 @@ const TelaFormulario = () => {
                                             <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                                             Tabela atualizada com sucesso
                                         </Typography>}
-                                        <TextField sx={{ marginTop: '10px', width: '30%', marginLeft: "30%" }}
+                                    <TextField sx={{ marginTop: '10px', width: '30%', marginLeft: "30%" }}
                                         id="searchbar" /* onKeyUp="search_animal" */ type="text"
                                         name="search" placeholder="Procurar  escola || diretor ..."
                                         value={buscarInformacoes}
                                         onChange={(ev) => setBuscarInformacoes(ev.target.value)}
-                                        
-                                        />
+
+                                    />
                                     <Table>
                                         <TableHead>
                                             <TableRow>
@@ -328,7 +339,7 @@ const TelaFormulario = () => {
                                         </TableHead>
                                         <TableBody>
                                             {listaDaTabela.filter((item) => item.nomeDaEscola.toLowerCase()
-                                                .includes(buscarInformacoes.toLowerCase()) || 
+                                                .includes(buscarInformacoes.toLowerCase()) ||
                                                 item.nomeDoDiretor.toLowerCase().includes(buscarInformacoes.toLowerCase())).map((item, index) => (
                                                     <TableRow key={index}>
                                                         <TableCell>{item.nomeDaEscola}</TableCell>
@@ -343,9 +354,9 @@ const TelaFormulario = () => {
                                                         </Button>
                                                         <Button onClick={() => editarItemDaTabela(item)}> <EditIcon /></Button>
                                                     </TableRow>
-                                                    
+
                                                 ))}
-                                                
+
                                             <Dialog open={open} onClose={handleCancel}>
                                                 <DialogTitle>Confirmar ação</DialogTitle>
                                                 <DialogContent>
