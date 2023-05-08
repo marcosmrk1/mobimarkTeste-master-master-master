@@ -1,32 +1,23 @@
 
 import { dadosDoEmaileSenha } from '../localStorageGlobais'
-import { AppBar, Toolbar,CssBaseline,Typography, makeStyles,Button,Box} from '@material-ui/core';
+import { AppBar, Toolbar,CssBaseline,Typography, makeStyles,Button} from '@material-ui/core';
 import { Link,useNavigate } from 'react-router-dom';
+import {Box} from '@mui/material';
+import HamburguerMenu from './HamburguerMenu';
+import { IconButton } from '@mui/material';
+;
+
+const listaMenu = [
+  {path: '/telalistagem', label:'Listagem'},
+  {path: '/sobremim', label:'Sobre mim'},
+  {path: '/TelaFormulario', label:'Formulário'},
+]
 const useStyles = makeStyles((theme) => ({
   navlinks: {
     display: 'flex',
     alignItems: 'center',
     marginLeft: theme.spacing(5),
-    gap: theme.spacing(4),
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: theme.spacing(2),
-      marginTop: theme.spacing(1),
-      gap: theme.spacing(2),
-    },
-    [theme.breakpoints.down('xs')]: {
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      marginLeft: 35,
-      marginTop: theme.spacing(2),
-    },
-      [theme.breakpoints.between('md','lg')]: {
-          display: 'flex',
-          marginLeft: 300,
-          marginTop: theme.spacing(2),
-          flexDirection: 'justifyContent',
-          alignItems: 'flex-start',
-          gap: 40,
-        },     
+    gap: theme.spacing(4),    
       }, 
   link: {
     textDecoration: 'none',
@@ -36,12 +27,6 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: 'yellow',
       borderBottom: '1px solid white',
-    },
-    [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(0, 1),
-    },
-    [theme.breakpoints.down('xs')]: {
-      margin: theme.spacing(1, 0),
     },
   },
 }));
@@ -54,26 +39,28 @@ const FuncaoSaidaButton = () => {
   const classes = useStyles();
   return (
     <>
+
     <AppBar position='static'>
+
       <CssBaseline />
       <Toolbar>
+        <HamburguerMenu listaMenu={listaMenu} />
         <Typography variant='h4' >
          MobiTeste
         </Typography>
-          <Box className={classes.navlinks}>
-            <Link to='/telalistagem' className={classes.link}>
-              Listagem
+        <Box >  
+          <Box className={classes.navlinks} sx={{  display:  { xs: 'none',md:'flex' }, }} >
+            {listaMenu.map((listaItem,index)=> (
+              
+            <Link key={index} to={listaItem.path} className={classes.link}>
+                {listaItem.label}
             </Link>
-            <Link to='/sobremim' className={classes.link}>
-             Sobre mim
-            </Link>
-            <Link to='/TelaFormulario' className={classes.link}>
-             Formulário
-            </Link>
+            ))}
             <Button onClick={FuncaoSaidaButton}><Link to='/' className={classes.link}>
               Sair
             </Link>
             </Button>
+          </Box>
           </Box>
       </Toolbar>
     </AppBar>

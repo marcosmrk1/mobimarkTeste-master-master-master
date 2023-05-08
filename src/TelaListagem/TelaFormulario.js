@@ -213,18 +213,19 @@ const TelaFormulario = () => {
                     <Box
                         onSubmit={concatListaDaTabela}
                         component="form"
-                        sx={{ '& > :not(style)': { m: 1.4 } }}
+                        sx={{ margin:2 }}
                         noValidate
                         autoComplete="off"
                     >
 
                         <Typography variant="h8" component='h3' style={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
-                            fontWeight: "bold", color: "#325d87"
+                            fontWeight: "bold", color: "#325d87" ,marginBottom:'26px'
+                           
                         }}> Preencha seus dados  </Typography>
-                        <Grid container spacing={1} sx={{gap:'30px'}}>
-                            <Grid item lg={2} xs={12} md={1.8} sm ={2.8}>
-                                <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined"
+                        <Grid container spacing={2} >
+                            <Grid item lg={2} xs={12} md={3} sm={6}>
+                                <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined" fullWidth
                                     name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
                                 />
                                 {textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'] === '' ?
@@ -237,13 +238,13 @@ const TelaFormulario = () => {
                                         : ''}
 
                             </Grid>
-                            
-                            <Grid item lg={2}  xs={12} md={1.8} sm ={2.8} >
-                                <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined"
+
+                            <Grid item lg={2} xs={12} md={3} sm={6} >
+                                <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined" fullWidth
                                     name="nomeDoDiretor" value={objetosDosInputs.nomeDoDiretor} onChange={handleChange}
                                 />
                             </Grid>
-                            <Grid item lg={2}  xs={12}  md={2} sm ={2} sx={{maxWidth:'210px'}} >
+                            <Grid item lg={2} xs={12} md={3} sm={6} >
                                 <FormControl fullWidth  >
                                     <InputLabel id="demo-multiple-checkbox-label"> Turnos</InputLabel>
                                     <Select
@@ -271,7 +272,7 @@ const TelaFormulario = () => {
                                 </FormControl>
                             </Grid>
 
-                            <Grid item lg={2}  xs={12} sm ={2} sx={{maxWidth:'210px'}} md={1.5}>
+                            <Grid item lg={2} xs={12} sm={6} md={3}>
                                 <FormControl fullWidth >
                                     <InputLabel id="demo-simple-select-label">Localizacão</InputLabel>
                                     <Select
@@ -290,25 +291,25 @@ const TelaFormulario = () => {
                                         selecione a localizacao da escola</Typography> : ""}
                                 </FormControl>
                             </Grid>
-                            <Grid item lg={1} xs={12} sm={1.5} md={0.9}>
-                                <Button type="submit" variant="contained"
+                            <Grid item lg={4} xs={12} sm={6} md={4} >
+                                <Button type="submit" variant="contained" sx={{margin:'10px'}}
                                     onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
                                     {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                                 </Button>
-                            </Grid>
-                            <Grid item lg={1} xs={12} sm = {1} md={1.2}>
+             
+                            
                                 {NomeDobuttonEditar && (
                                     <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar </Button>
-                                    )}
-                                    </Grid>
+                                )}
                             </Grid>
+                        </Grid>
                     </Box>
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
                     (localStorageExibir() || []).length > 0 && (
                         <>
                             <Box sx={{ marginTop: '60px' }}>
-                                <Card sx={{overflow: 'auto'}}>
+                                <Card sx={{ overflow: 'auto' }}>
                                     <CardActions>
                                         <Typography variant="p" style={{
                                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
@@ -320,16 +321,14 @@ const TelaFormulario = () => {
                                             <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                                             Tabela atualizada com sucesso
                                         </Typography>}
-                                        <Grid container>
-                                        <Grid item xs={12} >
+
                                     <TextField sx={{ marginTop: '10px', width: '30%', marginLeft: "30%" }}
                                         id="searchbar" /* onKeyUp="search_animal" */ type="text"
                                         name="search" placeholder="Procurar  escola || diretor ..."
                                         value={buscarInformacoes}
                                         onChange={(ev) => setBuscarInformacoes(ev.target.value)}
-                                        />
-                                        </Grid>
-                                        </Grid>
+                                    />
+
                                     <Table>
                                         <TableHead>
                                             <TableRow>
