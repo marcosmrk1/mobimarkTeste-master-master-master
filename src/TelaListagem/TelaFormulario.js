@@ -213,7 +213,7 @@ const TelaFormulario = () => {
                     <Box
                         onSubmit={concatListaDaTabela}
                         component="form"
-                        sx={{ '& > :not(style)': { m: 1.1 } }}
+                        sx={{ '& > :not(style)': { m: 1.4 } }}
                         noValidate
                         autoComplete="off"
                     >
@@ -222,8 +222,8 @@ const TelaFormulario = () => {
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
                             fontWeight: "bold", color: "#325d87"
                         }}> Preencha seus dados  </Typography>
-                        <Grid container spacing={1}>
-                            <Grid item lg={2}>
+                        <Grid container spacing={1} sx={{gap:'30px'}}>
+                            <Grid item lg={2} xs={12} md={1.8} sm ={2.8}>
                                 <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined"
                                     name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
                                 />
@@ -238,13 +238,13 @@ const TelaFormulario = () => {
 
                             </Grid>
                             
-                            <Grid item lg={2}>
+                            <Grid item lg={2}  xs={12} md={1.8} sm ={2.8} >
                                 <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined"
                                     name="nomeDoDiretor" value={objetosDosInputs.nomeDoDiretor} onChange={handleChange}
                                 />
                             </Grid>
-                            <Grid item lg={2}>
-                                <FormControl sx={{  width: 188 }}>
+                            <Grid item lg={2}  xs={12}  md={2} sm ={2} sx={{maxWidth:'210px'}} >
+                                <FormControl fullWidth  >
                                     <InputLabel id="demo-multiple-checkbox-label"> Turnos</InputLabel>
                                     <Select
                                         labelId="demo-multiple-checkbox-label"
@@ -270,9 +270,10 @@ const TelaFormulario = () => {
                                         selecione um turno</Typography> : null}
                                 </FormControl>
                             </Grid>
-                            <Grid item lg={2}>
-                                <FormControl sx={{ width: 188 }}>
-                                    <InputLabel id="demo-simple-select-label">localizacao</InputLabel>
+
+                            <Grid item lg={2}  xs={12} sm ={2} sx={{maxWidth:'210px'}} md={1.5}>
+                                <FormControl fullWidth >
+                                    <InputLabel id="demo-simple-select-label">Localizacão</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         size="small"
@@ -286,26 +287,28 @@ const TelaFormulario = () => {
                                     </Select>
                                     {textErrorParaLocalizacaoDaEscola ? <Typography sx={{ color: 'red' }} >
                                         <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                        selecione a localizacaoDaEscola</Typography> : ""}
+                                        selecione a localizacao da escola</Typography> : ""}
                                 </FormControl>
                             </Grid>
-                            <Grid item lg={2}>
+                            <Grid item lg={1} xs={12} sm={1.5} md={0.9}>
                                 <Button type="submit" variant="contained"
                                     onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
                                     {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                                 </Button>
+                            </Grid>
+                            <Grid item lg={1} xs={12} sm = {1} md={1.2}>
                                 {NomeDobuttonEditar && (
                                     <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar </Button>
-                                )}
+                                    )}
+                                    </Grid>
                             </Grid>
-                        </Grid>
                     </Box>
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
                     (localStorageExibir() || []).length > 0 && (
                         <>
                             <Box sx={{ marginTop: '60px' }}>
-                                <Card>
+                                <Card sx={{overflow: 'auto'}}>
                                     <CardActions>
                                         <Typography variant="p" style={{
                                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
@@ -317,13 +320,16 @@ const TelaFormulario = () => {
                                             <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                                             Tabela atualizada com sucesso
                                         </Typography>}
+                                        <Grid container>
+                                        <Grid item xs={12} >
                                     <TextField sx={{ marginTop: '10px', width: '30%', marginLeft: "30%" }}
                                         id="searchbar" /* onKeyUp="search_animal" */ type="text"
                                         name="search" placeholder="Procurar  escola || diretor ..."
                                         value={buscarInformacoes}
                                         onChange={(ev) => setBuscarInformacoes(ev.target.value)}
-
-                                    />
+                                        />
+                                        </Grid>
+                                        </Grid>
                                     <Table>
                                         <TableHead>
                                             <TableRow>
