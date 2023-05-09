@@ -5,7 +5,8 @@ import { Link,useNavigate } from 'react-router-dom';
 import {Box} from '@mui/material';
 import HamburguerMenu from './HamburguerMenu';
 import { IconButton } from '@mui/material';
-;
+import Grid from '@mui/material/Grid';
+
 
 const listaMenu = [
   {path: '/telalistagem', label:'Listagem'},
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     marginLeft: theme.spacing(5),
-    gap: theme.spacing(4),    
+    gap: theme.spacing(2),    
       }, 
   link: {
     textDecoration: 'none',
@@ -48,8 +49,8 @@ const FuncaoSaidaButton = () => {
         <Typography variant='h4' >
          MobiTeste
         </Typography>
-        <Box >  
-          <Box className={classes.navlinks} sx={{  display:  { xs: 'none',md:'flex' }, }} >
+        <Grid container marginLeft={'18px'}>  
+          <Grid item sm={12} md={10} className={classes.navlinks} sx={{  display:  { xs: 'none',md:'flex' }, }} >
             {listaMenu.map((listaItem,index)=> (
               
             <Link key={index} to={listaItem.path} className={classes.link}>
@@ -60,8 +61,8 @@ const FuncaoSaidaButton = () => {
               Sair
             </Link>
             </Button>
-          </Box>
-          </Box>
+          </Grid>
+          </Grid>
       </Toolbar>
     </AppBar>
     {children}

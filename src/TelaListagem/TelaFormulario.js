@@ -292,7 +292,7 @@ const TelaFormulario = () => {
                                 </FormControl>
                             </Grid>
                             <Grid item lg={4} xs={12} sm={6} md={4} >
-                                <Button type="submit" variant="contained" sx={{margin:'10px'}}
+                                <Button type="submit" variant="contained"  sx={{ marginRight: '12px' , marginBUtt:'12px'}}
                                     onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
                                     {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                                 </Button>
@@ -322,7 +322,7 @@ const TelaFormulario = () => {
                                             Tabela atualizada com sucesso
                                         </Typography>}
 
-                                    <TextField sx={{ marginTop: '10px', width: '30%', marginLeft: "30%" }}
+                                    <TextField sx={{ marginTop: '10px', width: '80%', marginLeft: "8%" }}
                                         id="searchbar" /* onKeyUp="search_animal" */ type="text"
                                         name="search" placeholder="Procurar  escola || diretor ..."
                                         value={buscarInformacoes}
