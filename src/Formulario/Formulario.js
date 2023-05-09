@@ -83,7 +83,7 @@ const Formulario = () => {
         setCidades(JSON.parse(window.localStorage.getItem(estado)));
       }
     }
-  },
+  },[]
   )
   useEffect(() => {
     BuscaTesteCidadeId()

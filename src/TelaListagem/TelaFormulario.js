@@ -98,12 +98,18 @@ const TelaFormulario = () => {
     }
 
     useEffect(() => {
-
+        setloading(true)
+      setTimeout(() => {
+          setloading(false)
+     
+      
         const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
         if (listaSalva) {
             setlistaDaTabela(JSON.parse(listaSalva));
         }
+    }, 1500);
     }, []);
+ 
     const localStorageExibir = () => {
         let RecebendoInformacaoDocampoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
         if (RecebendoInformacaoDocampoDoLocalStorage === null) {
@@ -306,7 +312,9 @@ const TelaFormulario = () => {
                     </Box>
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
+                        
                     (localStorageExibir() || []).length > 0 && (
+
                         <>
                             <Box sx={{ marginTop: '60px' }}>
                                 <Card sx={{ overflow: 'auto' }}>
