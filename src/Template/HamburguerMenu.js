@@ -60,7 +60,7 @@ const HamburguerMenu = ({ listaMenu }) => {
 
  
      <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-      <Button onClick={() => setDrawerIcon(true)}>{<MenuIcon />}</Button>
+      <Button onClick={() => setDrawerIcon(true)}>{<MenuIcon sx={{color:'white'}} />}</Button>
       <Drawer
         anchor={'left'}
         open={drawerIcon}

@@ -46,7 +46,7 @@ const FuncaoSaidaButton = () => {
 
       <CssBaseline />
       <Toolbar>
-        <HamburguerMenu listaMenu={listaMenu} />
+        <HamburguerMenu  listaMenu={listaMenu} />
         <Typography variant='h4' >
          MobiTeste
         </Typography>
