@@ -11,28 +11,43 @@ const TelaDeLogin = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('')
     const [textovalidacao, setTextovalidacao] = useState(false)
+    const [textoValidacaoSenha,setTextoValidacaoSenha]= useState(false)
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
     const rotarDentrada = () => {
         if (!validarEmail(email) || !validarSenha(senha)) {
-            setLoading(false);
-            setTextovalidacao(true)
+          if (!validarEmail(email)) {
+            setTextovalidacao(true);
+          } else {
+            setTextovalidacao(false);
+          }
+          if (!validarSenha(senha)) {
+            setTextoValidacaoSenha(true);
+          } else {
+            setTextoValidacaoSenha(false);
+          }
+          setLoading(false);
         } else {            
-            window.localStorage.setItem(dadosDoEmaileSenha, email + "" + senha)
-            setLoading(true);
-            setTimeout(() => {
-                navigate('/sobremim')
-                setLoading(false);
-            }, 1000);
+          window.localStorage.setItem(dadosDoEmaileSenha, email + "" + senha);
+          setLoading(true);
+          setTimeout(() => {
+            navigate('/sobremim');
+            setLoading(false);
+          }, 1000);
         }
-    }    
+      }
     function validarEmail(email) {
         const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        return regex.test(email);
+        if(validarEmail === true ){
+            setTextovalidacao(true)
+        }return regex.test(email);
+   
     }
+
     function validarSenha(senha) {
         const LetrasMaisculas = /[A-Z]/;
         if (senha.length < 8) {
+        
             return false;
         }
         if (!LetrasMaisculas.test(senha)) {
@@ -63,15 +78,20 @@ const TelaDeLogin = () => {
                         marginTop: '50%',
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center",
+                 
                     }}
                 >
+                    <Box sx={{alignItems:'center',
+                        display: "flex",
+                        flexDirection: "column"
+                        }}>
                     <Typography component="h4" variant="h4" >
                         Entrar
                         <Typography
                             component='h4' variant='h8'>  bem-vindo</Typography>
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    </Box>
+                    <Box component="form" onSubmit={handleSubmit}>
                         <TextField
                             margin="normal"
                             required
@@ -84,7 +104,11 @@ const TelaDeLogin = () => {
                             autoComplete="email"
                             autoFocus
                             onSubmit={dadosuser}
-                        />
+                            />
+                            {textovalidacao ?
+                                <Typography sx={{ color: 'red' }}> digite um e-mail válido.</Typography> : ''
+                            }
+                          
                         <TextField
                             margin="normal"
                             required
@@ -97,11 +121,9 @@ const TelaDeLogin = () => {
                             id="password"
                             autoComplete="current-password"
                         />
-                        {textovalidacao &&
-                            <p style={{ color: 'red' }}> digite um e-mail válido
-                                senha deve ter pelo menos 8 caracteres e pelo menos uma letra maiscula.</p>
-                        }
-                       
+                        {textoValidacaoSenha ? 
+                         <Typography sx={{ color: 'red' }}>  Digite senha com pelo menos 8 caracteres e uma letra maiscula.</Typography>
+                         : ''}
                         <Button
                             type="submit"
                             fullWidth

@@ -6,12 +6,13 @@ import {Box} from '@mui/material';
 import HamburguerMenu from './HamburguerMenu';
 import { IconButton } from '@mui/material';
 import Grid from '@mui/material/Grid';
-
-
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import PersonIcon from '@mui/icons-material/Person';
+import EditIcon from '@mui/icons-material/Edit';
 const listaMenu = [
-  {path: '/telalistagem', label:'Listagem'},
-  {path: '/sobremim', label:'Sobre mim'},
-  {path: '/TelaFormulario', label:'Formulário'},
+  {picture:<FormatListBulletedIcon sx={{fontSize:'16px',marginRight:'4px',}}/>,path: '/telalistagem', label:'Listagem'},
+  {picture:<PersonIcon sx={{fontSize:'16px',marginRight:'4px'}}/> ,path: '/sobremim', label:'Sobre mim'},
+  {picture: <EditIcon sx={{fontSize:'16px',marginRight:'4px',}}/> ,  path: '/TelaFormulario', label :'Formulário ' },
 ]
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -40,7 +41,7 @@ const FuncaoSaidaButton = () => {
   const classes = useStyles();
   return (
     <>
-
+  
     <AppBar position='static'>
 
       <CssBaseline />
