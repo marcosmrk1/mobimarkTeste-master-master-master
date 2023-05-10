@@ -14,8 +14,9 @@ function Protected({ children }) {
       )
   } return (
     <>
-    <Template/>
+    <Template>
     {children}
+    </Template>
     </>
 
   )

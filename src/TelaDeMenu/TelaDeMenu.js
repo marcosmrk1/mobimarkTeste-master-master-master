@@ -48,7 +48,7 @@ const TelaDeMenu = () => {
                             Meu nome é Marcos Paulo, tenho 19 anos e atualmente sou estagiário de front-end na Mobimark.
                             Sou apaixonado por programação e busco aprimorar minhas habilidades diariamente.
                             Estou cursando Análise e Desenvolvimento de Sistemas na faculdade e prevejo concluir o curso até o final de 2023. <p>
-                            Busco me tornar um profissional cada vez mais qualificado para agregar valor à equipe e ao mercado de trabalho.
+                            Busco me tornar um profissional cada vez mais qualificado para agregar valor à equipe.
                             Estou sempre aprendendo sobre os problemas reais e suas soluções,
                             praticando o uso de clean code e dominando cada vez mais a biblioteca React.
                             No futuro, vejo-me como um excelente programador,
@@ -106,8 +106,8 @@ const TelaDeMenu = () => {
                             <AccordionDetails>
                                 <Typography
 >
-                                    Nesse projeto em React, foi utilizado as  bibliotecas  para o visual<strong> material UI </strong>, para rotas 
-                                    <strong>React Rouder Dom</strong>.
+                                    Nesse projeto em React, foi utilizado as  biblioteca para o visual o <strong> material UI </strong>, para as rotas 
+                                      <strong> React Rouder Dom</strong>.
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>

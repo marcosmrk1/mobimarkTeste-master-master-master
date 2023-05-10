@@ -21,7 +21,6 @@ import { estados } from '../utils/utils'
 
 const Formulario = () => {
 
-  const responvidadeMobileFitlroBusca = useMediaQuery('(max-width:600px)');
   let request_data = {
     loading: false,
     error: false,

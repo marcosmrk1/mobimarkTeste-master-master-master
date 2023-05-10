@@ -33,7 +33,7 @@ const TelaDeLogin = () => {
           setTimeout(() => {
             navigate('/sobremim');
             setLoading(false);
-          }, 1000);
+          }, 3000);
         }
       }
     function validarEmail(email) {
