@@ -351,7 +351,7 @@ const TelaFormulario = () => {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {listaDaTabela.filter((item) => item.nomeDaEscola.toLowerCase()
+                                        {listaDaTabela.filter((item) => item.nomeDaEscola.toLowerCase()
                                                 .includes(buscarInformacoes.toLowerCase()) ||
                                                 item.nomeDoDiretor.toLowerCase().includes(buscarInformacoes.toLowerCase())).map((item, index) => (
                                                     <TableRow key={index}>

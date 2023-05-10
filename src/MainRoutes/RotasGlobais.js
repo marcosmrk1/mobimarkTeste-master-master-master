@@ -11,12 +11,12 @@ function Protected({ children }) {
   if (!window.localStorage.getItem(dadosDoEmaileSenha)) {
     return (
       <Navigate to='/' replace />
-      )
+    )
   } return (
     <>
-    <Template>
-    {children}
-    </Template>
+      <Template>
+        {children}
+      </Template>
     </>
 
   )
@@ -36,21 +36,21 @@ const mainroutes = () => {
     <Routes>
       <Route exact path='/' element={
 
-    <NaoVoltarListagem>
-          <Login/>
+        <NaoVoltarListagem>
+          <Login />
         </NaoVoltarListagem>
       } />
       <Route path='/Sobremim' element={
-        
-          <Protected>
-         <TeladeMenu/>
-         </Protected>
-  
-        }
-        />
+
+        <Protected>
+          <TeladeMenu />
+        </Protected>
+
+      }
+      />
       <Route path='/TelaFormulario' element={
         <Protected>
-        <TelaFormulario />
+          <TelaFormulario />
         </Protected>
       }
       />

@@ -1,14 +1,7 @@
 import React from 'react'
 import {
-    Box, TextField, Margin, Container, Typography, Checkbox, Select,
-    ListItemText, FormControl, MenuItem, InputLabel,
-    OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery,
-    CircularProgress,
-    ImageList,
-    
-
+    Box,Container, Typography,Card, Button, 
 }
-
     from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Accordion from '@mui/material/Accordion';
@@ -32,18 +25,20 @@ const TelaDeMenu = () => {
             <Container>
                 <Card sx={{ marginTop: '12px' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', margin: '0 20px' }}>
-                        <Typography sx={{
+                        <div  style={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "29px",
                             fontWeight: "bold", color: "#325d87", textAlign: 'center'
-                        }}> Desenvolvedor</Typography>
+                        }}> Desenvolvedor</div>
                         <Box sx={{   color: "#325d87", borderBottom: '3px solid black', marginBottom: '10px' }}></Box>
-                        <Typography sx={{
+                        
+                        <Typography  component={'div'} sx={{
                             marginTop: '28px', textAlign: 'left',
                             fontFamily: "sans-serif",
                             fontSize: "20px",
                             fontWeight: "bold",
                             width: '98.6%',
                             marginLeft: '9px'
+                            
                         }}>
                             Meu nome é Marcos Paulo, tenho 19 anos e atualmente sou estagiário de front-end na Mobimark.
                             Sou apaixonado por programação e busco aprimorar minhas habilidades diariamente.
