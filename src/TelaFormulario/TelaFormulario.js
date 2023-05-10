@@ -230,7 +230,7 @@ const TelaFormulario = () => {
                            
                         }}> Preencha seus dados  </Typography>
                         <Grid container spacing={2} >
-                            <Grid item lg={2} xs={12} md={3} sm={6}>
+                            <Grid item lg={3} xs={12} md={3} sm={6}>
                                 <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined" fullWidth
                                     name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
                                 />
@@ -245,12 +245,12 @@ const TelaFormulario = () => {
 
                             </Grid>
 
-                            <Grid item lg={2} xs={12} md={3} sm={6} >
+                            <Grid item lg={3} xs={12} md={3} sm={6} >
                                 <TextField size="small" id="outlined-basic" label="Nome do diretor" variant="outlined" fullWidth
                                     name="nomeDoDiretor" value={objetosDosInputs.nomeDoDiretor} onChange={handleChange}
                                 />
                             </Grid>
-                            <Grid item lg={2} xs={12} md={3} sm={6} >
+                            <Grid item lg={3} xs={12} md={3} sm={6} >
                                 <FormControl fullWidth  >
                                     <InputLabel id="demo-multiple-checkbox-label"> Turnos</InputLabel>
                                     <Select
@@ -278,7 +278,7 @@ const TelaFormulario = () => {
                                 </FormControl>
                             </Grid>
 
-                            <Grid item lg={2} xs={12} sm={6} md={3}>
+                            <Grid item lg={3} xs={12} sm={6} md={3}>
                                 <FormControl fullWidth >
                                     <InputLabel id="demo-simple-select-label">Localizacão</InputLabel>
                                     <Select
@@ -334,7 +334,7 @@ const TelaFormulario = () => {
                                         id="searchbar" /* onKeyUp="search_animal" */ type="text"
                                         name="search" placeholder="Procurar  escola || diretor ..."
                                         value={buscarInformacoes}
-                                        onChange={(ev) => setBuscarInformacoes(ev.target.value)}
+                              
                                     />
 
                                     <Table>
@@ -351,6 +351,7 @@ const TelaFormulario = () => {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
+                                            {/* filter e barra de pesquisa */}
                                         {listaDaTabela.filter((item) => item.nomeDaEscola.toLowerCase()
                                                 .includes(buscarInformacoes.toLowerCase()) ||
                                                 item.nomeDoDiretor.toLowerCase().includes(buscarInformacoes.toLowerCase())).map((item, index) => (
@@ -380,7 +381,7 @@ const TelaFormulario = () => {
                                                                 <Typography variant="h7">
                                                                     <p>Nome da escola: {itensQueVaoSerExcluidos.nomeDaEscola}</p>
                                                                     <p> nome do Diretor: {itensQueVaoSerExcluidos.nomeDoDiretor}</p>
-                                                                    <p> Turno selecionado : {itensQueVaoSerExcluidos.turnos}</p>
+                                                                    <p>Turno selecionado: {itensQueVaoSerExcluidos.turnos ? itensQueVaoSerExcluidos.turnos.join(",") : ""}</p>                                                                    <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
                                                                     <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
 
                                                                 </Typography>

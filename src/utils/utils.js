@@ -30,33 +30,7 @@ export const estados = [
     { "nome": "Sergipe", "sigla": "se" },
     { "nome": "Tocantins", "sigla": "to" }   
 ]
-// VariaveisEfunõesDaTELALISTAGEM
-export const arrayEscolas =  [
-    {
-      adicaoObjetosEscolasFiltradas: 'Escola Municipal São Paulo',
-      diretor: 'João da Silva',
-      localizacao: 'Urbana',
-      turnos: ['Manhã', 'Tarde', 'Noite']
-    },
-    {
-      adicaoObjetosEscolasFiltradas: 'Escola Estadual Santa Maria',
-      diretor: 'Maria Oliveira',
-      localizacao: 'Rural',
-      turnos: ['Manhã', 'Tarde']
-    },
-    {
-      adicaoObjetosEscolasFiltradas: 'Escola Particular Santo Antônio',
-      diretor: 'Antônio Santos',
-      localizacao: 'Urbana',
-      turnos: ['Manhã', 'Tarde', 'Integral']
-    },
-    {
-      adicaoObjetosEscolasFiltradas: 'Escola Municipal São José',
-      diretor: 'José Alves',
-      localizacao: 'Rural',
-      turnos: ['Manhã']
-    }
-  ];
+
   export const Turnos= [
     'Manhã',
     'Tarde',

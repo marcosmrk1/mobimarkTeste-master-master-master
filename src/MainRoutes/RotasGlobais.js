@@ -1,11 +1,11 @@
 import { Route, Routes, Navigate, Router, redirect, RoutePri, } from 'react-router-dom';
 import Login from '../TelaDeLogin/TelaDeLogin'
 import { dadosDoEmaileSenha } from '../localStorageGlobais'
-import Formulario from '../Formulario/Formulario';
+import Listagem from '../TelaListagem/TelaListagem';
 import Template from '../Template/Template';
 import TeladeMenu from '../TelaDeMenu/TelaDeMenu'
-import TelaListagem from '../TelaListagem/TelaListagem';
-import TelaFormulario from '../TelaListagem/TelaFormulario';
+import TelaFormularioo from '../TelaFormulario/TelaFormulario';
+import TelaFormulario from '../TelaFormulario/TelaFormulario';
 import TeladeMenuu from '../'
 function Protected({ children }) {
   if (!window.localStorage.getItem(dadosDoEmaileSenha)) {
@@ -50,13 +50,13 @@ const mainroutes = () => {
       />
       <Route path='/TelaFormulario' element={
         <Protected>
-          <TelaFormulario />
+          <TelaFormularioo />
         </Protected>
       }
       />
       <Route path='/telalistagem' element={
         <Protected >
-          <Formulario />
+          <Listagem />
         </Protected>
       } />
     </Routes>
