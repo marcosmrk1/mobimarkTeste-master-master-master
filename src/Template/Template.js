@@ -17,14 +17,15 @@ const listaMenu = [
 const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
+    marginLeft: '22px',
     color: 'white',
     fontSize: '20px',
     margin: theme.spacing(0, 2),
     '&:hover': {
       color: 'yellow',
       borderBottom: '1px solid white',
-    },
-  },
+    }
+  }
 }));
 function Template({ children }) {
   const navigate = useNavigate();
@@ -38,14 +39,17 @@ function Template({ children }) {
       <AppBar position='static'>
         <Toolbar>
           <HamburguerMenu listaMenu={listaMenu} />
-          <span style={{ fontSize: 25 }} >MobiTeste</span>
+          <Box style={{ fontSize: 25 }} >
+
+            <Typography variant='h4'>MobiTeste</Typography>
+          </Box>
           <Grid container marginLeft={'18px'}>
             <Grid item sm={12} md={10} style={{
               textDecoration: 'none',
               color: 'white',
               fontSize: '20px',
             }
-            } sx={{ display: { xs: 'none', md: 'flex' }, }} >
+            } sx={{ display: { xs: 'none', md: 'flex' }, marginLeft: '10px', gap: '22px', }} >
               {listaMenu.map((listaItem, index) => (
                 <Link key={index} to={listaItem.path} className={classes.link}>
                   {listaItem.label}

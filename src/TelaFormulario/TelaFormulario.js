@@ -44,9 +44,6 @@ const TelaFormulario = () => {
 
     })
     const [listaDaTabela, setlistaDaTabela] = useState([])
-    const [textErrorNomeDaEscola, setTextErrorNomeDaEscola] = useState(false)
-    const [textErrorParaLocalizacaoDaEscola, setTextErrorParaLocalizacaoDaEscola] = useState(false)
-    const [textErrorSelecioneUmTurno, setTextErrorSelecioneUmTunro] = useState(false)
     const [loading, setloading] = useState(false)
     const [itemDoMap, setItemDoMap] = useState({})
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
@@ -54,14 +51,21 @@ const TelaFormulario = () => {
     const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
     const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
+
+    const errosCampos = {
+        nomeDaEscola: { msg: 'Digite o nome da escola', error: false },
+        localizacaoDaEscola: { msg: 'Informe a localização da escola', error: false },
+        turnos: { msg: 'Informe o turno da escola ', error: false },
+    }
+
+    const [erros, setErros] = useState({ ...errosCampos })
     const concatListaDaTabela = (event) => {
         event.preventDefault()
         if (validacao()) {
+            setErros({ ...errosCampos })
             setloading(true)
             setTimeout(() => {
-                setTextErrorSelecioneUmTunro()
-                setTextErrorParaLocalizacaoDaEscola()
-                setTextErrorNomeDaEscola()
+
                 setCadastroRealizadoComSucessoText(true)
                 setTimeout(() => {
                     setCadastroRealizadoComSucessoText(false)
@@ -99,17 +103,17 @@ const TelaFormulario = () => {
 
     useEffect(() => {
         setloading(true)
-      setTimeout(() => {
-          setloading(false)
-     
-      
-        const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
-        if (listaSalva) {
-            setlistaDaTabela(JSON.parse(listaSalva));
-        }
-    }, 1500);
+        setTimeout(() => {
+            setloading(false)
+
+
+            const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
+            if (listaSalva) {
+                setlistaDaTabela(JSON.parse(listaSalva));
+            }
+        }, 1500);
     }, []);
- 
+
     const localStorageExibir = () => {
         let RecebendoInformacaoDocampoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
         if (RecebendoInformacaoDocampoDoLocalStorage === null) {
@@ -136,19 +140,21 @@ const TelaFormulario = () => {
         setobjetosDosInputs({
             ...objetosDosInputs,
             localizacaoDaEscola: event.target.value,
-        });
+        })
     }
     const validacao = () => {
-        if (objetosDosInputs.nomeDaEscola.length <= 3) {
-            setTextErrorNomeDaEscola(true)
+        if (objetosDosInputs.nomeDaEscola.length === 0) {
+            setErros({ ...erros, nomeDaEscola: { ...erros.nomeDaEscola, error: true, } })
+
+
             return false
         }
         if (objetosDosInputs.localizacaoDaEscola.length === 0) {
-            setTextErrorParaLocalizacaoDaEscola(true)
+            setErros({ ...erros, localizacaoDaEscola: { ...erros.localizacaoDaEscola, error: true } })
             return false
         }
         if (objetosDosInputs.turnos.length === 0) {
-            setTextErrorSelecioneUmTunro(true)
+            setErros({ ...erros, turnos: { ...erros.turnos, error: true, } })
             return false
         }
         return true
@@ -219,30 +225,24 @@ const TelaFormulario = () => {
                     <Box
                         onSubmit={concatListaDaTabela}
                         component="form"
-                        sx={{ margin:2 }}
+                        sx={{ margin: 2 }}
                         noValidate
                         autoComplete="off"
                     >
 
                         <Typography variant="h8" component='h3' style={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
-                            fontWeight: "bold", color: "#325d87" ,marginBottom:'26px'
-                           
+                            fontWeight: "bold", color: "#325d87", marginBottom: '26px'
+
                         }}> Preencha seus dados  </Typography>
                         <Grid container spacing={2} >
                             <Grid item lg={3} xs={12} md={3} sm={6}>
                                 <TextField size="small" id="outlined-basic" label="Nome da escola" variant="outlined" fullWidth
                                     name="nomeDaEscola" value={objetosDosInputs.nomeDaEscola} onChange={handleChange}
                                 />
-                                {textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'] === '' ?
-                                    <Typography sx={{ color: 'red' }}  >
-                                        <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                        Preencha o campo: Nome Da Escola</Typography>
-                                    : textErrorNomeDaEscola && objetosDosInputs['nomeDaEscola'].length < 4
-                                        ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                            O campo: Nome Da Escola deve ter pelo menos 4 caracteres </Typography>
-                                        : ''}
-
+                                {erros['nomeDaEscola'].error && <Typography sx={{ color: 'red' }}  >
+                                    <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
+                                    {erros['nomeDaEscola'].msg}</Typography>}
                             </Grid>
 
                             <Grid item lg={3} xs={12} md={3} sm={6} >
@@ -272,10 +272,10 @@ const TelaFormulario = () => {
                                         ))}
 
                                     </Select>
-                                    {textErrorSelecioneUmTurno ? <Typography sx={{ color: 'red' }} ><WarningAmberIcon
-                                        sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                        selecione um turno</Typography> : null}
+                                    {erros['turnos'].error && <Typography sx={{ color: 'red' }} ><WarningAmberIcon
+                                        sx={{ fontSize: 'medium', marginInline: '5px' }} />{erros['turnos'].msg}</Typography>}
                                 </FormControl>
+
                             </Grid>
 
                             <Grid item lg={3} xs={12} sm={6} md={3}>
@@ -292,18 +292,17 @@ const TelaFormulario = () => {
                                         <MenuItem value={'urbana'}>Urbana</MenuItem>
                                         <MenuItem value={'rural'}>Rural</MenuItem>
                                     </Select>
-                                    {textErrorParaLocalizacaoDaEscola ? <Typography sx={{ color: 'red' }} >
-                                        <WarningAmberIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
-                                        selecione a localizacao da escola</Typography> : ""}
+                                    {erros['localizacaoDaEscola'].error && <Typography sx={{ color: 'red' }} ><WarningAmberIcon
+                                        sx={{ fontSize: 'medium', marginInline: '5px' }} />{erros['localizacaoDaEscola'].msg}</Typography>}
                                 </FormControl>
                             </Grid>
                             <Grid item lg={4} xs={12} sm={6} md={4} >
-                                <Button type="submit" variant="contained"  sx={{ marginRight: '12px' , marginBUtt:'12px'}}
+                                <Button type="submit" variant="contained" sx={{ marginRight: '12px', marginBUtt: '12px' }}
                                     onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
                                     {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                                 </Button>
-             
-                            
+
+
                                 {NomeDobuttonEditar && (
                                     <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar </Button>
                                 )}
@@ -312,7 +311,7 @@ const TelaFormulario = () => {
                     </Box>
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
-                        
+
                     (localStorageExibir() || []).length > 0 && (
 
                         <>
@@ -334,7 +333,7 @@ const TelaFormulario = () => {
                                         id="searchbar" /* onKeyUp="search_animal" */ type="text"
                                         name="search" placeholder="Procurar  escola || diretor ..."
                                         value={buscarInformacoes}
-                              
+
                                     />
 
                                     <Table>
@@ -352,7 +351,7 @@ const TelaFormulario = () => {
                                         </TableHead>
                                         <TableBody>
                                             {/* filter e barra de pesquisa */}
-                                        {listaDaTabela.filter((item) => item.nomeDaEscola.toLowerCase()
+                                            {listaDaTabela.filter((item) => item.nomeDaEscola.toLowerCase()
                                                 .includes(buscarInformacoes.toLowerCase()) ||
                                                 item.nomeDoDiretor.toLowerCase().includes(buscarInformacoes.toLowerCase())).map((item, index) => (
                                                     <TableRow key={index}>
@@ -406,7 +405,7 @@ const TelaFormulario = () => {
                         </>
                     )
                 }
-            </Container>
+            </Container >
         </>
     )
 }
