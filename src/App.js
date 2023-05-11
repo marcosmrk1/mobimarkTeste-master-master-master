@@ -1,9 +1,13 @@
 
+import { CssBaseline } from '@mui/material'
 import Rotas from './MainRoutes/RotasGlobais'
 
 function App() {
   return (
- <Rotas/>
+    <>
+     <CssBaseline />
+    <Rotas/>
+    </>
   )
 }
 export default App
