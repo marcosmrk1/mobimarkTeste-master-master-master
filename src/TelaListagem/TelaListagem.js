@@ -49,10 +49,10 @@ const Formulario = () => {
     useEffect(() => {
         if (window.localStorage.getItem('listaApi') === null) {
             axios.get(' https://cors-anywhere.herokuapp.com/http://educacao.dadosabertosbr.com/api/escolas/buscaavancada?situacaoFuncionamento=1&energiaInexistente=on&aguaInexistente=on&esgotoInexistente=on&cozinha=on')
-                .then(Response => {
-                    window.localStorage.setItem('listaApi', JSON.stringify(Response.data));
-                    setEscolasDados(Response.data[1]);
-                    setEscolasFiltradas(Response.data[1]);
+                .then(response => {
+                    window.localStorage.setItem('listaApi', JSON.stringify(response.data));
+                    setEscolasDados(response.data[1]);
+                    setEscolasFiltradas(response.data[1]);
                 })
                 .catch(error => {
                     console.error(error)
@@ -71,9 +71,9 @@ const Formulario = () => {
         if (estado) {
             if (window.localStorage.getItem(estado) === null) {
                 axios.get(' https://cors-anywhere.herokuapp.com/http://educacao.dadosabertosbr.com/api/cidades/' + estado)
-                    .then(Response => {
-                        window.localStorage.setItem(estado, JSON.stringify(Response.data));
-                        setCidades(Response.data)
+                    .then(response => {
+                        window.localStorage.setItem(estado, JSON.stringify(response.data));
+                        setCidades(response.data)
                     })
                     .catch(error => {
                         setCidades(JSON.parse(window.localStorage.getItem(estado)));

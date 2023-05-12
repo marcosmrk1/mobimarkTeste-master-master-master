@@ -4,21 +4,20 @@ import {
     Box, TextField, Margin, Container, Typography, Checkbox, Select,
     ListItemText, FormControl, MenuItem, InputLabel,
     OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery,
-    CircularProgress
+    CircularProgress,
+    IconButton,
+    InputAdornment
 }
     from '@mui/material';
 import { CardActions, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Grid from '@mui/material/Grid';
-
-import { useTheme } from "styled-components";
-import CheckIcon from '@mui/icons-material/Check';
-import { red } from "@mui/material/colors";
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import SearchIcon from '@mui/icons-material/Search';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -51,17 +50,20 @@ const TelaFormulario = () => {
     const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
     const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
-
+    const [tabelaFiltradoComAPesquisa, setTabelaFiltradoComAPesquisa] = useState([])
+    const [verificarPesquisa, setVerificarPesquisa] = useState(false)
+    const [loadingPesquisa, setLoadingPesquisa] = useState(false)
     const errosCampos = {
         nomeDaEscola: { msg: 'Digite o nome da escola', error: false },
         localizacaoDaEscola: { msg: 'Informe a localização da escola', error: false },
         turnos: { msg: 'Informe o turno da escola ', error: false },
     }
-
     const [erros, setErros] = useState({ ...errosCampos })
     const concatListaDaTabela = (event) => {
         event.preventDefault()
         if (validacao()) {
+            setBuscarInformacoes('')
+            setVerificarPesquisa(false)
             setErros({ ...errosCampos })
             setloading(true)
             setTimeout(() => {
@@ -72,7 +74,7 @@ const TelaFormulario = () => {
                 }, 3000);
                 let ExibirInformaçõesDosInputs = [...listaDaTabela]
                 if (!objetosDosInputs.id) {
-                    ExibirInformaçõesDosInputs = ExibirInformaçõesDosInputs.concat({ ...objetosDosInputs, id: ExibirInformaçõesDosInputs.length + 1 })
+                    ExibirInformaçõesDosInputs = ExibirInformaçõesDosInputs.concat({ ...objetosDosInputs, id: Math.random() })
                 } else {
                     ExibirInformaçõesDosInputs = ExibirInformaçõesDosInputs.map(item => {
                         if (objetosDosInputs.id === item.id) {
@@ -102,18 +104,16 @@ const TelaFormulario = () => {
     }
 
     useEffect(() => {
-        setloading(true)
-        setTimeout(() => {
-            setloading(false)
+        const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
+        if (listaSalva) {
+            setloading(true)
+            setTimeout(() => {
 
-
-            const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
-            if (listaSalva) {
                 setlistaDaTabela(JSON.parse(listaSalva));
-            }
-        }, 1500);
+                setloading(false)
+            }, 1000);
+        }
     }, []);
-
     const localStorageExibir = () => {
         let RecebendoInformacaoDocampoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
         if (RecebendoInformacaoDocampoDoLocalStorage === null) {
@@ -130,7 +130,6 @@ const TelaFormulario = () => {
     }
     const selectTurnos = (event) => {
         const { value } = event.target;
-        // setValueParaOSelecet(typeof value === 'string' ? value.split(',') : value,);
         setobjetosDosInputs((prev) => ({
             ...prev,
             turnos: value
@@ -145,8 +144,6 @@ const TelaFormulario = () => {
     const validacao = () => {
         if (objetosDosInputs.nomeDaEscola.length === 0) {
             setErros({ ...erros, nomeDaEscola: { ...erros.nomeDaEscola, error: true, } })
-
-
             return false
         }
         if (objetosDosInputs.localizacaoDaEscola.length === 0) {
@@ -160,14 +157,30 @@ const TelaFormulario = () => {
         return true
     }
     const excluirItemDaTabela = () => {
-        let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id
-
-        )
+        let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id)
         setItensQueVaoSerExcluidos(listaAposExclusao)
         setlistaDaTabela(listaAposExclusao)
+        setTabelaFiltradoComAPesquisa(listaAposExclusao)
         localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(listaAposExclusao))
     }
+    const botaoParaPesquisarNaTabela = () => {
 
+        const resultadoFiltro = listaDaTabela.filter((item) =>
+
+
+
+            item.nomeDaEscola.toLowerCase().includes(buscarInformacoes.toLowerCase()) ||
+            item.nomeDoDiretor.toLowerCase().includes(buscarInformacoes.toLowerCase())
+
+        );
+        setLoadingPesquisa(true)
+        setTimeout(() => {
+            setTabelaFiltradoComAPesquisa(resultadoFiltro)
+            setVerificarPesquisa(true)
+            setLoadingPesquisa(false)
+        }, 1200);
+        return resultadoFiltro;
+    }
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
         if (NomeDobuttonEditar) {
@@ -275,12 +288,11 @@ const TelaFormulario = () => {
                                     {erros['turnos'].error && <Typography sx={{ color: 'red' }} ><WarningAmberIcon
                                         sx={{ fontSize: 'medium', marginInline: '5px' }} />{erros['turnos'].msg}</Typography>}
                                 </FormControl>
-
                             </Grid>
 
                             <Grid item lg={3} xs={12} sm={6} md={3}>
                                 <FormControl fullWidth >
-                                    <InputLabel id="demo-simple-select-label">Localizacão</InputLabel>
+                                    <InputLabel id="demo-simple-select-label">Localização</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         size="small"
@@ -301,8 +313,6 @@ const TelaFormulario = () => {
                                     onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
                                     {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                                 </Button>
-
-
                                 {NomeDobuttonEditar && (
                                     <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar </Button>
                                 )}
@@ -311,9 +321,7 @@ const TelaFormulario = () => {
                     </Box>
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
-
                     (localStorageExibir() || []).length > 0 && (
-
                         <>
                             <Box sx={{ marginTop: '60px' }}>
                                 <Card sx={{ overflow: 'auto' }}>
@@ -328,13 +336,27 @@ const TelaFormulario = () => {
                                             <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                                             Tabela atualizada com sucesso
                                         </Typography>}
+                                    <Box>
+                                        <TextField
+                                            sx={{ marginTop: '10px', width: '80%', marginLeft: '8%' }}
+                                            id="searchbar"
 
-                                    <TextField sx={{ marginTop: '10px', width: '80%', marginLeft: "8%" }}
-                                        id="searchbar" /* onKeyUp="search_animal" */ type="text"
-                                        name="search" placeholder="Procurar  escola || diretor ..."
-                                        value={buscarInformacoes}
-
-                                    />
+                                            type="text"
+                                            name="search"
+                                            placeholder="Procurar escola ou diretor..."
+                                            value={buscarInformacoes}
+                                            onChange={(e) => setBuscarInformacoes(e.target.value)}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton onClick={botaoParaPesquisarNaTabela}>
+                                                            <SearchIcon />
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                    </Box>
 
                                     <Table>
                                         <TableHead>
@@ -350,11 +372,15 @@ const TelaFormulario = () => {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {/* filter e barra de pesquisa */}
-                                            {listaDaTabela.filter((item) => item.nomeDaEscola.toLowerCase()
-                                                .includes(buscarInformacoes.toLowerCase()) ||
-                                                item.nomeDoDiretor.toLowerCase().includes(buscarInformacoes.toLowerCase())).map((item, index) => (
+
+                                            {loadingPesquisa ?
+                                                <TableRow>
+                                                    <Box> <CircularProgress sx={{ marginLeft: '147%' }} /> </Box>
+                                                </TableRow>
+                                                :
+                                                (verificarPesquisa ? tabelaFiltradoComAPesquisa : listaDaTabela).map((item, index) => (
                                                     <TableRow key={index}>
+
                                                         <TableCell>{item.nomeDaEscola}</TableCell>
                                                         <TableCell>{item.nomeDoDiretor.length > 0 ? item.nomeDoDiretor : <Typography>Não informado </Typography>
                                                         }</TableCell>
@@ -367,8 +393,18 @@ const TelaFormulario = () => {
                                                         </Button>
                                                         <Button onClick={() => editarItemDaTabela(item)}> <EditIcon /></Button>
                                                     </TableRow>
-
-                                                ))}
+                                                ))
+                                            }
+                                            {verificarPesquisa && tabelaFiltradoComAPesquisa.length === 0 &&
+                                                <TableRow>
+                                                    <TableCell colSpan={5} align="center" style={{
+                                                        fontFamily: "Roboto, Helvetica,Arial,sans-serif",
+                                                        fontSize: "20px", fontWeight: "bold", color: "red", width: '100%'
+                                                    }}>
+                                                        Nenhum resultado encontrado
+                                                    </TableCell>
+                                                </TableRow>
+                                            }
 
                                             <Dialog open={open} onClose={handleCancel}>
                                                 <DialogTitle>Confirmar ação</DialogTitle>

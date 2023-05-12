@@ -1,7 +1,7 @@
 import react, { useState } from 'react'
 import { CircularProgress, Container, Typography, Grid, Box, Paper, Link, Checkbox, FormControlLabel, TextField, Button } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { dadosDoEmaileSenha } from '../localStorageGlobais'
 const handleSubmit = (event) => {
     event.preventDefault();
@@ -11,43 +11,43 @@ const TelaDeLogin = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('')
     const [textovalidacao, setTextovalidacao] = useState(false)
-    const [textoValidacaoSenha,setTextoValidacaoSenha]= useState(false)
+    const [textoValidacaoSenha, setTextoValidacaoSenha] = useState(false)
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
     const rotarDentrada = () => {
         if (!validarEmail(email) || !validarSenha(senha)) {
-          if (!validarEmail(email)) {
-            setTextovalidacao(true);
-          } else {
-            setTextovalidacao(false);
-          }
-          if (!validarSenha(senha)) {
-            setTextoValidacaoSenha(true);
-          } else {
-            setTextoValidacaoSenha(false);
-          }
-          setLoading(false);
-        } else {            
-          window.localStorage.setItem(dadosDoEmaileSenha, email + "" + senha);
-          setLoading(true);
-          setTimeout(() => {
-            navigate('/sobremim');
+            if (!validarEmail(email)) {
+                setTextovalidacao(true);
+            } else {
+                setTextovalidacao(false);
+            }
+            if (!validarSenha(senha)) {
+                setTextoValidacaoSenha(true);
+            } else {
+                setTextoValidacaoSenha(false);
+            }
             setLoading(false);
-          }, 3000);
+        } else {
+            window.localStorage.setItem(dadosDoEmaileSenha, email + "" + senha);
+            setLoading(true);
+            setTimeout(() => {
+                navigate('/sobremim');
+                setLoading(false);
+            }, 3000);
         }
-      }
+    }
     function validarEmail(email) {
         const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        if(validarEmail === true ){
+        if (validarEmail === true) {
             setTextovalidacao(true)
-        }return regex.test(email);
-   
+        } return regex.test(email);
+
     }
 
     function validarSenha(senha) {
         const LetrasMaisculas = /[A-Z]/;
         if (senha.length < 8) {
-        
+
             return false;
         }
         if (!LetrasMaisculas.test(senha)) {
@@ -78,18 +78,19 @@ const TelaDeLogin = () => {
                         marginTop: '50%',
                         display: "flex",
                         flexDirection: "column",
-                 
+
                     }}
                 >
-                    <Box sx={{alignItems:'center',
+                    <Box sx={{
+                        alignItems: 'center',
                         display: "flex",
                         flexDirection: "column"
-                        }}>
-                    <Typography component="h4" variant="h4" >
-                        Entrar
-                        <Typography
-                            component='h4' variant='h8'>  bem-vindo</Typography>
-                    </Typography>
+                    }}>
+                        <Typography component="h4" variant="h4" >
+                            Entrar
+                            <Typography
+                                component='h4' variant='h8'>  bem-vindo</Typography>
+                        </Typography>
                     </Box>
                     <Box component="form" onSubmit={handleSubmit}>
                         <TextField
@@ -104,11 +105,11 @@ const TelaDeLogin = () => {
                             autoComplete="email"
                             autoFocus
                             onSubmit={dadosuser}
-                            />
-                            {textovalidacao ?
-                                <Typography sx={{ color: 'red' }}> digite um e-mail válido.</Typography> : ''
-                            }
-                          
+                        />
+                        {textovalidacao ?
+                            <Typography sx={{ color: 'red' }}> digite um e-mail válido.</Typography> : ''
+                        }
+
                         <TextField
                             margin="normal"
                             required
@@ -121,9 +122,9 @@ const TelaDeLogin = () => {
                             id="password"
                             autoComplete="current-password"
                         />
-                        {textoValidacaoSenha ? 
-                         <Typography sx={{ color: 'red' }}>  Digite senha com pelo menos 8 caracteres e uma letra maiscula.</Typography>
-                         : ''}
+                        {textoValidacaoSenha ?
+                            <Typography sx={{ color: 'red' }}>  Digite senha com pelo menos 8 caracteres e uma letra maiscula.</Typography>
+                            : ''}
                         <Button
                             type="submit"
                             fullWidth
@@ -134,7 +135,7 @@ const TelaDeLogin = () => {
                             Entrar
                             <PersonIcon></PersonIcon>
                         </Button>
-                       
+
                     </Box>
                 </Box>
             </Container>

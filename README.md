@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+Projeto da MobiMark , com Autenticação , listagem de Api, formulário
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1 . COMO RODAR  O PROJETO 
 
-## Available Scripts
+1.Projeto quando estiver nos arquivos do projeto se o 'npm Start ' não funcionar. Utilize 'npm install --force'
 
-In the project directory, you can run:
+2.Após a instalação feita somente dar 'npm start'
 
-### `npm start`
+2 . PROJETO RODANDO
+2.Com o projeto rodando entrará  na pagina de login , importante que o e-mailseja  valido e a senha tem que ter pelo menos 8 caracteres com uma letra maiúscula
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3.PROJETO ACESSADO 
+com o projeto acessado sera visivel a navbar com 'Listagem' , 'sobre mim' ,'formulário' ,'Sair' 
 
-### `npm test`
+4.SOBRE MIM
+A página  exibirá  as informações do desenvolvedor do projeto,  sobre ele, suas redes socias , e dowload do seu curriculo,também tera cards sobre o que foi  foi utilizado, dificuldades encontradas, sugestões
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5.LISTAGEM 
+tera acesso a listagem da API  http://educacao.dadosabertosbr.com/api. Podendo filtrar sua pesquisa com select e a barra de pesquisa 
 
-### `npm run build`
+6.FORMULÁRIO 
+podera cadastrar  Nome da escola , nome do diretor, turnos, localização. Após fazer o passo a passo do cadastro tera a listagem das informações que voce cadastrou podendo editar ou exclui-las 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+7.SAIR
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+você retornara para a página de login e tera que acessar e repetir todo o processo de 'PROJETO RODANDO'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+8.COISAS A MAIS
 
-### `npm run eject`
+O projeto esta totalmente responsivo além disso, possui nivel de autenticação, não sendo possivel acessar sem passar pelas validações do login, e também não podendo voltar sem apertar o botão sair.Quando usando em mobile
+será visivel o menu hamburguer onde tera as mesmas funções da navbar de telas maiores que MD
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
