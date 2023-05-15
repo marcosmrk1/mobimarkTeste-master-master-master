@@ -1,22 +1,37 @@
 
-import { setSelectionRange } from "@testing-library/user-event/dist/utils/edit/selectionRange";
-import React, { useEffect, useState } from "react";
 import {
-    InputAdornment, Tooltip, Link, Button, FormControl, Select
-    , MenuItem, InputLabel, Table, TableBody, TableContainer, TableHead, TableCell, TableRow,
-    IconButton, SearchIcon, TextField, height, Typography, CircularProgress, Stack, Card,
-    CardActions, CardContent, Container, useMediaQuery, Box,
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CircularProgress,
+    Container,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    MenuItem,
+    Select,
+    Table, TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TextField,
+    Tooltip,
+    Typography,
+    useMediaQuery
 } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
-import Grid from '@mui/material/Grid';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import axios from "axios";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import { localStorageEstado } from "../localStorageGlobais/index"
-import { estados } from '../utils/utils'
+import Grid from '@mui/material/Grid';
+import axios from "axios";
+import { localStorageEstado } from "../localStorageGlobais/index";
+import { estados } from '../utils/utils';
 
 
 const Formulario = () => {
@@ -190,7 +205,7 @@ const Formulario = () => {
                                 onChange={(ev) => setBuscaTexto(ev.target.value)}
                             />
                         </Grid>
-                        <Grid item xs={7} sm={4} md={3} lg={2} >
+                        <Grid item xs={10} sm={4} md={3} lg={2} >
                             <FormControl fullWidth>
                                 <InputLabel  >Selecione um estado</InputLabel>
                                 <Select
@@ -208,7 +223,7 @@ const Formulario = () => {
                         </Grid>
 
 
-                        <Grid item xs={7} sm={4} md={3} lg={2}>
+                        <Grid item xs={10} sm={4} md={3} lg={2}>
                             {
                                 Cidades && Cidades.length > 0 && <FormControl fullWidth >
                                     <InputLabel  >Selecione a cidade</InputLabel>

@@ -1,22 +1,14 @@
-import * as React from 'react';
-import react, { useState } from 'react'
-import { AppBar, Box, Divider, IconButton, Popover, Typography } from '@mui/material';
-import { Card, Drawer, Toolbar } from '@material-ui/core';
-import { dadosDoEmaileSenha } from '../localStorageGlobais'
-import List from '@mui/material/List';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { Link, useNavigate } from 'react-router-dom';
+import { Drawer } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import LogoutIcon from '@mui/icons-material/Logout';
+import * as React from 'react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { dadosDoEmaileSenha } from '../localStorageGlobais';
 const useStyles = makeStyles((theme) => ({
 
   link: {
@@ -40,13 +32,7 @@ const HamburguerMenu = ({ listaMenu }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const open = Boolean(anchorEl);
   const id = open ? 'menu-popover' : undefined;

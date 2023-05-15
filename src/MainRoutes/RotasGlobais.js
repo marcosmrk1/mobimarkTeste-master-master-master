@@ -1,10 +1,10 @@
-import { Route, Routes, Navigate, Router, redirect, RoutePri, } from 'react-router-dom';
-import Login from '../TelaDeLogin/TelaDeLogin'
-import { dadosDoEmaileSenha } from '../localStorageGlobais'
+import { Navigate, Route, Routes } from 'react-router-dom';
+import Login from '../TelaDeLogin/TelaDeLogin';
+import TeladeMenu from '../TelaDeMenu/TelaDeMenu';
+import TelaFormulario from '../TelaFormulario/TelaFormulario';
 import TelaListagem from '../TelaListagem/TelaListagem';
 import Template from '../Template/Template';
-import TeladeMenu from '../TelaDeMenu/TelaDeMenu'
-import TelaFormulario from '../TelaFormulario/TelaFormulario';
+import { dadosDoEmaileSenha } from '../localStorageGlobais';
 
 function Protected({ children }) {
 

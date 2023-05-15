@@ -1,23 +1,33 @@
 
-import React, { useEffect, useState } from "react";
-import {
-    Box, TextField, Margin, Container, Typography, Checkbox, Select,
-    ListItemText, FormControl, MenuItem, InputLabel,
-    OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery,
-    CircularProgress,
-    IconButton,
-    InputAdornment
-}
-    from '@mui/material';
 import { CardActions, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import Grid from '@mui/material/Grid';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import EditIcon from '@mui/icons-material/Edit';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import {
+    Box,
+    Button,
+    Card,
+    Checkbox,
+    CircularProgress,
+    Container,
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    ListItemText,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    TextField,
+    Typography
+} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import React, { useEffect, useState } from "react";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -234,7 +244,7 @@ const TelaFormulario = () => {
             </Card>
             <Container >
 
-                <Card sx={{ marginTop: '12px' }}>
+                <Card sx={{ marginTop: '12px', padding: '12px' }}>
                     <Box
                         onSubmit={concatListaDaTabela}
                         component="form"
@@ -357,7 +367,6 @@ const TelaFormulario = () => {
                                             }}
                                         />
                                     </Box>
-
                                     <Table>
                                         <TableHead>
                                             <TableRow>
@@ -371,8 +380,7 @@ const TelaFormulario = () => {
                                                 <TableCell align="left">Localização da escola</TableCell>
                                             </TableRow>
                                         </TableHead>
-                                        <TableBody>
-
+                                        <TableBody sx={{ marginBottom: '12px' }}>
                                             {loadingPesquisa ?
                                                 <TableRow>
                                                     <Box> <CircularProgress sx={{ marginLeft: '147%' }} /> </Box>
@@ -405,19 +413,17 @@ const TelaFormulario = () => {
                                                     </TableCell>
                                                 </TableRow>
                                             }
-
                                             <Dialog open={open} onClose={handleCancel}>
                                                 <DialogTitle>Confirmar ação</DialogTitle>
                                                 <DialogContent>
                                                     <DialogContentText>
-                                                        essas informações estão prestes a ser excluidos:
+                                                        Essas informações estão prestes a ser excluidos:
                                                         {itensQueVaoSerExcluidos && (
                                                             <Box sx={{ marginTop: "10px" }}>
                                                                 <Typography variant="h7">
                                                                     <p>Nome da escola: {itensQueVaoSerExcluidos.nomeDaEscola}</p>
                                                                     <p> nome do Diretor: {itensQueVaoSerExcluidos.nomeDoDiretor}</p>
                                                                     <p>Turno selecionado: {itensQueVaoSerExcluidos.turnos ? itensQueVaoSerExcluidos.turnos.join(",") : ""}</p>                                                                    <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
-                                                                    <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
 
                                                                 </Typography>
                                                             </Box>

@@ -1,18 +1,20 @@
-import React from 'react'
-import {
-    Box, Container, Typography, Card, Button,
-}
-    from '@mui/material';
-import Grid from '@mui/material/Grid';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
+import EmailIcon from '@mui/icons-material/Email';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import GetAppIcon from '@mui/icons-material/GetApp';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import fotoDoMarcos from '../FotosGerais/marcosPaulo.png'
-import EmailIcon from '@mui/icons-material/Email';
-import GetAppIcon from '@mui/icons-material/GetApp';
+import {
+    Box,
+    Button,
+    Card,
+    Container, Typography,
+} from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Grid from '@mui/material/Grid';
+import React from 'react';
+import fotoDoMarcos from '../FotosGerais/marcosPaulo.png';
 const TelaDeMenu = () => {
     return (
         <>
@@ -23,12 +25,12 @@ const TelaDeMenu = () => {
                 }}> sobre mim </Typography>
             </Card>
             <Container>
-                <Card sx={{ marginTop: '12px' }}>
+                <Card sx={{ marginTop: '12px', marginBottom: '12px', padding: '12px' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', margin: '0 20px' }}>
-                        <div style={{
+                        <Box style={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "29px",
                             fontWeight: "bold", color: "#325d87", textAlign: 'center'
-                        }}> Desenvolvedor</div>
+                        }}> Desenvolvedor</Box>
                         <Box sx={{ color: "#325d87", borderBottom: '3px solid black', marginBottom: '10px' }}></Box>
 
                         <Typography component={'div'} sx={{
@@ -83,7 +85,7 @@ const TelaDeMenu = () => {
                         </Box>
                     </Box>
 
-                    <Grid container spacing={2} sx={{ display: 'flex', flexDirection: 'row', marginTop: '35px' }}>
+                    <Grid container spacing={2} sx={{ display: 'flex', flexDirection: 'row', marginTop: '35px', marginBottom: '20px', }}>
                         <Grid item lg={4} xs={12} sm={4} md={4}>
                             <Accordion sx={{}} defaultExpanded={true} >
                                 <AccordionSummary
@@ -146,7 +148,7 @@ const TelaDeMenu = () => {
                                     }}>3.Sugestões</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography  >
+                                    <Typography sx={{ width: '100%', }}  >
                                         Prolongar o tempo do teste para um iniciante. Colocar como "pedida"
                                         a simulação de um loading,
                                         pedir tbm para caso o filtro de busca nâo encontre nada colocar um "alert"

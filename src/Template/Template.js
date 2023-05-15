@@ -1,14 +1,13 @@
 
-import { dadosDoEmaileSenha } from '../localStorageGlobais'
-import { AppBar, Toolbar, CssBaseline, makeStyles } from '@material-ui/core';
-import { Link, useNavigate } from 'react-router-dom';
-import { Box, Typography, Button, } from '@mui/material';
-import HamburguerMenu from './HamburguerMenu';
-import { IconButton } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import { AppBar, Toolbar, makeStyles } from '@material-ui/core';
+import EditIcon from '@mui/icons-material/Edit';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import PersonIcon from '@mui/icons-material/Person';
-import EditIcon from '@mui/icons-material/Edit';
+import { Box, Button, Typography, } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import { Link, useNavigate } from 'react-router-dom';
+import { dadosDoEmaileSenha } from '../localStorageGlobais';
+import HamburguerMenu from './HamburguerMenu';
 const listaMenu = [
   { picture: <FormatListBulletedIcon sx={{ fontSize: '16px', marginRight: '4px', }} />, path: '/telalistagem', label: 'Listagem' },
   { picture: <PersonIcon sx={{ fontSize: '16px', marginRight: '4px' }} />, path: '/sobremim', label: 'Sobre mim' },

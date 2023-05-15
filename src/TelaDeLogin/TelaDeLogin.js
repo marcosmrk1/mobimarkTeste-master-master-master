@@ -1,8 +1,9 @@
-import react, { useState } from 'react'
-import { CircularProgress, Container, Typography, Grid, Box, Paper, Link, Checkbox, FormControlLabel, TextField, Button } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
-import { useNavigate } from 'react-router-dom'
-import { dadosDoEmaileSenha } from '../localStorageGlobais'
+import { Box, Button, CircularProgress, Container, TextField, Typography } from "@mui/material";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { validarEmail, validarSenha } from '../UtilsFunction/UtilsFunction';
+import { dadosDoEmaileSenha } from '../localStorageGlobais';
 const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -36,25 +37,8 @@ const TelaDeLogin = () => {
             }, 3000);
         }
     }
-    function validarEmail(email) {
-        const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        if (validarEmail === true) {
-            setTextovalidacao(true)
-        } return regex.test(email);
 
-    }
 
-    function validarSenha(senha) {
-        const LetrasMaisculas = /[A-Z]/;
-        if (senha.length < 8) {
-
-            return false;
-        }
-        if (!LetrasMaisculas.test(senha)) {
-            return false;
-        }
-        return true;
-    }
     const dadosuser = () => {
         const teste = window.localStorage.getItem(dadosDoEmaileSenha)
     }

@@ -1,2 +1,3 @@
 export const dadosDoEmaileSenha = "dadosDoEmaileSenha";
-export const  localStorageEstado = "estadoSelect"
+export const localStorageEstado = "estadoSelect";
+
