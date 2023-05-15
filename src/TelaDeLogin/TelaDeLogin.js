@@ -38,7 +38,6 @@ const TelaDeLogin = () => {
         }
     }
 
-
     const dadosuser = () => {
         const teste = window.localStorage.getItem(dadosDoEmaileSenha)
     }

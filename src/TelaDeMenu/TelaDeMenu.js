@@ -14,7 +14,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Grid from '@mui/material/Grid';
 import React from 'react';
-import fotoDoMarcos from '../FotosGerais/marcosPaulo.png';
+import fotoDoMarcos from '../Assets/Img/marcosPaulo.png';
 const TelaDeMenu = () => {
     return (
         <>

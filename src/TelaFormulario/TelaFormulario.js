@@ -7,6 +7,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index'
 import {
     Box,
     Button,
@@ -94,12 +95,12 @@ const TelaFormulario = () => {
                     })
                 }
                 setlistaDaTabela(ExibirInformaçõesDosInputs)
-                let listaSalva = localStorage.getItem('listaDaTabelaLocalstorage')
+                let listaSalva = localStorage.getItem(listaDaTabelaDoLocalStorageTelaForm)
                 if (listaSalva) {
                     listaSalva = JSON.parse(listaSalva);
                     ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs,];
                 }
-                localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(ExibirInformaçõesDosInputs));
+                localStorage.setItem(listaDaTabelaDoLocalStorageTelaForm, JSON.stringify(ExibirInformaçõesDosInputs));
                 setobjetosDosInputs({
                     nomeDaEscola: '',
                     nomeDoDiretor: '',
@@ -114,7 +115,7 @@ const TelaFormulario = () => {
     }
 
     useEffect(() => {
-        const listaSalva = localStorage.getItem('listaDaTabelaLocalstorage');
+        const listaSalva = localStorage.getItem(listaDaTabelaDoLocalStorageTelaForm);
         if (listaSalva) {
             setloading(true)
             setTimeout(() => {
@@ -125,7 +126,7 @@ const TelaFormulario = () => {
         }
     }, []);
     const localStorageExibir = () => {
-        let RecebendoInformacaoDocampoDoLocalStorage = localStorage.getItem('listaDaTabelaLocalstorage')
+        let RecebendoInformacaoDocampoDoLocalStorage = localStorage.getItem(listaDaTabelaDoLocalStorageTelaForm)
         if (RecebendoInformacaoDocampoDoLocalStorage === null) {
         }
         return JSON.parse(RecebendoInformacaoDocampoDoLocalStorage)
@@ -171,7 +172,7 @@ const TelaFormulario = () => {
         setItensQueVaoSerExcluidos(listaAposExclusao)
         setlistaDaTabela(listaAposExclusao)
         setTabelaFiltradoComAPesquisa(listaAposExclusao)
-        localStorage.setItem('listaDaTabelaLocalstorage', JSON.stringify(listaAposExclusao))
+        localStorage.setItem(listaDaTabelaDoLocalStorageTelaForm, JSON.stringify(listaAposExclusao))
     }
     const botaoParaPesquisarNaTabela = () => {
 
