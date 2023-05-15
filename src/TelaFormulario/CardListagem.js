@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
     Box, TextField, Margin, Container, Typography, Checkbox, Select,
     ListItemText, FormControl, MenuItem, InputLabel,
-    OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery,
+    OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     CircularProgress,
     IconButton,
     InputAdornment
@@ -18,6 +18,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index'
+
 const CardListagem = () => {
     const [listaDaTabela, setlistaDaTabela] = useState([])
     const [loading, setloading] = useState(false)
@@ -42,6 +43,7 @@ const CardListagem = () => {
         setlistaDaTabela(ordenacaoNomeDaEscola)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
     }
+    
     const botaoParaPesquisarNaTabela = () => {
         const resultadoFiltro = listaDaTabela.filter((item) =>
             item.nomeDaEscola.toLowerCase().includes(buscarInformacoes.toLowerCase()) ||
@@ -89,6 +91,7 @@ const CardListagem = () => {
         turnos: [],
 
     })
+    
     return (
         <>
             <Box sx={{ marginTop: '60px' }}>
@@ -108,7 +111,6 @@ const CardListagem = () => {
                         <TextField
                             sx={{ marginTop: '10px', width: '80%', marginLeft: '8%' }}
                             id="searchbar"
-
                             type="text"
                             name="search"
                             placeholder="Procurar escola ou diretor..."
