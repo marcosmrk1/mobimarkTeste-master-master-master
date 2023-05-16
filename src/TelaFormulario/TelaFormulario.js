@@ -64,7 +64,7 @@ const TelaFormulario = () => {
         turnos: { msg: 'Informe o turno da escola ', error: false },
     }
     const [erros, setErros] = useState({ ...errosCampos })
-    const concatListaDaTabela = (event) => {
+    const envioDaInformacaoParaListagemDoFormulario = (event) => {
         event.preventDefault()
         if (validacao()) {
             setBuscarInformacoes('')
@@ -72,7 +72,6 @@ const TelaFormulario = () => {
             setErros({ ...errosCampos })
             setloading(true)
             setTimeout(() => {
-
                 setCadastroRealizadoComSucessoText(true)
                 setTimeout(() => {
                     setCadastroRealizadoComSucessoText(false)
@@ -224,7 +223,7 @@ const TelaFormulario = () => {
 
                 <Card sx={{ marginTop: '12px', padding: '12px' }}>
                     <Box
-                        onSubmit={concatListaDaTabela}
+                        onSubmit={envioDaInformacaoParaListagemDoFormulario}
                         component="form"
                         sx={{ margin: 2 }}
                         noValidate

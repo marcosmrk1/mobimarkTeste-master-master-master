@@ -1,5 +1,8 @@
 // import { useMediaQuery } from "@mui/material";
 
+import EditIcon from '@mui/icons-material/Edit';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import PersonIcon from '@mui/icons-material/Person';
 // FORMULARIO
 export const estados = [
   { "nome": "Acre", "sigla": "ac" },
@@ -31,4 +34,10 @@ export const estados = [
   { "nome": "Tocantins", "sigla": "to" }
 ]
 
-
+// Em Templates
+// NavbarDesktop
+export const listaMenu = [
+  { picture: <FormatListBulletedIcon sx={{ fontSize: '16px', marginRight: '4px', }} />, path: '/telalistagem', label: 'Listagem' },
+  { picture: <PersonIcon sx={{ fontSize: '16px', marginRight: '4px' }} />, path: '/sobremim', label: 'Sobre mim' },
+  { picture: <EditIcon sx={{ fontSize: '16px', marginRight: '4px', }} />, path: '/TelaFormulario', label: 'Formulário ' },
+]

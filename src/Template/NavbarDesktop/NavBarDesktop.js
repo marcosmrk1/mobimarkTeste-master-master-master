@@ -1,20 +1,12 @@
 
 import { AppBar, Toolbar } from '@material-ui/core';
-import EditIcon from '@mui/icons-material/Edit';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import PersonIcon from '@mui/icons-material/Person';
 import { Box, Button, Typography, } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Link, useNavigate } from 'react-router-dom';
 import { dadosDoEmaileSenha } from '../../localStorageGlobais';
-import { useStyles } from '../DesktopMenu/Style';
+import { listaMenu } from '../../utils/utils';
 import HamburguerMenu from '../HamburguerMenu/HamburguerMenu';
-const listaMenu = [
-  { picture: <FormatListBulletedIcon sx={{ fontSize: '16px', marginRight: '4px', }} />, path: '/telalistagem', label: 'Listagem' },
-  { picture: <PersonIcon sx={{ fontSize: '16px', marginRight: '4px' }} />, path: '/sobremim', label: 'Sobre mim' },
-  { picture: <EditIcon sx={{ fontSize: '16px', marginRight: '4px', }} />, path: '/TelaFormulario', label: 'Formulário ' },
-]
-
+import { useStyles } from './StyleNavbarDesktop';
 function Template({ children }) {
   const navigate = useNavigate();
   const FuncaoSaidaButton = () => {

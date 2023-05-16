@@ -15,7 +15,6 @@ const HamburguerMenu = ({ listaMenu }) => {
   const open = Boolean(anchorEl);
   const id = open ? 'menu-popover' : undefined;
   const navigate = useNavigate();
-
   const FuncaoSaidaButton = () => {
     window.localStorage.removeItem(dadosDoEmaileSenha, '');
     navigate('/');

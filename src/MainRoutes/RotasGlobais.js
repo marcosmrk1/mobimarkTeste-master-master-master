@@ -1,9 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import Sobremim from '../Sobremim/Sobremim';
 import Login from '../TelaDeLogin/TelaDeLogin';
-import TeladeMenu from '../TelaDeMenu/TelaDeMenu';
 import TelaFormulario from '../TelaFormulario/TelaFormulario';
 import TelaListagem from '../TelaListagem/TelaListagem';
-import Template from '../Template/DesktopMenu/Template';
+import Template from '../Template/NavbarDesktop/NavBarDesktop';
+
 import { dadosDoEmaileSenha } from '../localStorageGlobais';
 
 function Protected({ children }) {
@@ -42,7 +43,7 @@ const mainroutes = () => {
       } />
       <Route path='/Sobremim' element={
         <Protected>
-          <TeladeMenu />
+          <Sobremim />
         </Protected>
       }
       />

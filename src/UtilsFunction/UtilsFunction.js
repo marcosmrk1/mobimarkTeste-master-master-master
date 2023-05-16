@@ -1,4 +1,6 @@
 //tela de login funções 
+
+
 //funções usada para validacao de email e senha na tela de login 
 export function validarEmail(email) {
 
@@ -22,8 +24,4 @@ export function validarSenha(senha) {
 
 //tela de login
 
-
-//tela de formulario
-//login function
-
-// tela de formulario
+//funcao para sair da tela 
