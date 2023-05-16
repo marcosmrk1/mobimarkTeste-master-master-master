@@ -1,9 +1,8 @@
 
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index'
-import CardListagem from './CardListagem'
 import {
     Box,
     Button,
@@ -11,10 +10,7 @@ import {
     Checkbox,
     CircularProgress,
     Container,
-    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     FormControl,
-    IconButton,
-    InputAdornment,
     InputLabel,
     ListItemText,
     MenuItem,
@@ -24,8 +20,9 @@ import {
     Typography
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import React, { useEffect, useState } from "react";
+import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
+import CardListagem from './CardListagem';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {

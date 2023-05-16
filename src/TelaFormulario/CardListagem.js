@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import {
-    Box, TextField, Margin, Container, Typography, Checkbox, Select,
-    ListItemText, FormControl, MenuItem, InputLabel,
-    OutlinedInput, Card, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    CircularProgress,
-    IconButton,
-    InputAdornment
-}
-    from '@mui/material';
 import { CardActions, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import Grid from '@mui/material/Grid';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import EditIcon from '@mui/icons-material/Edit';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
-import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index'
+import {
+    Box,
+    Button,
+    Card,
+    CircularProgress,
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography
+} from '@mui/material';
+import React, { useState } from "react";
+import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
 
 const CardListagem = () => {
     const [listaDaTabela, setlistaDaTabela] = useState([])
@@ -43,7 +43,7 @@ const CardListagem = () => {
         setlistaDaTabela(ordenacaoNomeDaEscola)
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
     }
-    
+
     const botaoParaPesquisarNaTabela = () => {
         const resultadoFiltro = listaDaTabela.filter((item) =>
             item.nomeDaEscola.toLowerCase().includes(buscarInformacoes.toLowerCase()) ||
@@ -91,7 +91,7 @@ const CardListagem = () => {
         turnos: [],
 
     })
-    
+
     return (
         <>
             <Box sx={{ marginTop: '60px' }}>

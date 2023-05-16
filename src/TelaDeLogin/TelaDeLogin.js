@@ -17,17 +17,7 @@ const TelaDeLogin = () => {
     const navigate = useNavigate()
     const rotarDentrada = () => {
         if (!validarEmail(email) || !validarSenha(senha)) {
-            if (!validarEmail(email)) {
-                setTextovalidacao(true);
-            } else {
-                setTextovalidacao(false);
-            }
-            if (!validarSenha(senha)) {
-                setTextoValidacaoSenha(true);
-            } else {
-                setTextoValidacaoSenha(false);
-            }
-            setLoading(false);
+            textErroDeValidacaoDeSenhaErro()
         } else {
             window.localStorage.setItem(dadosDoEmaileSenha, email + "" + senha);
             setLoading(true);
@@ -38,6 +28,19 @@ const TelaDeLogin = () => {
         }
     }
 
+    const textErroDeValidacaoDeSenhaErro = () => {
+        if (!validarEmail(email)) {
+            setTextovalidacao(true);
+        } else {
+            setTextovalidacao(false);
+        }
+        if (!validarSenha(senha)) {
+            setTextoValidacaoSenha(true);
+        } else {
+            setTextoValidacaoSenha(false);
+        }
+        setLoading(false);
+    }
     const dadosuser = () => {
         const teste = window.localStorage.getItem(dadosDoEmaileSenha)
     }
@@ -61,7 +64,6 @@ const TelaDeLogin = () => {
                         marginTop: '50%',
                         display: "flex",
                         flexDirection: "column",
-
                     }}
                 >
                     <Box sx={{

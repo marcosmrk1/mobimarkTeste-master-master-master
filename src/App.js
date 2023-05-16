@@ -5,8 +5,8 @@ import Rotas from './MainRoutes/RotasGlobais'
 function App() {
   return (
     <>
-     <CssBaseline />
-    <Rotas/>
+      <CssBaseline />
+      <Rotas />
     </>
   )
 }

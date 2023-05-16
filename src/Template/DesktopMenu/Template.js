@@ -1,31 +1,20 @@
 
-import { AppBar, Toolbar, makeStyles } from '@material-ui/core';
+import { AppBar, Toolbar } from '@material-ui/core';
 import EditIcon from '@mui/icons-material/Edit';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import PersonIcon from '@mui/icons-material/Person';
 import { Box, Button, Typography, } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Link, useNavigate } from 'react-router-dom';
-import { dadosDoEmaileSenha } from '../localStorageGlobais';
-import HamburguerMenu from './HamburguerMenu';
+import { dadosDoEmaileSenha } from '../../localStorageGlobais';
+import { useStyles } from '../DesktopMenu/Style';
+import HamburguerMenu from '../HamburguerMenu/HamburguerMenu';
 const listaMenu = [
   { picture: <FormatListBulletedIcon sx={{ fontSize: '16px', marginRight: '4px', }} />, path: '/telalistagem', label: 'Listagem' },
   { picture: <PersonIcon sx={{ fontSize: '16px', marginRight: '4px' }} />, path: '/sobremim', label: 'Sobre mim' },
   { picture: <EditIcon sx={{ fontSize: '16px', marginRight: '4px', }} />, path: '/TelaFormulario', label: 'Formulário ' },
 ]
-const useStyles = makeStyles((theme) => ({
-  link: {
-    textDecoration: 'none',
-    marginLeft: '22px',
-    color: 'white',
-    fontSize: '20px',
-    margin: theme.spacing(0, 2),
-    '&:hover': {
-      color: 'yellow',
-      borderBottom: '1px solid white',
-    }
-  }
-}));
+
 function Template({ children }) {
   const navigate = useNavigate();
   const FuncaoSaidaButton = () => {

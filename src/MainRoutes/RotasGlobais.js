@@ -3,7 +3,7 @@ import Login from '../TelaDeLogin/TelaDeLogin';
 import TeladeMenu from '../TelaDeMenu/TelaDeMenu';
 import TelaFormulario from '../TelaFormulario/TelaFormulario';
 import TelaListagem from '../TelaListagem/TelaListagem';
-import Template from '../Template/Template';
+import Template from '../Template/DesktopMenu/Template';
 import { dadosDoEmaileSenha } from '../localStorageGlobais';
 
 function Protected({ children }) {

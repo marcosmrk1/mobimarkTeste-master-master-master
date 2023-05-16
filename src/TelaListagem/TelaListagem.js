@@ -147,7 +147,7 @@ const Formulario = () => {
                 setloading({ ...testeLoading, loading: false })
             })
     }
-    
+
     const pressionarbusca = () => {
         setEscolasFiltradas(escolasDados.filter((escolaTextoBusca) => {
             if (escolaTextoBusca.nome.toLowerCase().includes(buscaTexto.toLowerCase())) {

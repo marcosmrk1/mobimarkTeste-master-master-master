@@ -1,39 +1,17 @@
 import { Drawer } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import * as React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { dadosDoEmaileSenha } from '../localStorageGlobais';
-const useStyles = makeStyles((theme) => ({
-
-  link: {
-    textDecoration: 'none',
-    color: '#325d87',
-    flexDirection: 'column',
-    fontSize: '1.25rem',
-    fontWeight: theme.typography.fontWeightMedium,
-    padding: theme.spacing(1),
-    borderRadius: theme.shape.borderRadius,
-    '&:hover': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}));
-
+import { dadosDoEmaileSenha } from '../../localStorageGlobais';
+import { useStyles } from './SytleHamburguer';
 const HamburguerMenu = ({ listaMenu }) => {
   const [drawerIcon, setDrawerIcon] = useState(false)
-
-
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-
-
-
   const open = Boolean(anchorEl);
   const id = open ? 'menu-popover' : undefined;
   const navigate = useNavigate();
