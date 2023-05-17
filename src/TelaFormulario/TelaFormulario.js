@@ -22,7 +22,7 @@ import {
 import Grid from '@mui/material/Grid';
 import React, { useEffect, useState } from "react";
 import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
-import CardListagem from './CardListagem';
+import CardListagem from './CardListagemForm';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -94,6 +94,7 @@ const TelaFormulario = () => {
                     ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs,];
                 }
                 localStorage.setItem(listaDaTabelaDoLocalStorageTelaForm, JSON.stringify(ExibirInformaçõesDosInputs));
+                console.log(listaDaTabela, 'lista da tabela dasdsadsadsdads')
                 setobjetosDosInputs({
                     nomeDaEscola: '',
                     nomeDoDiretor: '',
@@ -101,8 +102,10 @@ const TelaFormulario = () => {
                     turnos: [],
                 });
                 setloading(false)
+
             }, 1000);
         }
+        console.log(objetosDosInputs, 'esse e o objetos dos inputs')
         setNomeDoButtonEditar(false)
         return;
     }
@@ -116,6 +119,7 @@ const TelaFormulario = () => {
                 setlistaDaTabela(JSON.parse(listaSalva));
                 setloading(false)
             }, 1000);
+
         }
     }, []);
     const localStorageExibir = () => {
@@ -309,7 +313,7 @@ const TelaFormulario = () => {
                 </Card>
                 {loading ? <Box><CircularProgress sx={{ marginLeft: '46%', marginTop: '14%' }} /></Box> :
                     (localStorageExibir() || []).length > 0 && (
-                        <CardListagem />
+                        <CardListagem listaDaTabela={listaDaTabela} />
                     )
                 }
             </Container >

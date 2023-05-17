@@ -9,7 +9,7 @@ const handleSubmit = (event) => {
     const data = new FormData(event.currentTarget);
 };
 const TelaDeLogin = () => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [textovalidacao, setTextovalidacao] = useState(false)
     const [textoValidacaoSenha, setTextoValidacaoSenha] = useState(false)
@@ -27,7 +27,6 @@ const TelaDeLogin = () => {
             }, 3000);
         }
     }
-
     const textErroDeValidacaoDeSenhaErro = () => {
         if (!validarEmail(email)) {
             setTextovalidacao(true);
