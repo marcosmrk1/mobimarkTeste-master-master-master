@@ -41,3 +41,11 @@ export const listaMenu = [
   { picture: <PersonIcon sx={{ fontSize: '16px', marginRight: '4px' }} />, path: '/sobremim', label: 'Sobre mim' },
   { picture: <EditIcon sx={{ fontSize: '16px', marginRight: '4px', }} />, path: '/TelaFormulario', label: 'Formulário ' },
 ]
+
+
+//tela Formulario erros dos campos de validacao
+export const errosCampos = {
+  nomeDaEscola: { msg: 'Digite o nome da escola', error: false },
+  localizacaoDaEscola: { msg: 'Informe a localização da escola', error: false },
+  turnos: { msg: 'Informe o turno da escola ', error: false },
+}

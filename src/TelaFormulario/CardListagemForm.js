@@ -17,14 +17,19 @@ import {
     Typography
 } from '@mui/material';
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setlistaDaTabela } from "../Redux/counterSlice";
 import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
 
-const CardListagem = () => {
-    const [listaDaTabela, setlistaDaTabela] = useState([])
+const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobuttonEditar },) => {
+    const dispatch = useDispatch()
+    // const [listaDaTabela, setlistaDaTabela] = useState([])
+    const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
+
     const [loading, setloading] = useState(false)
     const [itemDoMap, setItemDoMap] = useState({})
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
-    const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
+    // const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
     const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
     const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
@@ -40,13 +45,13 @@ const CardListagem = () => {
                 return b[atributoOrdenacao].localeCompare(a[atributoOrdenacao])
             }
         })
-        setlistaDaTabela(ordenacaoNomeDaEscola)
+        dispatch(setlistaDaTabela(ordenacaoNomeDaEscola))
         setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
     }
-
     const botaoParaPesquisarNaTabela = () => {
         const resultadoFiltro = listaDaTabela.filter((item) =>
-            item.nomeDaEscola.toLowerCase().includes(buscarInformacoes.toLowerCase()) ||
+            item.nomeDaEscola.toLowerCase().includes(buscarInformacoes.toLowerCase())
+            ||
             item.nomeDoDiretor.toLowerCase().includes(buscarInformacoes.toLowerCase())
         );
         setLoadingPesquisa(true)
@@ -58,6 +63,8 @@ const CardListagem = () => {
         return resultadoFiltro;
     }
     const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
+    const arrowIconDiretor = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
+
     const handleClickOpen = (item) => {
         setOpen(true);
         setItemDoMap(item)
@@ -70,27 +77,40 @@ const CardListagem = () => {
         setOpen(false);
         excluirItemDaTabela()
     }
+
     const excluirItemDaTabela = () => {
         let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id)
         setItensQueVaoSerExcluidos(listaAposExclusao)
-        setlistaDaTabela(listaAposExclusao)
+        dispatch(setlistaDaTabela(listaAposExclusao))
         setTabelaFiltradoComAPesquisa(listaAposExclusao)
         localStorage.setItem(listaDaTabelaDoLocalStorageTelaForm, JSON.stringify(listaAposExclusao))
     }
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
         if (NomeDobuttonEditar) {
-
+            console.log('iai')
             setNomeDoButtonEditar(false)
         } setNomeDoButtonEditar(true)
     }
-    const [objetosDosInputs, setobjetosDosInputs] = useState({
-        nomeDaEscola: '',
-        nomeDoDiretor: '',
-        localizacaoDaEscola: '',
-        turnos: [],
 
-    })
+    // const CancelarEdicao = () => {
+
+    //     setobjetosDosInputs({
+    //         nomeDaEscola: '',
+    //         nomeDoDiretor: '',
+    //         localizacaoDaEscola: '',
+    //         turnos: [],
+    //     })
+    //     setNomeDoButtonEditar(false)
+
+    // }
+
+    // const [objetosDosInputs, setobjetosDosInputs] = useState({
+    //     nomeDaEscola: '',
+    //     nomeDoDiretor: '',
+    //     localizacaoDaEscola: '',
+    //     turnos: [],
+    // })
 
     return (
         <>
@@ -134,7 +154,7 @@ const CardListagem = () => {
                                     <Button onClick={() => ordenarOrdemAlfabetica('nomeDaEscola')} endIcon={arrowIcon}></Button>
                                 </TableCell>
                                 <TableCell align='left'>Nome do diretor
-                                    <Button onClick={() => ordenarOrdemAlfabetica('nomeDoDiretor')} endIcon={arrowIcon}></Button>
+                                    <Button onClick={() => ordenarOrdemAlfabetica('nomeDoDiretor')} endIcon={arrowIconDiretor}></Button>
                                 </TableCell>
                                 <TableCell align='left'>Turnos</TableCell>
                                 <TableCell align="left">Localização da escola</TableCell>
@@ -159,7 +179,7 @@ const CardListagem = () => {
                                         <Button onClick={() => handleClickOpen(item)}>
                                             <DeleteForeverIcon />
                                         </Button>
-                                        <Button onClick={() => editarItemDaTabela(item)}> <EditIcon /></Button>
+                                        <Button onClick={() => { editarItemDaTabela(item) }}> <EditIcon /></Button>
                                     </TableRow>
                                 ))
                             }
@@ -183,7 +203,8 @@ const CardListagem = () => {
                                                 <Typography variant="h7">
                                                     <p>Nome da escola: {itensQueVaoSerExcluidos.nomeDaEscola}</p>
                                                     <p> nome do Diretor: {itensQueVaoSerExcluidos.nomeDoDiretor}</p>
-                                                    <p>Turno selecionado: {itensQueVaoSerExcluidos.turnos ? itensQueVaoSerExcluidos.turnos.join(",") : ""}</p>                                                                    <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
+                                                    <p>Turno selecionado: {itensQueVaoSerExcluidos.turnos ? itensQueVaoSerExcluidos.turnos.join(",") : ""}</p>
+                                                    <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
 
                                                 </Typography>
                                             </Box>
