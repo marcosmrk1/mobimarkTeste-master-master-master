@@ -3,8 +3,9 @@ import {
     Container, Typography
 } from '@mui/material';
 import React from 'react';
-import CardDesenvolvedortext from './CardDesenvolvedortext';
-import CardDifuculdades from './CardDifuculdades';
+import CardTexts from '../Sobremim/CardTexts';
+import BoxIcons from './BoxIcons';
+import CardDesenvolvedortext from './DesenvolvedorText';
 const TelaDeMenu = () => {
     return (
         <>
@@ -16,7 +17,8 @@ const TelaDeMenu = () => {
             </Card>
             <Container>
                 <CardDesenvolvedortext />
-                <CardDifuculdades />
+                <BoxIcons />
+                <CardTexts />
             </Container>
         </>
     )

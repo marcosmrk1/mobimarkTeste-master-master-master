@@ -8,9 +8,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setItensExcluidos, setlistaDaTabela } from "../Redux/counterSlice";
 import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
-const ModalCard = ({ open, setOpen, itemDoMap, setItemDoMap, setTabelaFiltradoComAPesquisa, handleClickOpen }) => {
+const ModalCard = ({ open, setOpen, itemDoMap, setTabelaFiltradoComAPesquisa, }) => {
     const dispatch = useDispatch()
-
     const ItensQueSeraoExcluidos = useSelector(state => state.listagemDaEscolaFormulario.listaDosItensQueVaoSerExcluidos)
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const excluirItemDaTabela = () => {

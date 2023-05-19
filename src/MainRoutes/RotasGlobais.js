@@ -4,9 +4,7 @@ import Login from '../TelaDeLogin/TelaDeLogin';
 import TelaFormulario from '../TelaFormulario/TelaFormulario';
 import TelaListagem from '../TelaListagem/TelaListagem';
 import Template from '../Template/NavbarDesktop/NavBarDesktop';
-
 import { dadosDoEmaileSenha } from '../localStorageGlobais';
-
 function Protected({ children }) {
 
   if (!window.localStorage.getItem(dadosDoEmaileSenha)) {

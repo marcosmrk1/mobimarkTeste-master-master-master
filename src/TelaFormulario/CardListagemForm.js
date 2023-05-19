@@ -23,7 +23,6 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
     const dispatch = useDispatch()
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const textoDaTabelaAtualizadaComSucesso = useSelector(state => state.listagemDaEscolaFormulario.mensagem)
-    const ItensQueSeraoExcluidos = useSelector(state => state.listagemDaEscolaFormulario.listaDosItensQueVaoSerExcluidos)
     const [itemDoMap, setItemDoMap] = useState({})
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
@@ -66,7 +65,6 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
         } setNomeDoButtonEditar(true)
     }
     const handleClickOpen = (item) => {
-        console.log('era para abrir')
         setOpen(true);
         setItemDoMap(item)
         dispatch(setItensExcluidos(item))

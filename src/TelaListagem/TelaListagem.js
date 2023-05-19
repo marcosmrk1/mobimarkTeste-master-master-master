@@ -24,20 +24,17 @@ import { localStorageEstado } from "../localStorageGlobais/index";
 import { estados } from '../utils/utils';
 import CardListagem from "./CardListagem";
 const Formulario = () => {
-
     const [buscaTexto, setBuscaTexto] = useState('')
     const [escolasFiltradas, setEscolasFiltradas] = useState([])
     const [cidades, setCidades] = useState([])
     const [cidadeSelecionada, setCidadeselecionada] = useState('')
     const [escolasDados, setEscolasDados] = useState({})
-    // const [error, seterror] = useState(false)
     const localStorageSaveEstado = localStorage.getItem(localStorageEstado)
     const [estado, setestado] = useState((localStorageSaveEstado ? (
         localStorageSaveEstado
     ) : (
         ""
     )))
-
     console.log(cidades, escolasDados)
     useEffect(() => {
         buscarEscolasGlobais(handleSetEscolas)
@@ -84,20 +81,6 @@ const Formulario = () => {
         const cidadeID = cidadeSelecionada.split(':')[0]
         if (cidadeID) {
             buscarEscolasByCidade(cidadeID, handleSetEscolas)
-            // settesteLoading({ ...testeLoadingCidade, loading: true })
-            // axios.get('https://cors-anywhere.herokuapp.com/http://educacao.dadosabertosbr.com/api/escolas/buscaavancada?cidade=' + cidadeID + '')
-            //   .then((resposta) => {
-            //     settesteLoading({ ...testeLoadingCidade, dados: resposta })
-            //     setEscolasFiltradas(resposta.data[1])
-            //     setEscolasDados(resposta.data[1])
-            //   })
-            //   .catch((error) => {
-            //     settesteLoading({ ...testeLoadingCidade, error: true })
-            //     seterror(true)
-            //   })
-            //   .finally(() => {
-            //     settesteLoading({ ...testeLoadingCidade, loading: false })
-            //   })
         }
     }
 
@@ -163,8 +146,6 @@ const Formulario = () => {
                             </Select>
                         </FormControl>
                     </Grid>
-
-
                     <Grid item xs={7} sm={4} md={3} lg={2}>
                         {
                             cidades.dados && cidades.dados.length > 0 && <FormControl fullWidth >
@@ -189,11 +170,7 @@ const Formulario = () => {
                 escolasDados={escolasDados}
                 cidades={cidades}
                 escolasFiltradas={escolasFiltradas}
-
-
-
             />
-
         </Box>
 
     )

@@ -51,10 +51,8 @@ const TelaFormulario = () => {
     const [loading, setloading] = useState(false)
 
     const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
-    const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
     const [verificarPesquisa, setVerificarPesquisa] = useState(false)
-    const [loadingPesquisa, setLoadingPesquisa] = useState(false)
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const [erros, setErros] = useState({ ...errosCampos })
     const envioDaInformacaoParaListagemDoFormulario = (event) => {
