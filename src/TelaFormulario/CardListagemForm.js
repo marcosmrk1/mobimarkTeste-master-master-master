@@ -25,12 +25,12 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
     const dispatch = useDispatch()
     // const [listaDaTabela, setlistaDaTabela] = useState([])
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
-
+    const TabelaAtualizadaComSucesso = useSelector(state => (state.listagemDaEscolaFormulario.mensagem))
     const [loading, setloading] = useState(false)
     const [itemDoMap, setItemDoMap] = useState({})
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
     // const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
-    const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
+    // const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
     const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
     const [tabelaFiltradoComAPesquisa, setTabelaFiltradoComAPesquisa] = useState([])
@@ -122,7 +122,7 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
                             fontWeight: "bold", color: "#325d87"
                         }}> Tabelas de escolas cadastradas </Typography>
                     </CardActions>
-                    {cadastroRealizadoComSucessoText &&
+                    {TabelaAtualizadaComSucesso &&
                         <Typography sx={{ color: 'green' }}>
                             <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                             Tabela atualizada com sucesso

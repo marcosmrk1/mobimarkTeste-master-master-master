@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setlistaDaTabela } from '../Redux/counterSlice';
 import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
 import { errosCampos } from '../utils/utils';
+import { setMensagem } from '../Redux/counterSlice';
 import CardListagem from './CardListagemForm';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -52,16 +53,16 @@ const TelaFormulario = () => {
     const dispatch = useDispatch()
     const [loading, setloading] = useState(false)
     const [itemDoMap, setItemDoMap] = useState({})
+    // const mensagem = (state => (state.listagemDaEscolaFormulario.mensagem))
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
     const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
-    const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
+    // const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
     const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
     const [tabelaFiltradoComAPesquisa, setTabelaFiltradoComAPesquisa] = useState([])
     const [verificarPesquisa, setVerificarPesquisa] = useState(false)
     const [loadingPesquisa, setLoadingPesquisa] = useState(false)
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
-
     const [erros, setErros] = useState({ ...errosCampos })
 
     const envioDaInformacaoParaListagemDoFormulario = (event) => {
@@ -71,10 +72,10 @@ const TelaFormulario = () => {
             setVerificarPesquisa(false)
             setErros({ ...errosCampos })
             setloading(true)
+            dispatch(setMensagem(true))
             setTimeout(() => {
-                setCadastroRealizadoComSucessoText(true)
                 setTimeout(() => {
-                    setCadastroRealizadoComSucessoText(false)
+                    dispatch(setMensagem(false))
                 }, 3000);
                 let ExibirInformaçõesDosInputs = [...listaDaTabela]
                 if (!objetosDosInputs.id) {
@@ -102,7 +103,6 @@ const TelaFormulario = () => {
                     turnos: [],
                 });
                 setloading(false)
-
             }, 1000);
         }
         setNomeDoButtonEditar(false)
