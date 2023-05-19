@@ -20,18 +20,22 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setlistaDaTabela } from "../Redux/counterSlice";
 import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
+import {setItensExcluidos} from '../Redux/counterSlice'
+
+import ModalCard from "./ModalCard";
 
 const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobuttonEditar },) => {
     const dispatch = useDispatch()
     // const [listaDaTabela, setlistaDaTabela] = useState([])
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
-    const TabelaAtualizadaComSucesso = useSelector(state => (state.listagemDaEscolaFormulario.mensagem))
+    const textoDaTabelaAtualizadaComSucesso = useSelector(state => state.listagemDaEscolaFormulario.mensagem)
+    const ItensQueSeraoExcluidos = useSelector(state => state.listagemDaEscolaFormulario.listaDosItensQueVaoSerExcluidos)
     const [loading, setloading] = useState(false)
     const [itemDoMap, setItemDoMap] = useState({})
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
     // const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
     // const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
-    const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
+    // const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
     const [tabelaFiltradoComAPesquisa, setTabelaFiltradoComAPesquisa] = useState([])
     const [verificarPesquisa, setVerificarPesquisa] = useState(false)
@@ -65,26 +69,8 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
     const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
     const arrowIconDiretor = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
 
-    const handleClickOpen = (item) => {
-        setOpen(true);
-        setItemDoMap(item)
-        setItensQueVaoSerExcluidos(item)
-    }
-    const handleCancel = () => {
-        setOpen(false);
-    }
-    const handleConfirm = () => {
-        setOpen(false);
-        excluirItemDaTabela()
-    }
 
-    const excluirItemDaTabela = () => {
-        let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id)
-        setItensQueVaoSerExcluidos(listaAposExclusao)
-        dispatch(setlistaDaTabela(listaAposExclusao))
-        setTabelaFiltradoComAPesquisa(listaAposExclusao)
-        localStorage.setItem(listaDaTabelaDoLocalStorageTelaForm, JSON.stringify(listaAposExclusao))
-    }
+
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
         if (NomeDobuttonEditar) {
@@ -92,7 +78,12 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
             setNomeDoButtonEditar(false)
         } setNomeDoButtonEditar(true)
     }
-
+     const handleClickOpen = (item) => {
+        console.log('era para abrir')
+        setOpen(true);
+        setItemDoMap(item)
+        dispatch(setItensExcluidos(item))
+    }
     // const CancelarEdicao = () => {
 
     //     setobjetosDosInputs({
@@ -122,7 +113,7 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
                             fontWeight: "bold", color: "#325d87"
                         }}> Tabelas de escolas cadastradas </Typography>
                     </CardActions>
-                    {TabelaAtualizadaComSucesso &&
+                    {textoDaTabelaAtualizadaComSucesso &&
                         <Typography sx={{ color: 'green' }}>
                             <CheckCircleIcon sx={{ fontSize: 'medium', marginInline: '5px' }} />
                             Tabela atualizada com sucesso
@@ -193,7 +184,15 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
                                     </TableCell>
                                 </TableRow>
                             }
-                            <Dialog open={open} onClose={handleCancel}>
+                            <ModalCard 
+                            handleClickOpen = {handleClickOpen}  
+                            open = {open}
+                            setOpen= {setOpen}
+                            itemDoMap = {itemDoMap}
+                            setItemDoMap = {setItemDoMap}
+                            setTabelaFiltradoComAPesquisa={setTabelaFiltradoComAPesquisa}
+                            />
+                            {/* <Dialog open={open} onClose={handleCancel}>
                                 <DialogTitle>Confirmar ação</DialogTitle>
                                 <DialogContent>
                                     <DialogContentText>
@@ -219,7 +218,7 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
                                         Confirmar
                                     </Button>
                                 </DialogActions>
-                            </Dialog>
+                            </Dialog> */}
                         </TableBody>
                     </Table>
                 </Card>

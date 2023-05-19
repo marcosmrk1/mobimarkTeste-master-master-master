@@ -52,14 +52,14 @@ const TelaFormulario = () => {
     // const listaDaTabela = useSelector((state) => state.counter.value)
     const dispatch = useDispatch()
     const [loading, setloading] = useState(false)
-    const [itemDoMap, setItemDoMap] = useState({})
+    // const [itemDoMap, setItemDoMap] = useState({})
     // const mensagem = (state => (state.listagemDaEscolaFormulario.mensagem))
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
     const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
     // const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
     const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
-    const [tabelaFiltradoComAPesquisa, setTabelaFiltradoComAPesquisa] = useState([])
+    // const [tabelaFiltradoComAPesquisa, setTabelaFiltradoComAPesquisa] = useState([])
     const [verificarPesquisa, setVerificarPesquisa] = useState(false)
     const [loadingPesquisa, setLoadingPesquisa] = useState(false)
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
@@ -334,6 +334,7 @@ const TelaFormulario = () => {
                             setobjetosDosInputs={setobjetosDosInputs}
                             NomeDobuttonEditar={NomeDobuttonEditar}
                             setNomeDoButtonEditar={setNomeDoButtonEditar}
+
                         />
                     )
                 }
