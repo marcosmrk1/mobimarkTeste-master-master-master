@@ -10,7 +10,6 @@ import {
     Button,
     Card,
     CircularProgress,
-    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     IconButton,
     InputAdornment,
     TextField,
@@ -18,24 +17,15 @@ import {
 } from '@mui/material';
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setlistaDaTabela } from "../Redux/counterSlice";
-import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
-import {setItensExcluidos} from '../Redux/counterSlice'
-
+import { setItensExcluidos, setlistaDaTabela } from "../Redux/counterSlice";
 import ModalCard from "./ModalCard";
-
 const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobuttonEditar },) => {
     const dispatch = useDispatch()
-    // const [listaDaTabela, setlistaDaTabela] = useState([])
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const textoDaTabelaAtualizadaComSucesso = useSelector(state => state.listagemDaEscolaFormulario.mensagem)
     const ItensQueSeraoExcluidos = useSelector(state => state.listagemDaEscolaFormulario.listaDosItensQueVaoSerExcluidos)
-    const [loading, setloading] = useState(false)
     const [itemDoMap, setItemDoMap] = useState({})
     const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
-    // const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
-    // const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
-    // const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
     const [tabelaFiltradoComAPesquisa, setTabelaFiltradoComAPesquisa] = useState([])
     const [verificarPesquisa, setVerificarPesquisa] = useState(false)
@@ -68,9 +58,6 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
     }
     const arrowIcon = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
     const arrowIconDiretor = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
-
-
-
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
         if (NomeDobuttonEditar) {
@@ -78,31 +65,12 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
             setNomeDoButtonEditar(false)
         } setNomeDoButtonEditar(true)
     }
-     const handleClickOpen = (item) => {
+    const handleClickOpen = (item) => {
         console.log('era para abrir')
         setOpen(true);
         setItemDoMap(item)
         dispatch(setItensExcluidos(item))
     }
-    // const CancelarEdicao = () => {
-
-    //     setobjetosDosInputs({
-    //         nomeDaEscola: '',
-    //         nomeDoDiretor: '',
-    //         localizacaoDaEscola: '',
-    //         turnos: [],
-    //     })
-    //     setNomeDoButtonEditar(false)
-
-    // }
-
-    // const [objetosDosInputs, setobjetosDosInputs] = useState({
-    //     nomeDaEscola: '',
-    //     nomeDoDiretor: '',
-    //     localizacaoDaEscola: '',
-    //     turnos: [],
-    // })
-
     return (
         <>
             <Box sx={{ marginTop: '60px' }}>
@@ -167,13 +135,21 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
                                             {item.turnos.join(",")}
                                         </TableCell>
                                         <TableCell>{item.localizacaoDaEscola}</TableCell>
-                                        <Button onClick={() => handleClickOpen(item)}>
+                                        <Button onClick={() => { handleClickOpen(item) }}>
                                             <DeleteForeverIcon />
                                         </Button>
                                         <Button onClick={() => { editarItemDaTabela(item) }}> <EditIcon /></Button>
                                     </TableRow>
                                 ))
                             }
+                            <ModalCard
+                                handleClickOpen={handleClickOpen}
+                                open={open}
+                                setOpen={setOpen}
+                                itemDoMap={itemDoMap}
+                                setItemDoMap={setItemDoMap}
+                                setTabelaFiltradoComAPesquisa={setTabelaFiltradoComAPesquisa}
+                            />
                             {verificarPesquisa && tabelaFiltradoComAPesquisa.length === 0 &&
                                 <TableRow>
                                     <TableCell colSpan={5} align="center" style={{
@@ -184,41 +160,6 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
                                     </TableCell>
                                 </TableRow>
                             }
-                            <ModalCard 
-                            handleClickOpen = {handleClickOpen}  
-                            open = {open}
-                            setOpen= {setOpen}
-                            itemDoMap = {itemDoMap}
-                            setItemDoMap = {setItemDoMap}
-                            setTabelaFiltradoComAPesquisa={setTabelaFiltradoComAPesquisa}
-                            />
-                            {/* <Dialog open={open} onClose={handleCancel}>
-                                <DialogTitle>Confirmar ação</DialogTitle>
-                                <DialogContent>
-                                    <DialogContentText>
-                                        Essas informações estão prestes a ser excluidos:
-                                        {itensQueVaoSerExcluidos && (
-                                            <Box sx={{ marginTop: "10px" }}>
-                                                <Typography variant="h7">
-                                                    <p>Nome da escola: {itensQueVaoSerExcluidos.nomeDaEscola}</p>
-                                                    <p> nome do Diretor: {itensQueVaoSerExcluidos.nomeDoDiretor}</p>
-                                                    <p>Turno selecionado: {itensQueVaoSerExcluidos.turnos ? itensQueVaoSerExcluidos.turnos.join(",") : ""}</p>
-                                                    <p> localização da escola : {itensQueVaoSerExcluidos.localizacaoDaEscola}</p>
-
-                                                </Typography>
-                                            </Box>
-                                        )}
-                                    </DialogContentText>
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button onClick={handleCancel} color="primary">
-                                        Cancelar
-                                    </Button>
-                                    <Button onClick={handleConfirm} color="primary" autoFocus>
-                                        Confirmar
-                                    </Button>
-                                </DialogActions>
-                            </Dialog> */}
                         </TableBody>
                     </Table>
                 </Card>

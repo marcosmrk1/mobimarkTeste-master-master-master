@@ -19,10 +19,9 @@ import {
 import Grid from '@mui/material/Grid';
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { setlistaDaTabela } from '../Redux/counterSlice';
+import { setMensagem, setlistaDaTabela } from '../Redux/counterSlice';
 import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
 import { errosCampos } from '../utils/utils';
-import { setMensagem } from '../Redux/counterSlice';
 import CardListagem from './CardListagemForm';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -46,25 +45,18 @@ const TelaFormulario = () => {
         nomeDoDiretor: '',
         localizacaoDaEscola: '',
         turnos: [],
-
     })
-    // const [listaDaTabela, setlistaDaTabela] = useState([])
-    // const listaDaTabela = useSelector((state) => state.counter.value)
+
     const dispatch = useDispatch()
     const [loading, setloading] = useState(false)
-    // const [itemDoMap, setItemDoMap] = useState({})
-    // const mensagem = (state => (state.listagemDaEscolaFormulario.mensagem))
-    const [ordemAlfabeticaAscendente, setOrdemAlfabeticaAscendente] = useState([])
+
     const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
-    // const [cadastroRealizadoComSucessoText, setCadastroRealizadoComSucessoText] = useState(false)
     const [itensQueVaoSerExcluidos, setItensQueVaoSerExcluidos] = useState([])
     const [buscarInformacoes, setBuscarInformacoes] = useState('')
-    // const [tabelaFiltradoComAPesquisa, setTabelaFiltradoComAPesquisa] = useState([])
     const [verificarPesquisa, setVerificarPesquisa] = useState(false)
     const [loadingPesquisa, setLoadingPesquisa] = useState(false)
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const [erros, setErros] = useState({ ...errosCampos })
-
     const envioDaInformacaoParaListagemDoFormulario = (event) => {
         event.preventDefault()
         if (validacao()) {
@@ -88,14 +80,12 @@ const TelaFormulario = () => {
                     })
                 }
                 dispatch(setlistaDaTabela(ExibirInformaçõesDosInputs))
-                // console.log(ExibirInformaçõesDosInputs, 'esse e o objetos dos inputs')
                 let listaSalva = localStorage.getItem(listaDaTabelaDoLocalStorageTelaForm)
                 if (listaSalva) {
                     listaSalva = JSON.parse(listaSalva);
                     ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs,];
                 }
                 localStorage.setItem(listaDaTabelaDoLocalStorageTelaForm, JSON.stringify(ExibirInformaçõesDosInputs));
-                // console.log(setlistaDaTabela, 'O REDUX DEU CERTO SERA AASDASDSADSA')
                 setobjetosDosInputs({
                     nomeDaEscola: '',
                     nomeDoDiretor: '',
@@ -109,8 +99,6 @@ const TelaFormulario = () => {
         return;
     }
     useEffect(() => {
-
-        console.log(listaDaTabela)
     }, [listaDaTabela])
 
     useEffect(() => {
@@ -165,51 +153,6 @@ const TelaFormulario = () => {
         }
         return true
     }
-    // const excluirItemDaTabela = () => {
-    //     let listaAposExclusao = setlistaDaTabela.filter((item) => item.id != itemDoMap.id)
-    //     setItensQueVaoSerExcluidos(listaAposExclusao)
-    //     dispatch(setlistaDaTabela(listaAposExclusao))
-    //     setTabelaFiltradoComAPesquisa(listaAposExclusao)
-    //     localStorage.setItem(listaDaTabelaDoLocalStorageTelaForm, JSON.stringify(listaAposExclusao))
-    // }
-
-    // const editarItemDaTabela = (campo) => {
-
-    //     setobjetosDosInputs(campo)
-    //     if (NomeDobuttonEditar) {
-
-    //         setNomeDoButtonEditar(false)
-    //     } setNomeDoButtonEditar(true)
-    // }
-    // const CancelarEdicao = () => {
-
-    //     setobjetosDosInputs({
-    //         nomeDaEscola: '',
-    //         nomeDoDiretor: '',
-    //         localizacaoDaEscola: '',
-    //         turnos: [],
-    //     })
-    //     setNomeDoButtonEditar(false)
-
-    // }
-    // const ordenarOrdemAlfabetica = (atributoOrdenacao) => {
-    //     const ordenacaoNomeDaEscola = [...listaDaTabela].sort((a, b) => {
-    //         if (ordemAlfabeticaAscendente) {
-    //             return a[atributoOrdenacao].localeCompare(b[atributoOrdenacao])
-    //         } else {
-    //             return b[atributoOrdenacao].localeCompare(a[atributoOrdenacao])
-    //         }
-    //     })
-    //     setlistaDaTabela(ordenacaoNomeDaEscola)
-    //     setOrdemAlfabeticaAscendente(!ordemAlfabeticaAscendente)
-    // }
-    // const editarItemDaTabela = (campo) => {
-    //     setobjetosDosInputs(campo)
-    //     if (NomeDobuttonEditar) {
-    //         console.log('iai')
-    //         setNomeDoButtonEditar(false)
-    //     } setNomeDoButtonEditar(true)
-    // }
     const CancelarEdicao = () => {
 
         setobjetosDosInputs({
@@ -220,16 +163,6 @@ const TelaFormulario = () => {
         })
         setNomeDoButtonEditar(false)
     }
-    // const editarItemDaTabela = (campo) => {
-    //     setobjetosDosInputs(campo)
-
-    //     if (NomeDobuttonEditar) {
-    //         console.log('iai')
-    //         setNomeDoButtonEditar(false)
-    //     } setNomeDoButtonEditar(true)
-    // }
-
-
     return (
 
         <>
@@ -317,7 +250,7 @@ const TelaFormulario = () => {
                             </Grid>
 
                             <Grid item lg={4} xs={12} sm={6} md={4} >
-                                <Button type="submit" variant="contained" sx={{ marginRight: '12px', marginBottom: '12px' }}
+                                <Button type="submit" variant="contained" sx={{ marginRight: '12px', }}
                                     onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
                                     {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                                 </Button>
@@ -334,7 +267,6 @@ const TelaFormulario = () => {
                             setobjetosDosInputs={setobjetosDosInputs}
                             NomeDobuttonEditar={NomeDobuttonEditar}
                             setNomeDoButtonEditar={setNomeDoButtonEditar}
-
                         />
                     )
                 }

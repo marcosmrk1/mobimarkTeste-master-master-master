@@ -1,3 +1,7 @@
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 import {
     Box,
     Card,
@@ -10,21 +14,12 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import { default as React, } from 'react';
-
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 import Grid from '@mui/material/Grid';
+import { default as React, } from 'react';
 import { Error } from "../erros/Error";
-
 const CardListagem = ({ escolasDados, cidades, escolasFiltradas }) => {
-
     return (
-
         <Box>
-
             {<Box style={{ widht: "100%" }}  >
                 {(escolasDados.loading || cidades.loading) &&
                     <Box style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
