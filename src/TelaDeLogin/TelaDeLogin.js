@@ -41,6 +41,7 @@ const TelaDeLogin = () => {
     }
 
     return (
+
         loading ?
             <Box sx={{
                 width: '100%',
@@ -120,6 +121,7 @@ const TelaDeLogin = () => {
                     </Box>
                 </Box>
             </Container>
+
     );
 }
 

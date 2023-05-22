@@ -11,17 +11,12 @@ import { useStyles } from './SytleHamburguer';
 const HamburguerMenu = ({ listaMenu }) => {
   const [drawerIcon, setDrawerIcon] = useState(false)
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const id = open ? 'menu-popover' : undefined;
   const navigate = useNavigate();
   const FuncaoSaidaButton = () => {
     window.localStorage.removeItem(dadosDoEmaileSenha, '');
     navigate('/');
   };
   return (
-
-
     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
       <Button onClick={() => setDrawerIcon(true)}>{<MenuIcon sx={{ color: 'white' }} />}</Button>
       <Drawer
@@ -32,7 +27,7 @@ const HamburguerMenu = ({ listaMenu }) => {
       >
         <Box sx={{ marginTop: '12px' }}>
           <Typography sx={{
-            flexDirection: 'column', fontSize: '1.25rem',
+            flexDirection: 'column',
             marginLeft: '95px', fontFamily: "Roboto, Helvetica,Arial,sans-serif",
             fontSize: "20px", color: '#325d87', fontWeight: "bold",
           }}>Menu</Typography>
