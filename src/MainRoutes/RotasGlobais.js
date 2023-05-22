@@ -30,7 +30,7 @@ function NaoVoltarListagem({ children }) {
     children
   )
 }
-const mainroutes = () => {
+const mainRoutes = () => {
   return (
     <Routes>
       <Route exact path='/' element={
@@ -39,7 +39,7 @@ const mainroutes = () => {
           <Login />
         </NaoVoltarListagem>
       } />
-      <Route path='/Sobremim' element={
+      <Route path='/SobreMim' element={
         <Protected>
           <Sobremim />
         </Protected>
@@ -51,7 +51,7 @@ const mainroutes = () => {
         </Protected>
       }
       />
-      <Route path='/telalistagem' element={
+      <Route path='/telaListagem' element={
         <Protected >
           <TelaListagem />
         </Protected>
@@ -59,4 +59,4 @@ const mainroutes = () => {
     </Routes>
   )
 }
-export default mainroutes 
+export default mainRoutes 

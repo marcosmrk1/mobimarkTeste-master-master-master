@@ -49,17 +49,12 @@ const TelaFormulario = () => {
 
     const dispatch = useDispatch()
     const [loading, setloading] = useState(false)
-
     const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
-    const [buscarInformacoes, setBuscarInformacoes] = useState('')
-    const [verificarPesquisa, setVerificarPesquisa] = useState(false)
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const [erros, setErros] = useState({ ...errosCampos })
     const envioDaInformacaoParaListagemDoFormulario = (event) => {
         event.preventDefault()
         if (validacao()) {
-            setBuscarInformacoes('')
-            setVerificarPesquisa(false)
             setErros({ ...errosCampos })
             setloading(true)
             dispatch(setMensagem(true))
@@ -78,11 +73,6 @@ const TelaFormulario = () => {
                     })
                 }
                 dispatch(setlistaDaTabela(ExibirInformaçõesDosInputs))
-                let listaSalva = localStorage.getItem(listaDaTabelaDoLocalStorageTelaForm)
-                if (listaSalva) {
-                    listaSalva = JSON.parse(listaSalva);
-                    ExibirInformaçõesDosInputs = [...ExibirInformaçõesDosInputs,];
-                }
                 localStorage.setItem(listaDaTabelaDoLocalStorageTelaForm, JSON.stringify(ExibirInformaçõesDosInputs));
                 setobjetosDosInputs({
                     nomeDaEscola: '',
@@ -108,6 +98,7 @@ const TelaFormulario = () => {
                 setloading(false)
             }, 1000);
         }
+        // eslint-disable-next-line
     }, []);
     const localStorageExibir = () => {
         let RecebendoInformacaoDocampoDoLocalStorage = localStorage.getItem(listaDaTabelaDoLocalStorageTelaForm)
@@ -115,7 +106,6 @@ const TelaFormulario = () => {
         }
         return JSON.parse(RecebendoInformacaoDocampoDoLocalStorage)
     }
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         setobjetosDosInputs((objetosAntigos) => ({

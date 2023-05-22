@@ -19,7 +19,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setItensExcluidos, setlistaDaTabela } from "../Redux/counterSlice";
 import ModalCard from "./ModalCard";
-const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobuttonEditar },) => {
+const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar }) => {
     const dispatch = useDispatch()
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const textoDaTabelaAtualizadaComSucesso = useSelector(state => state.listagemDaEscolaFormulario.mensagem)
@@ -59,10 +59,7 @@ const CardListagem = ({ setobjetosDosInputs, setNomeDoButtonEditar, NomeDobutton
     const arrowIconDiretor = ordemAlfabeticaAscendente ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
     const editarItemDaTabela = (campo) => {
         setobjetosDosInputs(campo)
-        if (NomeDobuttonEditar) {
-            console.log('iai')
-            setNomeDoButtonEditar(false)
-        } setNomeDoButtonEditar(true)
+        setNomeDoButtonEditar(true)
     }
     const handleClickOpen = (item) => {
         setOpen(true);

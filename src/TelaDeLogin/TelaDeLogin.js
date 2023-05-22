@@ -6,7 +6,6 @@ import { validarEmail, validarSenha } from '../UtilsFunction/UtilsFunction';
 import { dadosDoEmaileSenha } from '../localStorageGlobais';
 const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
 };
 const TelaDeLogin = () => {
     const [email, setEmail] = useState('')
@@ -19,12 +18,12 @@ const TelaDeLogin = () => {
         if (!validarEmail(email) || !validarSenha(senha)) {
             textErroDeValidacaoDeSenhaErro()
         } else {
-            window.localStorage.setItem(dadosDoEmaileSenha, email + "" + senha);
+            window.localStorage.setItem(dadosDoEmaileSenha, 'email:' + email + 'senha:' + senha);
             setLoading(true);
             setTimeout(() => {
                 navigate('/sobremim');
                 setLoading(false);
-            }, 3000);
+            }, 2000);
         }
     }
     const textErroDeValidacaoDeSenhaErro = () => {
@@ -40,14 +39,12 @@ const TelaDeLogin = () => {
         }
         setLoading(false);
     }
-    const dadosuser = () => {
-        const teste = window.localStorage.getItem(dadosDoEmaileSenha)
-    }
+
     return (
         loading ?
             <Box sx={{
-                width: '100%'
-                , display: 'flex',
+                width: '100%',
+                display: 'flex',
                 justifyContent: 'center'
             }}>
                 <CircularProgress />
@@ -88,7 +85,7 @@ const TelaDeLogin = () => {
                             name="email"
                             autoComplete="email"
                             autoFocus
-                            onSubmit={dadosuser}
+
                         />
                         {textovalidacao ?
                             <Typography sx={{ color: 'red' }}> digite um e-mail válido.</Typography> : ''
