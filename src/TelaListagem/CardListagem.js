@@ -38,7 +38,7 @@ const CardListagem = ({ escolasDados, cidades, escolasFiltradas }) => {
                             }}>Listagem de escolas </Typography>
                             <Grid container>
                                 <Grid item xs={12}>
-                                    <Table sx={{ marginTop: '12', }}>
+                                    <Table sx={{ marginTop: '12' }}>
                                         <TableHead>
                                             <TableRow >
                                                 <TableCell align='left'> Nome da Escola </TableCell>

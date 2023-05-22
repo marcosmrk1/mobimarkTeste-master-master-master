@@ -1,3 +1,8 @@
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import {
     Box,
     Card,
@@ -11,14 +16,8 @@ import {
     Tooltip,
     Typography
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Grid from '@mui/material/Grid';
+import React, { useEffect, useState } from "react";
 import { buscarCidades, buscarEscolasByCidade, buscarEscolasGlobais } from '../Api/Api';
 import { localStorageEstado } from "../localStorageGlobais/index";
 import { estados } from '../utils/utils';
@@ -39,10 +38,12 @@ const Formulario = () => {
     useEffect(() => {
         buscarEscolasGlobais(handleSetEscolas)
         getCidades()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         BuscaTesteCidadeId()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cidadeSelecionada])
     const handleSetEscolas = (data) => {
         if (data.dados) {
@@ -86,6 +87,7 @@ const Formulario = () => {
 
     const pressionarbusca = () => {
         if (escolasDados.dados) {
+            // eslint-disable-next-line 
             setEscolasFiltradas(escolasDados.dados[1].filter((escolaTextoBusca) => {
                 if (escolaTextoBusca.nome.toLowerCase().includes(buscaTexto.toLowerCase())) {
                     return escolaTextoBusca
@@ -130,7 +132,7 @@ const Formulario = () => {
                             onChange={(ev) => setBuscaTexto(ev.target.value)}
                         />
                     </Grid>
-                    <Grid item xs={7} sm={4} md={3} lg={2} >
+                    <Grid item xs={10} sm={4} md={3} lg={2} >
                         <FormControl fullWidth>
                             <InputLabel  >Selecione um estado</InputLabel>
                             <Select
@@ -146,7 +148,7 @@ const Formulario = () => {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={7} sm={4} md={3} lg={2}>
+                    <Grid item xs={10} sm={4} md={3} lg={2}>
                         {
                             cidades.dados && cidades.dados.length > 0 && <FormControl fullWidth >
                                 <InputLabel  >Selecione a cidade</InputLabel>
