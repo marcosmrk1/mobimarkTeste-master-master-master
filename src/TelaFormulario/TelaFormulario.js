@@ -49,7 +49,7 @@ const TelaFormulario = () => {
 
     const dispatch = useDispatch()
     const [loading, setloading] = useState(false)
-    const [NomeDobuttonEditar, setNomeDoButtonEditar] = useState(null)
+    const [NomeDobuttonEditar, setButtonEditarEcancelar] = useState(null)
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const [erros, setErros] = useState({ ...errosCampos })
     const envioDaInformacaoParaListagemDoFormulario = (event) => {
@@ -83,7 +83,7 @@ const TelaFormulario = () => {
                 setloading(false)
             }, 1000);
         }
-        setNomeDoButtonEditar(false)
+        setButtonEditarEcancelar(false)
         return;
     }
     useEffect(() => {
@@ -149,7 +149,7 @@ const TelaFormulario = () => {
             localizacaoDaEscola: '',
             turnos: [],
         })
-        setNomeDoButtonEditar(false)
+        setButtonEditarEcancelar(false)
     }
     return (
 
@@ -239,7 +239,7 @@ const TelaFormulario = () => {
 
                             <Grid item lg={4} xs={12} sm={6} md={4} >
                                 <Button type="submit" variant="contained" sx={{ marginRight: '12px', }}
-                                    onClick={() => setNomeDoButtonEditar(!NomeDobuttonEditar)} >
+                                    onClick={() => setButtonEditarEcancelar(!NomeDobuttonEditar)} >
                                     {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                                 </Button>
                                 {NomeDobuttonEditar && (
@@ -254,7 +254,7 @@ const TelaFormulario = () => {
                         <CardListagem objetosDosInputs={objetosDosInputs}
                             setobjetosDosInputs={setobjetosDosInputs}
                             NomeDobuttonEditar={NomeDobuttonEditar}
-                            setNomeDoButtonEditar={setNomeDoButtonEditar}
+                            setButtonEditarEcancelar={setButtonEditarEcancelar}
                         />
                     )
                 }

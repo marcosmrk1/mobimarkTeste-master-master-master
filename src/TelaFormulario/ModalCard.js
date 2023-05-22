@@ -7,7 +7,7 @@ import {
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setItensExcluidos, setlistaDaTabela } from "../Redux/counterSlice";
-import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais/index';
+import { listaDaTabelaDoLocalStorageTelaForm } from '../localStorageGlobais';
 const ModalCard = ({ open, setOpen, itemDoMap, setTabelaFiltradoComAPesquisa, }) => {
     const dispatch = useDispatch()
     const ItensQueSeraoExcluidos = useSelector(state => state.listagemDaEscolaFormulario.listaDosItensQueVaoSerExcluidos)
