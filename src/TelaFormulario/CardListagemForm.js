@@ -156,16 +156,16 @@ const CardListagem = ({ setobjetosDosInputs, setButtonEditarEcancelar }) => {
                         </TableBody>
                     </Table>
                 </Card>
-            </Box>
-            <ModalCard
-                handleClickOpen={handleClickOpen}
-                open={open}
-                setOpen={setOpen}
-                itemDoMap={itemDoMap}
-                setItemDoMap={setItemDoMap}
-                setTabelaFiltradoComAPesquisa={setTabelaFiltradoComAPesquisa}
-            />
 
+                <ModalCard
+                    handleClickOpen={handleClickOpen}
+                    open={open}
+                    setOpen={setOpen}
+                    itemDoMap={itemDoMap}
+                    setItemDoMap={setItemDoMap}
+                    setTabelaFiltradoComAPesquisa={setTabelaFiltradoComAPesquisa}
+                />
+            </Box>
         </>
     )
 }

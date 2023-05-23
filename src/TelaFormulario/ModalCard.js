@@ -34,11 +34,11 @@ const ModalCard = ({ open, setOpen, itemDoMap, setTabelaFiltradoComAPesquisa, })
                     Essas informações estão prestes a ser excluidos:
                     {ItensQueSeraoExcluidos && (
 
-                        <Typography component={'span'} variant="h7" sx={{ paddingTop: '20px' }}>
+                        <Typography component={'span'} variant="h7" >
                             <li>Nome da escola: {ItensQueSeraoExcluidos.nomeDaEscola}</li>
-                            <li> nome do Diretor: {ItensQueSeraoExcluidos.nomeDoDiretor}</li>
+                            <li> Nome do diretor: {ItensQueSeraoExcluidos.nomeDoDiretor}</li>
                             <li>Turno selecionado: {ItensQueSeraoExcluidos.turnos ? ItensQueSeraoExcluidos.turnos.join(",") : ""}</li>
-                            <li> localização da escola : {ItensQueSeraoExcluidos.localizacaoDaEscola}</li>
+                            <li> Localização da escola : {ItensQueSeraoExcluidos.localizacaoDaEscola}</li>
                         </Typography>
 
                     )}
