@@ -49,7 +49,7 @@ const TelaFormulario = () => {
 
     const dispatch = useDispatch()
     const [loading, setloading] = useState(false)
-    const [NomeDobuttonEditar, setButtonEditarEcancelar] = useState(null)
+    const [nomeDoButtonEditarECancelar, setButtonEditarEcancelar] = useState(null)
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const [erros, setErros] = useState({ ...errosCampos })
     const envioDaInformacaoParaListagemDoFormulario = (event) => {
@@ -170,11 +170,9 @@ const TelaFormulario = () => {
                         noValidate
                         autoComplete="off"
                     >
-
                         <Typography variant="h8" component='h3' style={{
                             fontFamily: "Roboto, Helvetica,Arial,sans-serif", fontSize: "20px",
                             fontWeight: "bold", color: "#325d87", marginBottom: '26px'
-
                         }}> Preencha seus dados  </Typography>
                         <Grid container spacing={2} >
                             <Grid item lg={3} xs={12} md={3} sm={6}>
@@ -193,11 +191,11 @@ const TelaFormulario = () => {
                             </Grid>
                             <Grid item lg={3} xs={12} md={3} sm={6} >
                                 <FormControl fullWidth  >
-                                    <InputLabel id="demo-multiple-checkbox-label"> Turnos</InputLabel>
+                                    <InputLabel id="demo-simple-select-label" size="small" > Turnos</InputLabel>
                                     <Select
-                                        labelId="demo-multiple-checkbox-label"
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
                                         size="small"
-                                        id="demo-multiple-checkbox"
                                         multiple
                                         value={objetosDosInputs.turnos}
                                         onChange={selectTurnos}
@@ -220,7 +218,7 @@ const TelaFormulario = () => {
 
                             <Grid item lg={3} xs={12} sm={6} md={3}>
                                 <FormControl fullWidth >
-                                    <InputLabel id="demo-simple-select-label">Localização</InputLabel>
+                                    <InputLabel id="demo-simple-select-label" size="small">Localização</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         size="small"
@@ -239,10 +237,10 @@ const TelaFormulario = () => {
 
                             <Grid item lg={4} xs={12} sm={6} md={4} >
                                 <Button type="submit" variant="contained" sx={{ marginRight: '12px', }}
-                                    onClick={() => setButtonEditarEcancelar(!NomeDobuttonEditar)} >
+                                    onClick={() => setButtonEditarEcancelar(!nomeDoButtonEditarECancelar)} >
                                     {objetosDosInputs.id ? 'editar' : 'cadastrar'}
                                 </Button>
-                                {NomeDobuttonEditar && (
+                                {nomeDoButtonEditarECancelar && (
                                     <Button type="submit" variant="contained" onClick={CancelarEdicao}> cancelar </Button>
                                 )}
                             </Grid>
@@ -253,7 +251,7 @@ const TelaFormulario = () => {
                     (localStorageExibir() || []).length > 0 && (
                         <CardListagem objetosDosInputs={objetosDosInputs}
                             setobjetosDosInputs={setobjetosDosInputs}
-                            NomeDobuttonEditar={NomeDobuttonEditar}
+                            nomeDoButtonEditarECancelar={nomeDoButtonEditarECancelar}
                             setButtonEditarEcancelar={setButtonEditarEcancelar}
                         />
                     )
