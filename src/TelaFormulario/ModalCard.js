@@ -13,7 +13,7 @@ const ModalCard = ({ open, setOpen, itemDoMap, setTabelaFiltradoComAPesquisa, })
     const ItensQueSeraoExcluidos = useSelector(state => state.listagemDaEscolaFormulario.listaDosItensQueVaoSerExcluidos)
     const listaDaTabela = useSelector(state => state.listagemDaEscolaFormulario.listaDaTabela)
     const excluirItemDaTabela = () => {
-        let listaAposExclusao = listaDaTabela.filter((item) => item.id != itemDoMap.id)
+        let listaAposExclusao = listaDaTabela.filter((item) => item.id !== itemDoMap.id)
         dispatch(setItensExcluidos(listaAposExclusao))
         dispatch(setlistaDaTabela(listaAposExclusao))
         setTabelaFiltradoComAPesquisa(listaAposExclusao)

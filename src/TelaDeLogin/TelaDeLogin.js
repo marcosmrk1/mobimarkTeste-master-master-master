@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validarEmail, validarSenha } from '../UtilsFunction/UtilsFunction';
 import { dadosDoEmaileSenha } from '../localStorageGlobais';
-const handleSubmit = (event) => {
-    event.preventDefault();
-};
+// const handleSubmit = (event) => {
+//     event.preventDefault();
+// };
 const TelaDeLogin = () => {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
@@ -74,7 +74,7 @@ const TelaDeLogin = () => {
                                 component='h4' variant='h8'>  bem-vindo</Typography>
                         </Typography>
                     </Box>
-                    <Box component="form" onSubmit={handleSubmit}>
+                    <Box component="form" >
                         <TextField
                             margin="normal"
                             required
@@ -91,7 +91,6 @@ const TelaDeLogin = () => {
                         {textovalidacao ?
                             <Typography sx={{ color: 'red' }}> digite um e-mail válido.</Typography> : ''
                         }
-
                         <TextField
                             margin="normal"
                             required
@@ -108,7 +107,7 @@ const TelaDeLogin = () => {
                             <Typography sx={{ color: 'red' }}>  Digite senha com pelo menos 8 caracteres e uma letra maiscula.</Typography>
                             : ''}
                         <Button
-                            type="submit"
+                            // type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 2.5, mb: 2 }}
