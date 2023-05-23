@@ -12,7 +12,7 @@ const CardDesenvolvedortext = () => {
             }}> Desenvolvedor</Box>
             <Box sx={{ color: "#325d87", borderBottom: '3px solid black', marginBottom: '10px' }}></Box>
 
-            <Typography sx={{
+            <Typography component={'span'} sx={{
                 marginTop: '28px', textAlign: 'left',
                 fontFamily: "sans-serif",
                 fontSize: "20px",
@@ -23,7 +23,8 @@ const CardDesenvolvedortext = () => {
             }}>
                 Meu nome é Marcos Paulo, tenho 19 anos e atualmente sou estagiário de front-end na Mobimark.
                 Sou apaixonado por programação e busco aprimorar minhas habilidades diariamente.
-                Estou cursando Análise e Desenvolvimento de Sistemas na faculdade e prevejo concluir o curso até o final de 2023. <p>
+                Estou cursando Análise e Desenvolvimento de Sistemas na faculdade e prevejo concluir o curso até o final de 2023.
+                <p>
                     Busco me tornar um profissional cada vez mais qualificado para agregar valor à equipe.
                     Estou sempre aprendendo sobre os problemas reais e suas soluções,
                     praticando o uso de clean code e dominando cada vez mais a biblioteca React.

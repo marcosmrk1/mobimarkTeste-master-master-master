@@ -11,7 +11,7 @@ const CardDifuculdades = () => {
     return (
         <Grid container spacing={2} sx={{ display: 'flex', flexDirection: 'row', marginTop: '35px', marginBottom: '20px', }}>
             <Grid item lg={4} xs={12} sm={4} md={4}>
-                <Accordion sx={{}} defaultExpanded={true} >
+                <Accordion defaultExpanded={true} >
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
@@ -34,7 +34,7 @@ const CardDifuculdades = () => {
                 </Accordion>
             </Grid >
             <Grid item lg={4} xs={12} sm={4} md={4} >
-                <Accordion sx={{}} defaultExpanded={true} >
+                <Accordion defaultExpanded={true} >
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"

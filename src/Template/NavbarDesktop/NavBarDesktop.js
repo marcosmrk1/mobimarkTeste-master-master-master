@@ -29,7 +29,8 @@ function Template({ children }) {
               color: 'white',
               fontSize: '20px',
             }
-            } sx={{ display: { xs: 'none', md: 'flex' }, marginLeft: '10px', gap: '22px', }} >
+            }
+              sx={{ display: { xs: 'none', md: 'flex' }, marginLeft: '10px', gap: '22px', }} >
               {listaMenu.map((listaItem, index) => (
                 <Link key={index} to={listaItem.path} className={classes.link}>
                   {listaItem.label}

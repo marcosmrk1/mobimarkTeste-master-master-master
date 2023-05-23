@@ -34,7 +34,7 @@ const Formulario = () => {
     ) : (
         ""
     )))
-    console.log(cidades, escolasDados)
+
     useEffect(() => {
         buscarEscolasGlobais(handleSetEscolas)
         getCidades()
