@@ -1,5 +1,4 @@
 import {
-    Box,
     Button,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     Typography
@@ -34,15 +33,14 @@ const ModalCard = ({ open, setOpen, itemDoMap, setTabelaFiltradoComAPesquisa, })
                 <DialogContentText>
                     Essas informações estão prestes a ser excluidos:
                     {ItensQueSeraoExcluidos && (
-                        <Box sx={{ marginTop: "10px" }}>
-                            <Typography variant="h7">
-                                <p>Nome da escola: {ItensQueSeraoExcluidos.nomeDaEscola}</p>
-                                <p> nome do Diretor: {ItensQueSeraoExcluidos.nomeDoDiretor}</p>
-                                <p>Turno selecionado: {ItensQueSeraoExcluidos.turnos ? ItensQueSeraoExcluidos.turnos.join(",") : ""}</p>
-                                <p> localização da escola : {ItensQueSeraoExcluidos.localizacaoDaEscola}</p>
 
-                            </Typography>
-                        </Box>
+                        <Typography component={'span'} variant="h7" sx={{ paddingTop: '20px' }}>
+                            <li>Nome da escola: {ItensQueSeraoExcluidos.nomeDaEscola}</li>
+                            <li> nome do Diretor: {ItensQueSeraoExcluidos.nomeDoDiretor}</li>
+                            <li>Turno selecionado: {ItensQueSeraoExcluidos.turnos ? ItensQueSeraoExcluidos.turnos.join(",") : ""}</li>
+                            <li> localização da escola : {ItensQueSeraoExcluidos.localizacaoDaEscola}</li>
+                        </Typography>
+
                     )}
                 </DialogContentText>
             </DialogContent>

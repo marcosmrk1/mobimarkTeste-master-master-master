@@ -25,13 +25,13 @@ const BoxIcons = () => {
             ></Box>
 
             <Card sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: '28px' }}>
-                <a href='https://github.com/marcosmrk1' target='_blank'>
+                <a href='https://github.com/marcosmrk1' rel="noopener noreferrer" target='_blank'>
                     <GitHubIcon sx={{ margin: '12px', color: "#325d87" }} />
                 </a>
-                <a href='https://www.linkedin.com/in/marcosp-rsd-/' target="_blank" >
+                <a href='https://www.linkedin.com/in/marcosp-rsd-/' rel="noopener noreferrer" target="_blank" >
                     <LinkedInIcon sx={{ margin: '12px', color: "#325d87" }} />
                 </a>
-                <a href='https://mail.google.com/mail/u/0/?tab=rm&ogbl#sent?compose=new' target='_blank'>
+                <a href='https://mail.google.com/mail/u/0/?tab=rm&ogbl#sent?compose=new' rel="noopener noreferrer" target='_blank'>
                     <EmailIcon sx={{ margin: '12px', color: "#325d87" }} />
                 </a>
             </Card>

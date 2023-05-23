@@ -112,6 +112,8 @@ const CardListagem = ({ setobjetosDosInputs, setButtonEditarEcancelar }) => {
                                 </TableCell>
                                 <TableCell align='left'>Turnos</TableCell>
                                 <TableCell align="left">Localização da escola</TableCell>
+
+
                             </TableRow>
                         </TableHead>
                         <TableBody sx={{ marginBottom: '12px' }}>
@@ -130,21 +132,17 @@ const CardListagem = ({ setobjetosDosInputs, setButtonEditarEcancelar }) => {
                                             {item.turnos.join(",")}
                                         </TableCell>
                                         <TableCell>{item.localizacaoDaEscola}</TableCell>
-                                        <Button onClick={() => { handleClickOpen(item) }}>
-                                            <DeleteForeverIcon />
-                                        </Button>
-                                        <Button onClick={() => { editarItemDaTabela(item) }}> <EditIcon /></Button>
+                                        <TableCell>
+                                            <Button onClick={() => { handleClickOpen(item) }}>
+                                                <DeleteForeverIcon />
+                                            </Button>
+                                            <Button onClick={() => { editarItemDaTabela(item) }}>
+                                                <EditIcon />
+                                            </Button>
+                                        </TableCell>
                                     </TableRow>
                                 ))
                             }
-                            <ModalCard
-                                handleClickOpen={handleClickOpen}
-                                open={open}
-                                setOpen={setOpen}
-                                itemDoMap={itemDoMap}
-                                setItemDoMap={setItemDoMap}
-                                setTabelaFiltradoComAPesquisa={setTabelaFiltradoComAPesquisa}
-                            />
                             {verificarPesquisa && tabelaFiltradoComAPesquisa.length === 0 &&
                                 <TableRow>
                                     <TableCell colSpan={5} align="center" style={{
@@ -159,6 +157,14 @@ const CardListagem = ({ setobjetosDosInputs, setButtonEditarEcancelar }) => {
                     </Table>
                 </Card>
             </Box>
+            <ModalCard
+                handleClickOpen={handleClickOpen}
+                open={open}
+                setOpen={setOpen}
+                itemDoMap={itemDoMap}
+                setItemDoMap={setItemDoMap}
+                setTabelaFiltradoComAPesquisa={setTabelaFiltradoComAPesquisa}
+            />
 
         </>
     )
